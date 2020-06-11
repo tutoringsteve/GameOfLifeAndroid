@@ -7,21 +7,41 @@
     tools:context="com.myappcompany.steve.canvaspaint.MainActivity">
 
     <LinearLayout
+        android:id="@+id/uiControls"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.myappcompany.steve.canvaspaint.PixelGridView
-            android:id="@+id/pixelGridView2"
-            android:layout_width="match_parent"
-            android:layout_height="463dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pixelGridView2">
 
         <Button
+            android:id="@+id/buttonOneTurn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:onClick="onClick"
             android:text="One Turn" />
 
+        <Button
+            android:id="@+id/buttonAutoPlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="autoClick"
+            android:text="AUTO PLAY" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
+
+    <com.myappcompany.steve.canvaspaint.PixelGridView
+        android:id="@+id/pixelGridView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/uiControls"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
