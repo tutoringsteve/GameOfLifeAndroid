@@ -6,14 +6,26 @@ public class Grid {
     //intention to have rectW = rectH for squares but no reason not to keep flexible
     private int rectW, rectH;
 
-    public void Grid(int numRows, int numCols, int rectW, int rectH) {
+    private static Grid instance = new Grid();
+    public static Grid getInstance() {
+        return instance;
+    }
+
+    private void Grid() {
+        numRows = 100;
+        numCols = 100;
+        rectH = 10;
+        rectW = 10;
+    }
+
+    private void Grid(int numRows, int numCols, int rectW, int rectH) {
         this.numRows = numRows;
         this.numCols = numCols;
         this.rectW = rectW;
         this.rectH = rectH;
     }
 
-    public void Grid(int numRows, int numCols, int squareSideLength) {
+    private void Grid(int numRows, int numCols, int squareSideLength) {
         this.numRows = numRows;
         this.numCols = numCols;
         this.rectW = squareSideLength;
