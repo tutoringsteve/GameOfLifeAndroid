@@ -6,40 +6,77 @@
     android:layout_height="match_parent"
     tools:context="com.myappcompany.steve.canvaspaint.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/uiControls"
+    <TableLayout
+        android:id="@+id/UITable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pixelGridView2">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/buttonOneTurn"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:onClick="onClick"
-            android:text="One Turn" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/buttonAutoPlay"
+            <ImageView
+                android:id="@+id/imageViewPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_playbutton" />
+
+            <ImageView
+                android:id="@+id/imageViewEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_edit" />
+
+            <ImageView
+                android:id="@+id/imageViewZoomIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_zoomin" />
+
+            <ImageView
+                android:id="@+id/imageViewSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_save" />
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:onClick="autoClick"
-            android:text="AUTO PLAY" />
+            android:layout_height="match_parent">
 
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <ImageView
+                android:id="@+id/imageViewAutoPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_autoplay" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageViewPan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_pan" />
+
+            <ImageView
+                android:id="@+id/imageViewZoomOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_zoomout" />
+
+            <ImageView
+                android:id="@+id/imageViewLoad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_load" />
+        </TableRow>
+
+    </TableLayout>
 
     <com.myappcompany.steve.canvaspaint.PixelGridView
         android:id="@+id/pixelGridView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/uiControls"
+        app:layout_constraintBottom_toTopOf="@+id/UITable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
