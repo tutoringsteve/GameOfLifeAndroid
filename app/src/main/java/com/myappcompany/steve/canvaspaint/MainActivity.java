@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         PixelGridView pixelGrid = findViewById(R.id.pixelGridView2);
         pixelGrid.setNumColumns(numColumns);
         pixelGrid.setNumRows(numRows);
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+
         PixelGridView pixelBoard = findViewById(R.id.pixelGridView2);
         boardState = pixelBoard.getCellChecked();
 

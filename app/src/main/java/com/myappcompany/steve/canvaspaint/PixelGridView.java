@@ -107,6 +107,7 @@ public class PixelGridView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            //will need to translate from camera coordinates to world coordinates
             int column = (int)(event.getX() / cellWidth);
             int row = (int)(event.getY() / cellHeight);
 
