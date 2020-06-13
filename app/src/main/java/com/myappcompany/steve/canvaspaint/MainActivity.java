@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         pixelGrid = findViewById(R.id.pixelGridView2);
         pixelGrid.setNumColumns(numColumns);
         pixelGrid.setNumRows(numRows);
