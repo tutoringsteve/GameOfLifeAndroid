@@ -14,9 +14,12 @@ import android.view.View;
 
 public class PixelGridView extends View {
     private int numColumns, numRows;
+    private int offsetX = 0, offsetY = 0;
     private int cellWidth, cellHeight;
     private Paint blackPaint = new Paint();
+    private Paint bluePaint = new Paint();
     private boolean[][] cellChecked;
+    private boolean isEditing = true;
 
     public PixelGridView(Context context) {
         this(context, null);
@@ -25,6 +28,8 @@ public class PixelGridView extends View {
     public PixelGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         blackPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        bluePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        bluePaint.setColor(Color.parseColor("#ff0000ff"));
     }
 
     public boolean[][] getCellChecked() {
@@ -39,6 +44,7 @@ public class PixelGridView extends View {
     public void setNumColumns(int numColumns) {
         this.numColumns = numColumns;
         calculateDimensions();
+        invalidate();
     }
 
     public int getNumColumns() {
@@ -48,6 +54,7 @@ public class PixelGridView extends View {
     public void setNumRows(int numRows) {
         this.numRows = numRows;
         calculateDimensions();
+        invalidate();
     }
 
     public int getNumRows() {
@@ -58,6 +65,7 @@ public class PixelGridView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         calculateDimensions();
+        invalidate();
     }
 
     private void calculateDimensions() {
@@ -69,8 +77,6 @@ public class PixelGridView extends View {
         cellHeight = getHeight() / numRows;
 
         cellChecked = new boolean[numColumns][numRows];
-
-        invalidate();
     }
 
     @Override
@@ -90,7 +96,7 @@ public class PixelGridView extends View {
 
                     canvas.drawRect(i * cellWidth, j * cellHeight,
                             (i + 1) * cellWidth, (j + 1) * cellHeight,
-                            blackPaint);
+                            bluePaint);
                 }
             }
         }
@@ -106,15 +112,43 @@ public class PixelGridView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            //will need to translate from camera coordinates to world coordinates
-            int column = (int)(event.getX() / cellWidth);
-            int row = (int)(event.getY() / cellHeight);
+        if (isEditing) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                //Translates the press location into the world coordinates
+                int column = (int) ((event.getX() - offsetX) / cellWidth);
+                int row = (int) ((event.getY() - offsetY) / cellHeight);
 
-            cellChecked[column][row] = !cellChecked[column][row];
-            invalidate();
+                cellChecked[column][row] = !cellChecked[column][row];
+                invalidate();
+            }
+
+            return true;
+        } else {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                //change camera coordinates
+            }
+
+            return true;
         }
+    }
 
-        return true;
+    public void toggleEditing() {
+        isEditing = !isEditing;
+    }
+
+    public int getOffsetX() {
+        return offsetX;
+    }
+
+    public void setOffsetX(int offsetX) {
+        this.offsetX = offsetX;
+    }
+
+    public int getOffsetY() {
+        return offsetY;
+    }
+
+    public void setOffsetY(int offsetY) {
+        this.offsetY = offsetY;
     }
 }
