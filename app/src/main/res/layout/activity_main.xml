@@ -79,7 +79,7 @@
     </TableLayout>
 
     <com.myappcompany.steve.canvaspaint.PixelGridView
-        android:id="@+id/pixelGridView2"
+        android:id="@+id/pixelGridView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/UITable"
