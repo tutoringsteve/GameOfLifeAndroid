@@ -7,16 +7,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-
 public class MainActivity extends AppCompatActivity {
 
     private boolean[][] boardState;
-    private int numColumns = 100;
-    private int numRows = 100;
-    private int squareSideLength = 20;
+    private int numColumns = 5;
+    private int numRows = 5;
+    private int squareSideLength = 100;
     private boolean isAutoPlaying = false;
     private boolean isEditing = true;
     private ImageView imageViewEdit;
@@ -28,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        pixelGrid = findViewById(R.id.pixelGridView2);
+        pixelGrid = findViewById(R.id.pixelGridView);
         pixelGrid.setNumColumns(numColumns);
         pixelGrid.setNumRows(numRows);
+        pixelGrid.setCellHeight(squareSideLength);
+        pixelGrid.setCellWidth(squareSideLength);
 
         imageViewEdit = findViewById(R.id.imageViewEdit);
 
