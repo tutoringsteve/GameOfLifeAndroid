@@ -5,8 +5,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by GEX_Dev on 1/25/2020.
@@ -14,15 +16,24 @@ import android.view.View;
 
 public class PixelGridView extends View {
     private int numColumns, numRows;
-    private int offsetX = -50, offsetY = 100;
+    private float offsetX = -50, offsetY = 100;
     private float zoomX = 1.0f, zoomY = 1.0f;
     private int cellWidth = 20, cellHeight = 20;
+
+    private boolean[][] cellChecked;
+    private final int EDITING = 0;
+    private final int PANNING = 1;
+    private int state = EDITING;
+    private float mStartX = 0,  mStartY = 0;
+    private int viewWidth, viewHeight;
+
+
     private Paint blackPaint = new Paint();
     private Paint bluePaint = new Paint();
     private Paint darkGreyPaint = new Paint();
     private Paint whitePaint = new Paint();
-    private boolean[][] cellChecked;
-    private boolean isEditing = true;
+
+    private float minGridX, minGridY, maxGridX, maxGridY;
 
     public PixelGridView(Context context) {
         this(context, null);
@@ -37,6 +48,20 @@ public class PixelGridView extends View {
         darkGreyPaint.setColor(Color.DKGRAY);
         whitePaint.setStyle(Paint.Style.FILL_AND_STROKE);
         whitePaint.setColor(Color.WHITE);
+    }
+
+    /**
+     * Sets the view coordinates for the rectangular region that the grid overlaps the screen.
+     */
+    private void setGridRange() {
+        //determines the grids left side on PixelGridView, bounding between 0 and screen width of View
+        minGridX = (offsetX < 0 ? 0 : Math.min(offsetX, viewWidth));
+        //determines the grids right side on PixelGridView, bounding between 0 and screen width of View
+        maxGridX = (offsetX > viewWidth ? viewWidth : Math.min(viewWidth, offsetX + cellWidth*numColumns));
+        //determines the grids top side on PixelGridView, bounding between 0 and screen width of View
+        minGridY = (offsetY < 0 ? 0 : Math.min(offsetY, viewHeight));
+        //determines the grids bottom side on PixelGridView, bounding between 0 and screen height of View
+        maxGridY = (offsetY > viewHeight ? viewHeight : Math.min(viewHeight, offsetY + cellHeight*numRows));
     }
 
     public boolean[][] getCellChecked() {
@@ -92,17 +117,12 @@ public class PixelGridView extends View {
             return;
         }
 
-        int viewWidth = getWidth();
-        int viewHeight = getHeight();
 
-        //determines the grids left side on PixelGridView, bounding between 0 and screen width of View
-        int minGridX = (offsetX < 0 ? 0 : Math.min(offsetX, viewWidth));
-        //determines the grids right side on PixelGridView, bounding between 0 and screen width of View
-        int maxGridX = (offsetX > viewWidth ? viewWidth : Math.min(viewWidth, offsetX + cellWidth*numColumns));
-        //determines the grids top side on PixelGridView, bounding between 0 and screen width of View
-        int minGridY = (offsetY < 0 ? 0 : Math.min(offsetY, viewHeight));
-        //determines the grids bottom side on PixelGridView, bounding between 0 and screen height of View
-        int maxGridY = (offsetY > viewHeight ? viewHeight : Math.min(viewHeight, offsetY + cellHeight*numRows));
+
+        viewWidth = getWidth();
+        viewHeight = getHeight();
+
+        setGridRange();
 
         //guarantee that grid is on screen before drawing
         if( minGridX < maxGridX && minGridY < maxGridY) {
@@ -129,16 +149,18 @@ public class PixelGridView extends View {
             }
 
             for (int i = 1; i < numColumns; i++) {
-                if(minGridX <= i * cellWidth && i * cellWidth <= maxGridX) {
+                if(minGridX <= worldXToScreenX(i * cellWidth) && worldXToScreenX(i * cellWidth) <= maxGridX) {
                     canvas.drawLine(worldXToScreenX(i * cellWidth), minGridY, worldXToScreenX(i * cellWidth), maxGridY, blackPaint);
                 }
             }
 
             for (int i = 1; i < numRows; i++) {
-                if(minGridY <= i * cellHeight && i * cellHeight <= maxGridY) {
+                if(minGridY <= worldYToScreenY(i * cellHeight) && worldYToScreenY(i * cellHeight) <= maxGridY) {
                     canvas.drawLine(minGridX, worldYToScreenY(i * cellHeight), maxGridX, worldYToScreenY(i * cellHeight), blackPaint);
                 }
             }
+        } else {
+            Log.i("onDraw", "Something fucky with the grid range");
         }
 
 
@@ -146,6 +168,31 @@ public class PixelGridView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        switch(event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                if(state == EDITING) {
+                    //Translates the press location into the world coordinates
+                    int column = (int) ((event.getX() - offsetX) / cellWidth);
+                    int row = (int) ((event.getY() - offsetY) / cellHeight);
+
+                    cellChecked[column][row] = !cellChecked[column][row];
+                    invalidate();
+                }
+                else if(state == PANNING) {
+                    mStartX = event.getX();
+                    mStartY = event.getY();
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if(state == PANNING) {
+                    offsetX = event.getX() - mStartX;
+                    offsetY = event.getY() - mStartY;
+                    invalidate();
+                }
+                break;
+        }
+
+/*
         if (isEditing) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 //Translates the press location into the world coordinates
@@ -161,28 +208,35 @@ public class PixelGridView extends View {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 //change camera coordinates
             }
+*/
+        return true;
 
-            return true;
-        }
     }
 
     public void toggleEditing() {
-        isEditing = !isEditing;
+        switch (state) {
+            case EDITING:
+                state = PANNING;
+                break;
+            case PANNING:
+                state = EDITING;
+                break;
+        }
     }
 
-    public int getOffsetX() {
+    public float getOffsetX() {
         return offsetX;
     }
 
-    public void setOffsetX(int offsetX) {
+    public void setOffsetX(float offsetX) {
         this.offsetX = offsetX;
     }
 
-    public int getOffsetY() {
+    public float getOffsetY() {
         return offsetY;
     }
 
-    public void setOffsetY(int offsetY) {
+    public void setOffsetY(float offsetY) {
         this.offsetY = offsetY;
     }
 

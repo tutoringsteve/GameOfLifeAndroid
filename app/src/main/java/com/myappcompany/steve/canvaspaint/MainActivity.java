@@ -10,11 +10,13 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private boolean[][] boardState;
-    private int numColumns = 5;
-    private int numRows = 5;
+    private int numColumns = 500;
+    private int numRows = 500;
     private int squareSideLength = 100;
     private boolean isAutoPlaying = false;
-    private boolean isEditing = true;
+    private final int EDITING = 0;
+    private final int PANNING = 1;
+    private int state = EDITING;
     private ImageView imageViewEdit;
     private PixelGridView pixelGrid;
     private Handler handler;
@@ -70,12 +72,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toggleEditing(View view) {
-        isEditing = !isEditing;
 
-        if(isEditing) {
-            imageViewEdit.setImageResource(R.drawable.ic_pan);
-        } else {
-            imageViewEdit.setImageResource(R.drawable.ic_edit);
+        switch (state) {
+            case EDITING:
+                imageViewEdit.setImageResource(R.drawable.ic_pan);
+                state = PANNING;
+                break;
+            case PANNING:
+                imageViewEdit.setImageResource(R.drawable.ic_edit);
+                state = EDITING;
+                break;
         }
 
         pixelGrid.toggleEditing();
