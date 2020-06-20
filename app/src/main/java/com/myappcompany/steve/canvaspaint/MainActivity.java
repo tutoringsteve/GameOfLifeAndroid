@@ -48,19 +48,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void autoClick(final View view) {
-
+        
         isAutoPlaying = !isAutoPlaying;
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                onClick(view);
-                handler.postDelayed(this, 1000);
-            }
-        };
 
         if(isAutoPlaying) {
             Toast.makeText(MainActivity.this,"isAutoPlaying is true", Toast.LENGTH_SHORT).show();
+
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    onClick(view);
+                    handler.postDelayed(this, 1000);
+                }
+            };
+
             handler.post(runnable);
         } else {
             Toast.makeText(MainActivity.this,"isAutoPlaying is false", Toast.LENGTH_SHORT).show();
