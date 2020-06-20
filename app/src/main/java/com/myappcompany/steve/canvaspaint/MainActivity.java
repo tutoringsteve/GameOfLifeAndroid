@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onClick(View view) {
+    public void playClick(View view) {
 
         boardState = pixelGrid.getCellChecked();
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void autoClick(final View view) {
+    public void autoPlayClick(final View view) {
 
         isAutoPlaying = !isAutoPlaying;
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    onClick(view);
+                    playClick(view);
                     handler.postDelayed(this, 1000);
                 }
             };
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void zoomIn(View view) {
+    public void zoomInClick(View view) {
         if(pixelGrid.getZoomX() < pixelGrid.maxZoomX && pixelGrid.getZoomY() < pixelGrid.maxZoomY) {
             pixelGrid.setZoomX(pixelGrid.getZoomX() + 0.25f);
             pixelGrid.setZoomY(pixelGrid.getZoomY() + 0.25f);
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void zoomOut(View view) {
+    public void zoomOutClick(View view) {
         if(pixelGrid.getZoomY() > pixelGrid.minZoomX && pixelGrid.getZoomY() > pixelGrid.minZoomY) {
             pixelGrid.setZoomX(pixelGrid.getZoomX() - 0.25f);
             pixelGrid.setZoomY(pixelGrid.getZoomY() - 0.25f);
@@ -85,21 +85,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void toggleEditing(View view) {
-
-        switch (state) {
-            case EDITING:
-                imageViewEdit.setImageResource(R.drawable.ic_pan);
-                state = PANNING;
-                break;
-            case PANNING:
-                imageViewEdit.setImageResource(R.drawable.ic_edit);
-                state = EDITING;
-                break;
+    public void editClick(View view) {
+        if(state != EDITING) {
+            state = EDITING;
+            pixelGrid.toggleEditing();
         }
-
-        pixelGrid.toggleEditing();
     }
 
+    public void panningClick(View view) {
+        if(state != PANNING) {
+            state = PANNING;
+            pixelGrid.toggleEditing();
+        }
+    }
 
 }

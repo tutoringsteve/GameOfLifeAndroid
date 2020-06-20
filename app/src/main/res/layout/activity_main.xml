@@ -22,21 +22,21 @@
                 android:id="@+id/imageViewPlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onClick"
+                android:onClick="playClick"
                 app:srcCompat="@drawable/ic_playbutton" />
 
             <ImageView
                 android:id="@+id/imageViewEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="toggleEditing"
+                android:onClick="editClick"
                 app:srcCompat="@drawable/ic_edit" />
 
             <ImageView
                 android:id="@+id/imageViewZoomIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="zoomIn"
+                android:onClick="zoomInClick"
                 app:srcCompat="@drawable/ic_zoomin" />
 
             <ImageView
@@ -55,20 +55,21 @@
                 android:id="@+id/imageViewAutoPlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="autoClick"
+                android:onClick="autoPlayClick"
                 app:srcCompat="@drawable/ic_autoplay" />
 
             <ImageView
                 android:id="@+id/imageViewPan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="panningClick"
                 app:srcCompat="@drawable/ic_pan" />
 
             <ImageView
                 android:id="@+id/imageViewZoomOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="zoomOut"
+                android:onClick="zoomOutClick"
                 app:srcCompat="@drawable/ic_zoomout" />
 
             <ImageView
