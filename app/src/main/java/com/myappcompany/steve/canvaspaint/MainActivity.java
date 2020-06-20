@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void autoClick(final View view) {
-        
+
         isAutoPlaying = !isAutoPlaying;
 
         if(isAutoPlaying) {
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void zoomIn(View view) {
-        if(pixelGrid.getZoomX() <= pixelGrid.maxZoomX && pixelGrid.getZoomY() <= pixelGrid.maxZoomY) {
+        if(pixelGrid.getZoomX() < pixelGrid.maxZoomX && pixelGrid.getZoomY() < pixelGrid.maxZoomY) {
             pixelGrid.setZoomX(pixelGrid.getZoomX() + 0.25f);
             pixelGrid.setZoomY(pixelGrid.getZoomY() + 0.25f);
             pixelGrid.invalidate();
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void zoomOut(View view) {
-        if(pixelGrid.getZoomY() >= pixelGrid.minZoomX && pixelGrid.getZoomY() >= pixelGrid.minZoomY) {
+        if(pixelGrid.getZoomY() > pixelGrid.minZoomX && pixelGrid.getZoomY() > pixelGrid.minZoomY) {
             pixelGrid.setZoomX(pixelGrid.getZoomX() - 0.25f);
             pixelGrid.setZoomY(pixelGrid.getZoomY() - 0.25f);
             pixelGrid.invalidate();
