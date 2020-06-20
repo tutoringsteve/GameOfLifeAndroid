@@ -19,8 +19,9 @@ public class PixelGridView extends View {
     private float offsetX = -50, offsetY = 100;
     private float oldOffsetX, oldOffsetY;
     private float zoomX = 1.0f, zoomY = 1.0f;
-    private int cellWidth = 20, cellHeight = 20;
-
+    public static final float minZoomX = 0.25f, minZoomY = 0.25f, maxZoomX = 2.5f, maxZoomY = 2.5f;
+    public static final int defaultCellWidth = 100, defaultCellHeight = 100;
+    private int cellWidth = defaultCellWidth, cellHeight = defaultCellHeight;
     private boolean[][] cellChecked;
     private final int EDITING = 0;
     private final int PANNING = 1;
@@ -241,6 +242,7 @@ public class PixelGridView extends View {
 
     public void setZoomX(float zoomX) {
         this.zoomX = zoomX;
+        cellWidth = (int) (defaultCellWidth * zoomX);
     }
 
     public float getZoomY() {
@@ -249,6 +251,7 @@ public class PixelGridView extends View {
 
     public void setZoomY(float zoomY) {
         this.zoomY = zoomY;
+        cellHeight = (int) (defaultCellHeight * zoomY);
     }
 
     public void setCellWidth(int cellWidth) {

@@ -36,6 +36,7 @@
                 android:id="@+id/imageViewZoomIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="zoomIn"
                 app:srcCompat="@drawable/ic_zoomin" />
 
             <ImageView
@@ -67,6 +68,7 @@
                 android:id="@+id/imageViewZoomOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="zoomOut"
                 app:srcCompat="@drawable/ic_zoomout" />
 
             <ImageView

@@ -12,7 +12,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean[][] boardState;
     private int numColumns = 20;
     private int numRows = 20;
-    private int squareSideLength = 100;
     private boolean isAutoPlaying = false;
     private final int EDITING = 0;
     private final int PANNING = 1;
@@ -29,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
         pixelGrid = findViewById(R.id.pixelGridView);
         pixelGrid.setNumColumns(numColumns);
         pixelGrid.setNumRows(numRows);
-        pixelGrid.setCellHeight(squareSideLength);
-        pixelGrid.setCellWidth(squareSideLength);
 
         imageViewEdit = findViewById(R.id.imageViewEdit);
 
@@ -68,6 +65,22 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(MainActivity.this,"isAutoPlaying is false", Toast.LENGTH_SHORT).show();
             handler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    public void zoomIn(View view) {
+        if(pixelGrid.getZoomX() <= pixelGrid.maxZoomX && pixelGrid.getZoomY() <= pixelGrid.maxZoomY) {
+            pixelGrid.setZoomX(pixelGrid.getZoomX() + 0.25f);
+            pixelGrid.setZoomY(pixelGrid.getZoomY() + 0.25f);
+            pixelGrid.invalidate();
+        }
+    }
+
+    public void zoomOut(View view) {
+        if(pixelGrid.getZoomY() >= pixelGrid.minZoomX && pixelGrid.getZoomY() >= pixelGrid.minZoomY) {
+            pixelGrid.setZoomX(pixelGrid.getZoomX() - 0.25f);
+            pixelGrid.setZoomY(pixelGrid.getZoomY() - 0.25f);
+            pixelGrid.invalidate();
         }
     }
 
