@@ -175,8 +175,11 @@ public class PixelGridView extends View {
                     int column = (int) ((event.getX() - offsetX) / cellWidth);
                     int row = (int) ((event.getY() - offsetY) / cellHeight);
 
-                    cellChecked[column][row] = !cellChecked[column][row];
-                    invalidate();
+                    //Check to make sure that the clicked region corresponds to a part of the grid
+                    if( ((event.getX() - offsetX) >=0 && column < numColumns) && ( (event.getY() - offsetY) >= 0 && row < numRows)) {
+                        cellChecked[column][row] = !cellChecked[column][row];
+                        invalidate();
+                    }
                 }
                 else if(state == PANNING) {
                     mStartX = event.getX() - oldOffsetX;
