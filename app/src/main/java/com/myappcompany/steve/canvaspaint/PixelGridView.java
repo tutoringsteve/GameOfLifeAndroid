@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class PixelGridView extends View {
     private int numColumns, numRows;
     private float offsetX = -50, offsetY = 100;
+    private float oldOffsetX, oldOffsetY;
     private float zoomX = 1.0f, zoomY = 1.0f;
     private int cellWidth = 20, cellHeight = 20;
 
@@ -117,8 +118,6 @@ public class PixelGridView extends View {
             return;
         }
 
-
-
         viewWidth = getWidth();
         viewHeight = getHeight();
 
@@ -130,11 +129,10 @@ public class PixelGridView extends View {
             //draw the part of the grid that overlaps with the View
             canvas.drawRect(minGridX, minGridY, maxGridX, maxGridY, whitePaint);
 
-            //todo: make this more efficient by checking whether the rectangle is fully on screen
             for (int i = 0; i < numColumns; i++) {
                 for (int j = 0; j < numRows; j++) {
                     if (cellChecked[i][j]) {
-                        //Makes sure that at least part of the square is on screen before drawing it
+                        //Makes sure that at least part of the checked square is on screen before drawing it
                         if((worldXToScreenX(i * cellWidth) > 0 && worldXToScreenX(i * cellWidth) < viewWidth)
                                 || (worldXToScreenX((i + 1) * cellWidth) > 0 && worldXToScreenX((i + 1) * cellWidth) < viewWidth)
                                 && (worldYToScreenY(j * cellHeight) > 0 && worldYToScreenY(j * cellHeight) < viewHeight)
@@ -149,12 +147,14 @@ public class PixelGridView extends View {
             }
 
             for (int i = 1; i < numColumns; i++) {
+                //Draws vertical grid lines only if the line is on screen
                 if(minGridX <= worldXToScreenX(i * cellWidth) && worldXToScreenX(i * cellWidth) <= maxGridX) {
                     canvas.drawLine(worldXToScreenX(i * cellWidth), minGridY, worldXToScreenX(i * cellWidth), maxGridY, blackPaint);
                 }
             }
 
             for (int i = 1; i < numRows; i++) {
+                //Draws horizontal grid lines only if the line is on screen
                 if(minGridY <= worldYToScreenY(i * cellHeight) && worldYToScreenY(i * cellHeight) <= maxGridY) {
                     canvas.drawLine(minGridX, worldYToScreenY(i * cellHeight), maxGridX, worldYToScreenY(i * cellHeight), blackPaint);
                 }
@@ -179,8 +179,14 @@ public class PixelGridView extends View {
                     invalidate();
                 }
                 else if(state == PANNING) {
-                    mStartX = event.getX();
-                    mStartY = event.getY();
+                    mStartX = event.getX() - oldOffsetX;
+                    mStartY = event.getY() - oldOffsetY;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if(state == PANNING) {
+                    oldOffsetX = offsetX;
+                    oldOffsetY = offsetY;
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -192,27 +198,13 @@ public class PixelGridView extends View {
                 break;
         }
 
-/*
-        if (isEditing) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                //Translates the press location into the world coordinates
-                int column = (int) ((event.getX() - offsetX) / cellWidth);
-                int row = (int) ((event.getY() - offsetY) / cellHeight);
-
-                cellChecked[column][row] = !cellChecked[column][row];
-                invalidate();
-            }
-
-            return true;
-        } else {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                //change camera coordinates
-            }
-*/
         return true;
 
     }
 
+    /**
+     * Toggles the state between EDITING and PANNING
+     */
     public void toggleEditing() {
         switch (state) {
             case EDITING:

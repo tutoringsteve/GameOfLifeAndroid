@@ -10,8 +10,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private boolean[][] boardState;
-    private int numColumns = 500;
-    private int numRows = 500;
+    private int numColumns = 20;
+    private int numRows = 20;
     private int squareSideLength = 100;
     private boolean isAutoPlaying = false;
     private final int EDITING = 0;
