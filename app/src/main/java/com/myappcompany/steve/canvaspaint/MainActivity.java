@@ -15,35 +15,30 @@ public class MainActivity extends AppCompatActivity {
     private boolean isAutoPlaying = false;
     private final int EDITING = 0;
     private final int PANNING = 1;
-    private int state = EDITING;
-    private ImageView imageViewEdit;
+    private int controlState = EDITING;
     private PixelGridView pixelGrid;
     private Handler handler;
+    public static GameOfLifeData data = GameOfLifeData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         pixelGrid = findViewById(R.id.pixelGridView);
-        pixelGrid.setNumColumns(numColumns);
-        pixelGrid.setNumRows(numRows);
-
-        imageViewEdit = findViewById(R.id.imageViewEdit);
-
         handler = new Handler();
 
     }
 
     public void playClick(View view) {
 
-        boardState = pixelGrid.getCellChecked();
+        boardState = data.getCellChecked();
 
         GameOfLifeBoard board = new GameOfLifeBoard(boardState, numRows, numColumns);
         board.oneTurn();
 
         boardState = board.getBooleanGameBoard();
-        pixelGrid.setCellChecked(boardState);
+        data.setCellChecked(boardState);
+        pixelGrid.invalidate();
 
     }
 
@@ -70,31 +65,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void zoomInClick(View view) {
-        if(pixelGrid.getZoomX() < pixelGrid.maxZoomX && pixelGrid.getZoomY() < pixelGrid.maxZoomY) {
-            pixelGrid.setZoomX(pixelGrid.getZoomX() + 0.25f);
-            pixelGrid.setZoomY(pixelGrid.getZoomY() + 0.25f);
+        if(data.getZoomX() < data.getMaxZoomX() && data.getZoomY() < data.getMaxZoomY()) {
+            data.setZoomX(data.getZoomX() + 0.25f);
+            data.setZoomY(data.getZoomY() + 0.25f);
             pixelGrid.invalidate();
         }
     }
 
     public void zoomOutClick(View view) {
-        if(pixelGrid.getZoomY() > pixelGrid.minZoomX && pixelGrid.getZoomY() > pixelGrid.minZoomY) {
-            pixelGrid.setZoomX(pixelGrid.getZoomX() - 0.25f);
-            pixelGrid.setZoomY(pixelGrid.getZoomY() - 0.25f);
+        if(data.getZoomY() > data.getMinZoomX() && data.getZoomY() > data.getMinZoomY()) {
+            data.setZoomX(data.getZoomX() - 0.25f);
+            data.setZoomY(data.getZoomY() - 0.25f);
             pixelGrid.invalidate();
         }
     }
 
     public void editClick(View view) {
-        if(state != EDITING) {
-            state = EDITING;
+        if(controlState != EDITING) {
+            controlState = EDITING;
             pixelGrid.toggleEditing();
         }
     }
 
     public void panningClick(View view) {
-        if(state != PANNING) {
-            state = PANNING;
+        if(controlState != PANNING) {
+            controlState = PANNING;
             pixelGrid.toggleEditing();
         }
     }
