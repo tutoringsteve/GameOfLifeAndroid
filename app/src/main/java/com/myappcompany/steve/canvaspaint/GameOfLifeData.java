@@ -28,6 +28,8 @@ public class GameOfLifeData {
         zoomY = 1.0f;
         defaultCellWidth = 100;
         defaultCellHeight = 100;
+        cellWidth = defaultCellWidth;
+        cellHeight = defaultCellHeight;
         minZoomX = 0.25f;
         minZoomY = 0.25f;
         maxZoomX = 2.5f;

@@ -89,7 +89,7 @@ public class PixelGridView extends View {
         viewWidth = getWidth();
         viewHeight = getHeight();
 
-        //sets minGridX, maxGridX, minGridY, maxGridy
+        //sets minGridX, maxGridX, minGridY, maxGridY
         setGridRange();
 
         //guarantee that grid is on screen before drawing
@@ -172,18 +172,8 @@ public class PixelGridView extends View {
 
     }
 
-    /**
-     * Toggles the state between EDITING and PANNING
-     */
-    public void toggleEditing() {
-        switch (controlState) {
-            case EDITING:
-                controlState = PANNING;
-                break;
-            case PANNING:
-                controlState = EDITING;
-                break;
-        }
+    public void setControlState(int controlState) {
+        this.controlState = controlState;
     }
 
     public float worldXToScreenX(float worldX) {

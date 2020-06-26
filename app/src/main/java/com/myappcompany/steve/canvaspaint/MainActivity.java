@@ -3,12 +3,15 @@ package com.myappcompany.steve.canvaspaint;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String TAG = "MainActivity";
+    private final String CONTROL_STATE_KEY_INDEX = "controlState";
     private boolean[][] boardState;
     private int numColumns = 20;
     private int numRows = 20;
@@ -25,8 +28,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pixelGrid = findViewById(R.id.pixelGridView);
+
+        if(savedInstanceState != null) {
+            controlState = savedInstanceState.getInt(CONTROL_STATE_KEY_INDEX, EDITING);
+            pixelGrid.setControlState(controlState);
+            Log.i(TAG, "A savedInstanceState was found! controlState set to " + (controlState == EDITING ? "EDITING" : "PANNING"));
+        }
+
         handler = new Handler();
 
+        //todo: I need to store the controlState in a bundle so that it preserves the current mode when I reorient the screen.
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(CONTROL_STATE_KEY_INDEX, controlState);
+        Log.i(TAG, CONTROL_STATE_KEY_INDEX);
     }
 
     public void playClick(View view) {
@@ -81,16 +99,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void editClick(View view) {
-        if(controlState != EDITING) {
+
             controlState = EDITING;
-            pixelGrid.toggleEditing();
-        }
+            pixelGrid.setControlState(EDITING);
+
     }
 
     public void panningClick(View view) {
         if(controlState != PANNING) {
             controlState = PANNING;
-            pixelGrid.toggleEditing();
+            pixelGrid.setControlState(PANNING);
         }
     }
 
