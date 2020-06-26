@@ -1,7 +1,14 @@
 package com.myappcompany.steve.canvaspaint;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class GameOfLifeData {
 
+    private final String TAG = "GameOfLifeData";
     private int numColumns;
     private int numRows;
     private boolean[][] cellChecked;
@@ -132,5 +139,71 @@ public class GameOfLifeData {
 
     public int getCellHeight() {
         return cellHeight;
+    }
+
+    //todo: test
+    public JSONArray cellCheckedToJSONArray(){
+
+        StringBuilder sbOuter = new StringBuilder();
+        StringBuilder sbInner = new StringBuilder();
+
+        sbOuter.append("[");
+        for(int i = 0; i < cellChecked.length; i++) {
+            sbInner.append("[");
+            for(int j = 0; j < cellChecked[0].length; j++) {
+                sbInner.append((cellChecked[i][j] ? "true" : "false") + (j < cellChecked[0].length - 1 ? "," : ""));
+            }
+            sbInner.append("]" + (i < cellChecked.length - 1 ? "," : ""));
+            sbOuter.append(sbInner.toString());
+            sbInner.setLength(0);
+        }
+        sbOuter.append("]");
+
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(sbOuter.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "Error in cellCheckedToJSONArray e:" + e);
+        }
+
+        return jsonArray;
+    }
+
+    public JSONArray dataToJSON() {
+
+        JSONArray dataArray = null;
+
+        try {
+            dataArray = new JSONArray();
+            JSONObject tmpObj = new JSONObject();
+
+            dataArray.put(tmpObj.put("numColumns", numColumns));
+            dataArray.put(tmpObj.put("numRows", numRows));
+            dataArray.put(tmpObj.put("cellChecked", cellCheckedToJSONArray()));
+            dataArray.put(tmpObj.put("offsetX", offsetX));
+            dataArray.put(tmpObj.put("offsetY", offsetY));
+            dataArray.put(tmpObj.put("zoomX", zoomX));
+            dataArray.put(tmpObj.put("zoomY", zoomY));
+            dataArray.put(tmpObj.put("defaultCellWidth", defaultCellWidth));
+            dataArray.put(tmpObj.put("defaultCellHeight", defaultCellHeight));
+            dataArray.put(tmpObj.put("cellWidth", cellWidth));
+            dataArray.put(tmpObj.put("cellHeight", cellHeight));
+            dataArray.put(tmpObj.put("minZoomX", minZoomX));
+            dataArray.put(tmpObj.put("minZoomY", minZoomY));
+            dataArray.put(tmpObj.put("maxZoomX", maxZoomX));
+            dataArray.put(tmpObj.put("maxZoomY", maxZoomY));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "Error in dataToJSON function e:" + e);
+        }
+
+        return dataArray;
+
+    }
+
+    public void jsonToData(JSONArray dataArray) {
+        
     }
 }

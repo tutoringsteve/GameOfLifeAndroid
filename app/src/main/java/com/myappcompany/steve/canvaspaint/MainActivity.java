@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
@@ -109,6 +111,15 @@ public class MainActivity extends AppCompatActivity {
         if(controlState != PANNING) {
             controlState = PANNING;
             pixelGrid.setControlState(PANNING);
+        }
+    }
+
+    public void saveClick(View view) {
+        try {
+            Log.i(TAG, "data as a json: " + data.dataToJSON().toString(4));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.i(TAG, "Error with saveClick");
         }
     }
 

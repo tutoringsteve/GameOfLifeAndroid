@@ -43,6 +43,7 @@
                 android:id="@+id/imageViewSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="saveClick"
                 app:srcCompat="@drawable/ic_save" />
         </TableRow>
 
