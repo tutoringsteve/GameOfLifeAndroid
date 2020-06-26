@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private int controlState = EDITING;
     private PixelGridView pixelGrid;
     private Handler handler;
+    private JSONArray saveState;
     public static GameOfLifeData data = GameOfLifeData.getInstance();
 
     @Override
@@ -116,10 +118,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveClick(View view) {
         try {
-            Log.i(TAG, "data as a json: " + data.dataToJSON().toString(4));
-        } catch (JSONException e) {
+            saveState = data.dataToJSON();
+            Log.i(TAG, "data saved to save state!" + saveState.toString());
+        } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "Error with saveClick");
+        }
+    }
+
+    public void loadClick(View view) {
+        try {
+            data.jsonToData(saveState);
+            pixelGrid.invalidate();
+            Log.i(TAG, "data loaded from save state!" + data.dataToJSON().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "Error with loadClick");
         }
     }
 

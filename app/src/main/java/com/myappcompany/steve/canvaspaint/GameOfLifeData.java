@@ -15,7 +15,7 @@ public class GameOfLifeData {
     private float offsetX, offsetY, zoomX, zoomY;
     private int defaultCellWidth, defaultCellHeight;
     private int cellWidth, cellHeight;
-    private final float minZoomX, minZoomY, maxZoomX, maxZoomY;
+    private float minZoomX, minZoomY, maxZoomX, maxZoomY;
 
     private static GameOfLifeData instance = null;
     public static GameOfLifeData getInstance() {
@@ -203,7 +203,49 @@ public class GameOfLifeData {
 
     }
 
+    public boolean[][] jsonArrayToCellChecked(JSONArray cellCheckedJSONArray) {
+        boolean[][] cellChecked = new boolean[numRows][numColumns];
+        JSONArray cellCheckedRow = null;
+
+        try {
+            for (int i = 0; i < numRows; i++) {
+                cellCheckedRow = cellCheckedJSONArray.getJSONArray(i);
+                for (int j = 0; j < numColumns; j++) {
+                    cellChecked[i][j] = cellCheckedRow.getBoolean(j);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "Error in jsonArrayToCellChecked function e:" + e);
+        }
+
+        return cellChecked;
+    }
+
     public void jsonToData(JSONArray dataArray) {
-        
+
+        try {
+            numColumns = dataArray.getJSONObject(0).getInt("numColumns");
+            numRows = dataArray.getJSONObject(1).getInt("numRows");
+            cellChecked = jsonArrayToCellChecked(dataArray.getJSONObject(2).getJSONArray("cellChecked"));
+            offsetX = dataArray.getJSONObject(3).getInt("offsetX");
+            offsetY = dataArray.getJSONObject(4).getInt("offsetY");
+            zoomX = (float) dataArray.getJSONObject(5).getDouble("zoomX");
+            zoomY = (float) dataArray.getJSONObject(6).getDouble("zoomY");
+            defaultCellWidth = dataArray.getJSONObject(7).getInt("defaultCellWidth");
+            defaultCellHeight = dataArray.getJSONObject(8).getInt("defaultCellHeight");
+            cellWidth  = dataArray.getJSONObject(9).getInt("cellWidth");
+            cellHeight = dataArray.getJSONObject(10).getInt("cellHeight");
+            minZoomX = (float) dataArray.getJSONObject(5).getDouble("minZoomX");
+            minZoomY = (float) dataArray.getJSONObject(6).getDouble("minZoomY");
+            maxZoomX = (float) dataArray.getJSONObject(5).getDouble("maxZoomX");
+            maxZoomY = (float) dataArray.getJSONObject(6).getDouble("maxZoomY");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "Error in jsonToData function e:" + e);
+        }
+
     }
 }

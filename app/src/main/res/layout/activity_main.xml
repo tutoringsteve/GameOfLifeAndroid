@@ -77,6 +77,7 @@
                 android:id="@+id/imageViewLoad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="loadClick"
                 app:srcCompat="@drawable/ic_load" />
         </TableRow>
 
