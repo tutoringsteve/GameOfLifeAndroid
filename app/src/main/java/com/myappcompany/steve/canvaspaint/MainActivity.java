@@ -5,19 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
     private final String CONTROL_STATE_KEY_INDEX = "controlState";
-    private boolean[][] boardState;
-    private int numColumns = 20;
-    private int numRows = 20;
     private boolean isAutoPlaying = false;
     private final int EDITING = 0;
     private final int PANNING = 1;
@@ -40,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         handler = new Handler();
-
-        //todo: I need to store the controlState in a bundle so that it preserves the current mode when I reorient the screen.
     }
 
     @Override
@@ -52,16 +45,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playClick(View view) {
-
-        boardState = data.getCellChecked();
-
-        GameOfLifeBoard board = new GameOfLifeBoard(boardState, numRows, numColumns);
+        GameOfLifeBoard board = new GameOfLifeBoard(data.getCellChecked(), data.getNumRows(), data.getNumColumns());
         board.oneTurn();
-
-        boardState = board.getBooleanGameBoard();
-        data.setCellChecked(boardState);
+        data.setCellChecked(board.getBooleanGameBoard());
         pixelGrid.invalidate();
-
     }
 
     public void autoPlayClick(final View view) {

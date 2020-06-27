@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">CanvasPaint</string>
+    <string name="title_activity_save">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="save">SAVE</string>
+    <string name="play_one_turn">play one turn</string>
+    <string name="edit">edit</string>
+    <string name="zoom_in">zoom in</string>
+    <string name="open_save_menu">open save menu</string>
+    <string name="auto_play">auto play</string>
+    <string name="pan">pan</string>
+    <string name="zoom_out">zoom out</string>
+    <string name="open_load_menu">open load menu</string>
 </resources>
