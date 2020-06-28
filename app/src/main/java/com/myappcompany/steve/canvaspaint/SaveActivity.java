@@ -1,22 +1,26 @@
 package com.myappcompany.steve.canvaspaint;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SaveActivity extends AppCompatActivity {
 
     private final String TAG = "SaveActivity";
-    private ArrayList<String> saveNames = new ArrayList<>();
-    private ArrayList<String> saveStrings = new ArrayList<>();
+    private ArrayList<String> saveNames;
+    private ArrayList<String> saveStrings;
     private ArrayAdapter saveArrayAdapter;
     private EditText editText;
     private String saveString;
@@ -29,6 +33,7 @@ public class SaveActivity extends AppCompatActivity {
 
         //todo: finish implementing permanent storage with sharedPreferences
         sharedPreferences = this.getSharedPreferences("com.myappcompany.steve.canvaspaint", Context.MODE_PRIVATE);
+        restorePreviousSession();
 
         saveString = getIntent().getStringExtra("saveString");
 
@@ -38,6 +43,46 @@ public class SaveActivity extends AppCompatActivity {
         saveArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, saveNames);
         saveListView.setAdapter(saveArrayAdapter);
 
+        saveListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                saveString = saveStrings.get(position);
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("saveString", saveString);
+                startActivity(intent);
+            }
+        });
+
+        saveListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //give an alert
+                //if alert yes:
+                    //delete the entry
+
+                    //update the sharedpreferences
+
+                return true;
+            }
+        });
+
+    }
+
+    private void restorePreviousSession() {
+        try {
+            saveNames = (ArrayList<String>) ObjectSerializer
+                    .deserialize(sharedPreferences
+                            .getString("saveNames",
+                                    ObjectSerializer.serialize(new ArrayList<String>())));
+            saveStrings = (ArrayList<String>) ObjectSerializer
+                    .deserialize(sharedPreferences
+                            .getString("saveStrings",
+                                    ObjectSerializer.serialize(new ArrayList<String>())));
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.i(TAG, "Issue with restorePreviousSession:" + e);
+        }
     }
 
     public void onClickSave(View view) {
@@ -50,6 +95,16 @@ public class SaveActivity extends AppCompatActivity {
             saveStrings.add(saveString);
             saveArrayAdapter.notifyDataSetChanged();
             editText.setText("");
+
+            try {
+                String serializedSaveNames = ObjectSerializer.serialize(saveNames);
+                String serializedSaveStrings = ObjectSerializer.serialize(saveStrings);
+                sharedPreferences.edit().putString("saveNames", serializedSaveNames).apply();
+                sharedPreferences.edit().putString("saveStrings", serializedSaveStrings).apply();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.i(TAG, "Error in onClickSave during object serialization:" + e);
+            }
         }
     }
 }

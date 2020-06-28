@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "A savedInstanceState was found! controlState set to " + (controlState == EDITING ? "EDITING" : "PANNING"));
         }
 
+        saveString = getIntent().getStringExtra("saveString");
+        if(saveString != null && !saveString.isEmpty()) {
+            loadSaveState();
+        }
+
         handler = new Handler();
     }
 
@@ -103,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveClick(View view) {
-        //todo: open the SaveActivity activity, passing the saveState as a String through the intent
         try {
             saveString = data.dataToJSON().toString();
             Log.i(TAG, "data saved to save state!" + saveString);
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void loadClick(View view) {
+    public void loadSaveState() {
         try {
             data.stringToData(saveString);
             pixelGrid.invalidate();

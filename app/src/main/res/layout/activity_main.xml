@@ -86,7 +86,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/open_load_menu"
-                android:onClick="loadClick"
                 app:srcCompat="@drawable/ic_load" />
         </TableRow>
 
