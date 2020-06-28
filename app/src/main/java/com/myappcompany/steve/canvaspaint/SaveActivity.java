@@ -65,7 +65,7 @@ public class SaveActivity extends AppCompatActivity {
                 new AlertDialog.Builder(SaveActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Are you sure!?")
-                        .setMessage("Pressing yes will delete the save you pressed. Click no to keep the save.")
+                        .setMessage("Pressing yes will delete the save named " + saveName + ". Click no to keep the save.")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
