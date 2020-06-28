@@ -248,4 +248,13 @@ public class GameOfLifeData {
         }
 
     }
+
+    public void stringToData(String saveString) {
+        try {
+            jsonToData(new JSONArray(saveString));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "Error in stringToData function e:" + e);
+        }
+    }
 }

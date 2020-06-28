@@ -12,4 +12,6 @@
     <string name="pan">pan</string>
     <string name="zoom_out">zoom out</string>
     <string name="open_load_menu">open load menu</string>
+    <string name="name_your_save_here">Name your save here...</string>
+    <string name="save_load">save/load</string>
 </resources>

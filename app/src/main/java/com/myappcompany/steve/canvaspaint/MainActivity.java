@@ -1,13 +1,12 @@
 package com.myappcompany.steve.canvaspaint;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import org.json.JSONArray;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private int controlState = EDITING;
     private PixelGridView pixelGrid;
     private Handler handler;
-    private JSONArray saveState;
+    private String saveString;
     public static GameOfLifeData data = GameOfLifeData.getInstance();
 
     @Override
@@ -104,9 +103,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveClick(View view) {
+        //todo: open the SaveActivity activity, passing the saveState as a String through the intent
         try {
-            saveState = data.dataToJSON();
-            Log.i(TAG, "data saved to save state!" + saveState.toString());
+            saveString = data.dataToJSON().toString();
+            Log.i(TAG, "data saved to save state!" + saveString);
+
+            //passes saveString to Save/Load activity and opens that activity.
+            Intent intent = new Intent(this, SaveActivity.class);
+            intent.putExtra("saveString", saveString);
+            startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "Error with saveClick");
@@ -115,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadClick(View view) {
         try {
-            data.jsonToData(saveState);
+            data.stringToData(saveString);
             pixelGrid.invalidate();
             Log.i(TAG, "data loaded from save state!" + data.dataToJSON().toString());
         } catch (Exception e) {
