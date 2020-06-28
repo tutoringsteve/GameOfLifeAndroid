@@ -1,6 +1,8 @@
 package com.myappcompany.steve.canvaspaint;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -56,13 +58,27 @@ public class SaveActivity extends AppCompatActivity {
 
         saveListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                final String saveName = saveNames.get(position);
+
                 //give an alert
-                //if alert yes:
-                    //delete the entry
-
-                    //update the sharedpreferences
-
+                new AlertDialog.Builder(SaveActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Are you sure!?")
+                        .setMessage("Pressing yes will delete the save you pressed. Click no to keep the save.")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(),
+                                        "A save named " + saveName + " was deleted.", Toast.LENGTH_SHORT).show();
+                                saveNames.remove(position);
+                                saveStrings.remove(position);
+                                saveArrayAdapter.notifyDataSetChanged();
+                                updateSharedPreferences();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
                 return true;
             }
         });
@@ -96,15 +112,19 @@ public class SaveActivity extends AppCompatActivity {
             saveArrayAdapter.notifyDataSetChanged();
             editText.setText("");
 
-            try {
-                String serializedSaveNames = ObjectSerializer.serialize(saveNames);
-                String serializedSaveStrings = ObjectSerializer.serialize(saveStrings);
-                sharedPreferences.edit().putString("saveNames", serializedSaveNames).apply();
-                sharedPreferences.edit().putString("saveStrings", serializedSaveStrings).apply();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.i(TAG, "Error in onClickSave during object serialization:" + e);
-            }
+            updateSharedPreferences();
+        }
+    }
+
+    private void updateSharedPreferences() {
+        try {
+            String serializedSaveNames = ObjectSerializer.serialize(saveNames);
+            String serializedSaveStrings = ObjectSerializer.serialize(saveStrings);
+            sharedPreferences.edit().putString("saveNames", serializedSaveNames).apply();
+            sharedPreferences.edit().putString("saveStrings", serializedSaveStrings).apply();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.i(TAG, "Error in onClickSave during object serialization:" + e);
         }
     }
 }
