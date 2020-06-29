@@ -57,9 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void autoPlayClick(final View view) {
 
-        isAutoPlaying = !isAutoPlaying;
-
-        if(isAutoPlaying) {
+        if(!isAutoPlaying) {
             Toast.makeText(MainActivity.this,"isAutoPlaying is true", Toast.LENGTH_SHORT).show();
 
             Runnable runnable = new Runnable() {
@@ -75,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"isAutoPlaying is false", Toast.LENGTH_SHORT).show();
             handler.removeCallbacksAndMessages(null);
         }
+
+        isAutoPlaying = !isAutoPlaying;
     }
 
     public void zoomInClick(View view) {
@@ -108,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveClick(View view) {
+        if(isAutoPlaying) {
+            handler.removeCallbacksAndMessages(null);
+            isAutoPlaying = !isAutoPlaying;
+        }
+
         try {
             saveString = data.dataToJSON().toString();
             Log.i(TAG, "data saved to save state!" + saveString);
