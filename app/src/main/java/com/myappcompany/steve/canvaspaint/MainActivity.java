@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         cancelAutoPlay();
 
         new AlertDialog.Builder(MainActivity.this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_erase)
                 .setTitle("Clear the board?")
                 .setMessage("Pressing yes will uncheck all grid squares, resetting the grid to its original state.")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

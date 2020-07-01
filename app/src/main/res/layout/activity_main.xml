@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/open_save_menu"
                 android:onClick="saveClick"
-                app:srcCompat="@drawable/ic_save" />
+                app:srcCompat="@drawable/ic_saveloaddisk" />
         </TableRow>
 
         <TableRow
