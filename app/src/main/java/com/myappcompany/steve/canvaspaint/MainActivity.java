@@ -156,6 +156,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void randomizeClick(View view) {
+        cancelAutoPlay();
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setIcon(R.drawable.ic_erase)
+                .setTitle("Randomize the board?")
+                .setMessage("Pressing yes will reset the board, and then randomly check different squares for a random configuration.")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        data.randomizeBoard();
+                        pixelGrid.invalidate();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
     public void loadSaveState() {
         try {
             data.stringToData(saveString);

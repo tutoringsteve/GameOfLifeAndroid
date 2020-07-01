@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 public class GameOfLifeData {
 
     private final String TAG = "GameOfLifeData";
@@ -262,6 +264,15 @@ public class GameOfLifeData {
         for(int row = 0; row < numRows; row++) {
             for(int column = 0; column < numColumns; column++) {
                 cellChecked[row][column] = false;
+            }
+        }
+    }
+
+    public void randomizeBoard() {
+        Random rand = new Random();
+        for(int row = 0; row < numRows; row++) {
+            for(int column = 0; column < numColumns; column++) {
+                cellChecked[row][column] = (rand.nextInt(3) == 0);
             }
         }
     }

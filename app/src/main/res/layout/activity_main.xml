@@ -82,10 +82,11 @@
                 app:srcCompat="@drawable/ic_zoomout" />
 
             <ImageView
-                android:id="@+id/imageViewLoad"
+                android:id="@+id/imageViewRandomize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/open_load_menu"
+                android:onClick="randomizeClick"
                 app:srcCompat="@drawable/ic_random" />
         </TableRow>
 
