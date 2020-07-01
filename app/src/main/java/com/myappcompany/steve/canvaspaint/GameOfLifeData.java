@@ -257,4 +257,12 @@ public class GameOfLifeData {
             Log.i(TAG, "Error in stringToData function e:" + e);
         }
     }
+
+    public void resetBoard() {
+        for(int row = 0; row < numRows; row++) {
+            for(int column = 0; column < numColumns; column++) {
+                cellChecked[row][column] = false;
+            }
+        }
+    }
 }
