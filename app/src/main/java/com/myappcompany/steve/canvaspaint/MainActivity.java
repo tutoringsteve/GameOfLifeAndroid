@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         cancelAutoPlay();
 
         new AlertDialog.Builder(MainActivity.this)
-                .setIcon(R.drawable.ic_erase)
+                .setIcon(R.drawable.ic_random)
                 .setTitle("Randomize the board?")
                 .setMessage("Pressing yes will reset the board, and then randomly check different squares for a random configuration.")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
