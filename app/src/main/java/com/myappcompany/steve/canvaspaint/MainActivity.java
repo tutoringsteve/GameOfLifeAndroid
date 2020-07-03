@@ -7,6 +7,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -53,6 +56,54 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.mainMenuSettings:
+                Log.i(TAG, "Main Activity : Settings Was Pressed.");
+                openSettings();
+                break;
+            case R.id.mainMenuHelp:
+                Log.i(TAG, "Main Activity : Settings Was Pressed.");
+                openHelp();
+                break;
+            case R.id.mainMenuAbout:
+                Log.i(TAG, "Main Activity : Settings Was Pressed.");
+                openAbout();
+                break;
+            default:
+                break;
+        }
+
+        return true;
+    }
+
+    private void openSettings() {
+        cancelAutoPlay();
+        Toast.makeText(this, "Settings was pressed.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void openHelp() {
+        cancelAutoPlay();
+        Toast.makeText(this, "Help was pressed.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void openAbout() {
+        cancelAutoPlay();
+        Toast.makeText(this,"About was pressed", Toast.LENGTH_SHORT).show();
     }
 
     private void eraseBoard() {
