@@ -1,32 +1,34 @@
 package com.myappcompany.steve.canvaspaint;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 
 public class SaveActivity extends AppCompatActivity {
 
     private final String TAG = "SaveActivity";
-    private ArrayList<String> saveNames;
-    private ArrayList<String> saveStrings;
+    private ArrayList<String> mSaveNames = new ArrayList<>();
+    private ArrayList<String> mSaveStrings = new ArrayList<>();
+    private ArrayList<String> mDates = new ArrayList<>();
     private ArrayAdapter saveArrayAdapter;
+    RecyclerViewAdapter adapter;
     private EditText editText;
-    private String saveString;
+    private String mSaveString;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -36,17 +38,15 @@ public class SaveActivity extends AppCompatActivity {
 
         //todo: finish implementing permanent storage with sharedPreferences
         sharedPreferences = this.getSharedPreferences("com.myappcompany.steve.canvaspaint", Context.MODE_PRIVATE);
-        restorePreviousSession();
+        //restorePreviousSession();
 
-        saveString = getIntent().getStringExtra("saveString");
+        mSaveString = getIntent().getStringExtra("saveString");
 
         editText = findViewById(R.id.editText);
+        initRecyclerView();
 
-        ListView saveListView = findViewById(R.id.saveListView);
-        saveArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, saveNames);
-        saveListView.setAdapter(saveArrayAdapter);
-
-        saveListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*
+        saveRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 saveString = saveStrings.get(position);
@@ -56,8 +56,9 @@ public class SaveActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        saveListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+*/
+        /*
+        saveRecyclerView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 final String saveName = saveNames.get(position);
@@ -83,16 +84,26 @@ public class SaveActivity extends AppCompatActivity {
                 return true;
             }
         });
+*/
+    }
 
+    private void initRecyclerView() {
+        Log.d(TAG, "initRecyclerView: init recyclerview.");
+
+        RecyclerView saveRecyclerView = findViewById(R.id.saveRecyclerView);
+        adapter = new RecyclerViewAdapter(this, mSaveNames, mDates);
+        saveRecyclerView.setAdapter(adapter);
+        //look into this more
+        saveRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void restorePreviousSession() {
         try {
-            saveNames = (ArrayList<String>) ObjectSerializer
+            mSaveNames = (ArrayList<String>) ObjectSerializer
                     .deserialize(sharedPreferences
                             .getString("saveNames",
                                     ObjectSerializer.serialize(new ArrayList<String>())));
-            saveStrings = (ArrayList<String>) ObjectSerializer
+            mSaveStrings = (ArrayList<String>) ObjectSerializer
                     .deserialize(sharedPreferences
                             .getString("saveStrings",
                                     ObjectSerializer.serialize(new ArrayList<String>())));
@@ -101,7 +112,7 @@ public class SaveActivity extends AppCompatActivity {
             Log.i(TAG, "Issue with restorePreviousSession:" + e);
         }
     }
-
+/*
     public void onClickSave(View view) {
         String saveFileName = editText.getText().toString();
 
@@ -116,11 +127,30 @@ public class SaveActivity extends AppCompatActivity {
             updateSharedPreferences();
         }
     }
+*/
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void onClickSave(View view) {
+        String saveFileName = editText.getText().toString();
+        String saveDate = Instant.now().toString();
+
+        if(saveFileName.isEmpty()) {
+            Toast.makeText(this, "You must enter a name for your save.", Toast.LENGTH_SHORT).show();
+        } else {
+            mSaveNames.add(saveFileName);
+            mSaveStrings.add(mSaveString);
+            mDates.add(saveDate);
+            adapter.notifyDataSetChanged();
+            editText.setText("");
+
+            //updateSharedPreferences();
+        }
+    }
 
     private void updateSharedPreferences() {
         try {
-            String serializedSaveNames = ObjectSerializer.serialize(saveNames);
-            String serializedSaveStrings = ObjectSerializer.serialize(saveStrings);
+            String serializedSaveNames = ObjectSerializer.serialize(mSaveNames);
+            String serializedSaveStrings = ObjectSerializer.serialize(mSaveStrings);
             sharedPreferences.edit().putString("saveNames", serializedSaveNames).apply();
             sharedPreferences.edit().putString("saveStrings", serializedSaveStrings).apply();
         } catch (IOException e) {
