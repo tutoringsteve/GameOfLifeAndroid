@@ -141,10 +141,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void autoPlayClick(final View view) {
+        ImageView btnAutoPlay = findViewById(R.id.imageViewAutoPlay);
 
         if(!isAutoPlaying) {
-            Toast.makeText(MainActivity.this,"isAutoPlaying is true", Toast.LENGTH_SHORT).show();
-
+            btnAutoPlay.setImageResource(R.drawable.ic_stopbutton);
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
             handler.post(runnable);
         } else {
-            Toast.makeText(MainActivity.this,"isAutoPlaying is false", Toast.LENGTH_SHORT).show();
+            btnAutoPlay.setImageResource(R.drawable.ic_autoplay);
             handler.removeCallbacksAndMessages(null);
         }
 
