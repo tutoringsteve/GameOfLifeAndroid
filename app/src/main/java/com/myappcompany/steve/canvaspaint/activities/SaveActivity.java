@@ -1,4 +1,4 @@
-package com.myappcompany.steve.canvaspaint;
+package com.myappcompany.steve.canvaspaint.activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,19 +17,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.myappcompany.steve.canvaspaint.ObjectSerializer;
+import com.myappcompany.steve.canvaspaint.R;
+import com.myappcompany.steve.canvaspaint.SaveLoadRecyclerViewAdapter;
+
 import java.io.IOException;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SaveActivity extends AppCompatActivity implements RecyclerViewAdapter.OnItemListener {
+public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerViewAdapter.OnItemListener {
 
     private final String TAG = "SaveActivity";
     private ArrayList<String> mSaveNames = new ArrayList<>();
     private ArrayList<String> mSaveStrings = new ArrayList<>();
     private ArrayList<String> mSaveDates = new ArrayList<>();
-    RecyclerViewAdapter adapter;
+    SaveLoadRecyclerViewAdapter adapter;
     private EditText editText;
     private String mSaveString;
     private SharedPreferences sharedPreferences;
@@ -53,7 +57,7 @@ public class SaveActivity extends AppCompatActivity implements RecyclerViewAdapt
         Log.d(TAG, "initRecyclerView: init recyclerview.");
 
         RecyclerView saveRecyclerView = findViewById(R.id.saveRecyclerView);
-        adapter = new RecyclerViewAdapter(this, mSaveNames, mSaveDates, this);
+        adapter = new SaveLoadRecyclerViewAdapter(this, mSaveNames, mSaveDates, this);
         saveRecyclerView.setAdapter(adapter);
         saveRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

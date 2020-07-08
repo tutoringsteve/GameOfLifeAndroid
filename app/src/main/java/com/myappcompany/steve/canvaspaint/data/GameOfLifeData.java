@@ -1,9 +1,8 @@
-package com.myappcompany.steve.canvaspaint;
+package com.myappcompany.steve.canvaspaint.data;
 
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Random;

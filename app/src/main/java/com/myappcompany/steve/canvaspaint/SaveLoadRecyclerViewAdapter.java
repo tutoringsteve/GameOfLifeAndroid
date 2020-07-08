@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class SaveLoadRecyclerViewAdapter extends RecyclerView.Adapter<SaveLoadRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
     private Context mContext;
     private ArrayList<String> mSaveNames, mSaveDates;
     private OnItemListener mOnItemListener;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> saveNames, ArrayList<String> saveDates, OnItemListener onItemListener) {
+    public SaveLoadRecyclerViewAdapter(Context context, ArrayList<String> saveNames, ArrayList<String> saveDates, OnItemListener onItemListener) {
         mContext = context;
         mSaveNames = saveNames;
         mSaveDates = saveDates;

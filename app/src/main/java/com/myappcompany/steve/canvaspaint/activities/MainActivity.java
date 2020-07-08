@@ -1,4 +1,4 @@
-package com.myappcompany.steve.canvaspaint;
+package com.myappcompany.steve.canvaspaint.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.myappcompany.steve.canvaspaint.GameOfLifeBoard;
+import com.myappcompany.steve.canvaspaint.data.GameOfLifeData;
+import com.myappcompany.steve.canvaspaint.PixelGridView;
+import com.myappcompany.steve.canvaspaint.R;
 
 public class MainActivity extends AppCompatActivity {
 
