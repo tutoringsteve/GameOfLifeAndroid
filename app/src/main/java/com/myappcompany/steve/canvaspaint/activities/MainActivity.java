@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void openSettings() {
         cancelAutoPlay();
+        //can also pass a bundle
+        startActivity(new Intent(this, SettingsActivity.class));
         Toast.makeText(this, "Settings was pressed.", Toast.LENGTH_SHORT).show();
     }
 

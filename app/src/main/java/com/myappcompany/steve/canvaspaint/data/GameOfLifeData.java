@@ -27,6 +27,7 @@ public class GameOfLifeData {
     }
 
     private GameOfLifeData() {
+        //todo: currently changing these settings breaks save/load.
         numColumns = 20;
         numRows = 20;
         cellChecked = new boolean[numColumns][numRows];

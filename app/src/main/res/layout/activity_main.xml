@@ -85,7 +85,7 @@
                 android:id="@+id/imageViewRandomize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/open_load_menu"
+                android:contentDescription="@string/random_auto_fill"
                 android:onClick="randomizeClick"
                 app:srcCompat="@drawable/ic_random" />
         </TableRow>
