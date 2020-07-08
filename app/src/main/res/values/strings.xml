@@ -18,4 +18,8 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="saved_on">Saved on %s</string>
+    <string name="settings_autoplay_speed_information">Choose a value between 1 and 10 from the dropdown menu where 1 is the slowest and 10 is the fastest. This determines how fast turns are taken while auto play is enabled.</string>
+    <string name="auto_play_speed">Auto play speed</string>
+    <string name="random_fill_probability">Random fill probability</string>
+    <string name="settings_random_fill_help">This setting determines how likely a given square in the grid is to be filled when the random fill button is pressed. A lower probability corresponds to a board with fewer alive squares after being randomly filled.</string>
 </resources>
