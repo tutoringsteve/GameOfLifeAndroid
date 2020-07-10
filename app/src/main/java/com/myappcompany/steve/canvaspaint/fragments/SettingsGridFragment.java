@@ -13,18 +13,16 @@ import com.myappcompany.steve.canvaspaint.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SettingsControlFragment extends Fragment {
+public class SettingsGridFragment extends Fragment {
 
-    public SettingsControlFragment() {
+    public SettingsGridFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings_control, container, false);
         // Inflate the layout for this fragment
-        return view;
+        return inflater.inflate(R.layout.fragment_settings_grid, container, false);
     }
 }

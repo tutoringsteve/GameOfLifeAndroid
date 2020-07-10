@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.myappcompany.steve.canvaspaint.fragments.SettingsColorFragment;
 import com.myappcompany.steve.canvaspaint.fragments.SettingsControlFragment;
+import com.myappcompany.steve.canvaspaint.fragments.SettingsGridFragment;
 
 public class SettingsPagerAdapter extends FragmentStateAdapter {
 
@@ -23,7 +25,26 @@ public class SettingsPagerAdapter extends FragmentStateAdapter {
         Bundle bundle = new Bundle();
         //insert some data into the bundle
         //bundle.put_____();
-        return new SettingsControlFragment();
+
+        switch (position) {
+            case 0:
+                SettingsControlFragment controlFragment = new SettingsControlFragment();
+                //Attach a bundle to the fragment object
+                //controlFragment.setArguments(bundle);
+                return controlFragment;
+            case 1:
+                SettingsGridFragment gridFragment = new SettingsGridFragment();
+                //Attach a bundle to the fragment object
+                //controlFragment.setArguments(bundle);
+                return gridFragment;
+            case 2:
+                SettingsColorFragment colorFragment = new SettingsColorFragment();
+                //Attach a bundle to the fragment object
+                //controlFragment.setArguments(bundle);
+                return colorFragment;
+            default:
+                return null;
+        }
     }
 
     @Override

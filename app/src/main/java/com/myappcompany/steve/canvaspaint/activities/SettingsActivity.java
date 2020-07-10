@@ -12,15 +12,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.myappcompany.steve.canvaspaint.R;
 import com.myappcompany.steve.canvaspaint.SettingsPagerAdapter;
 
-import java.util.ArrayList;
-
 public class SettingsActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private ViewPager2 mViewPager2;
     private SettingsPagerAdapter mAdapter;
     private TabLayout mTabLayout;
-    private String[] mTabNames = {getString(R.string.controls), getString(R.string.board), getString(R.string.color)};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +31,8 @@ public class SettingsActivity extends AppCompatActivity {
         new TabLayoutMediator(mTabLayout, mViewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText(mTabNames[position]);
+                String[] tabNames = {getString(R.string.controls), getString(R.string.board), getString(R.string.color)};
+                tab.setText(tabNames[position]);
             }
         }).attach();
     }
