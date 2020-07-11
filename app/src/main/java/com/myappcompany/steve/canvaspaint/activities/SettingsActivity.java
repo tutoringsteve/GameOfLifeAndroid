@@ -31,8 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         new TabLayoutMediator(mTabLayout, mViewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                String[] tabNames = {getString(R.string.controls), getString(R.string.board), getString(R.string.color)};
-                tab.setText(tabNames[position]);
+                tab.setText(getResources().getStringArray(R.array.tab_names_array)[position]);
             }
         }).attach();
     }
