@@ -41,4 +41,6 @@
     <string name="gridlines">Grid lines</string>
     <string name="color_settings_warning">Make sure each color is distinct.</string>
     <string name="warning_sign">Warning sign</string>
+    <string name="select">Select</string>
+    <string name="cancel">Cancel</string>
 </resources>
