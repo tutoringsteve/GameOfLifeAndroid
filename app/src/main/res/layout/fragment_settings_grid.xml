@@ -28,9 +28,9 @@
         android:text="@string/board_width"
         android:textColor="#000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumber3"
+        app:layout_constraintBottom_toBottomOf="@+id/boardWidthEditText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextNumber3" />
+        app:layout_constraintTop_toTopOf="@+id/boardWidthEditText" />
 
     <TextView
         android:id="@+id/textView8"
@@ -41,9 +41,9 @@
         android:text="@string/board_height"
         android:textColor="#000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumber4"
+        app:layout_constraintBottom_toBottomOf="@+id/boardHeightEditText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextNumber4" />
+        app:layout_constraintTop_toTopOf="@+id/boardHeightEditText" />
 
     <TextView
         android:id="@+id/textView3"
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber4" />
+        app:layout_constraintTop_toBottomOf="@+id/boardHeightEditText" />
 
     <TextView
         android:id="@+id/textView4"
@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+        app:layout_constraintTop_toBottomOf="@+id/verticalWrappingCheckBox" />
 
     <View
         android:id="@+id/view"
@@ -110,7 +110,7 @@
         app:layout_constraintGuide_begin="62dp" />
 
     <EditText
-        android:id="@+id/editTextNumber3"
+        android:id="@+id/boardWidthEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -124,7 +124,7 @@
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/editTextNumber4"
+        android:id="@+id/boardHeightEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -134,11 +134,11 @@
         android:hint="@string/max_width_height"
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber3"
+        app:layout_constraintTop_toBottomOf="@+id/boardWidthEditText"
         android:importantForAutofill="no" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/horizontalWrappingCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -151,7 +151,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/verticalWrappingCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -161,6 +161,6 @@
         android:text="@string/vertical_wrapping"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontalWrappingCheckBox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
