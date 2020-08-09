@@ -40,8 +40,8 @@ dependencies {
     //materials dependency for tablayout
     implementation 'com.google.android.material:material:1.1.0'
 
-    //dependency for skydoves ColorPickerView
-    implementation "com.github.skydoves:colorpickerview:2.1.6"
+    //Color picker
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
 
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'

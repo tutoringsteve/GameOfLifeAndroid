@@ -2,6 +2,7 @@ package com.myappcompany.steve.canvaspaint.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,10 +12,10 @@ import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
+import com.myappcompany.steve.canvaspaint.ColorUtil;
 import com.myappcompany.steve.canvaspaint.R;
-import com.skydoves.colorpickerview.ColorEnvelope;
-import com.skydoves.colorpickerview.ColorPickerDialog;
-import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,26 +71,22 @@ public class SettingsColorFragment extends Fragment {
     }
 
     private void buildColorPickerDialogue(final View v) {
-        new ColorPickerDialog.Builder(getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK)
-                .setTitle("ColorPicker Dialog")
-                .setPreferenceName("MyColorPickerDialog")
-                .setPositiveButton(getString(R.string.select),
-                        new ColorEnvelopeListener() {
-                            @Override
-                            public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
-                                Log.d(TAG, v.getTag().toString() + " chose " + envelope.getHexCode() + " for a color");
-                            }
-                        })
-                .setNegativeButton(getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        })
-                .attachAlphaSlideBar(false) // default is true. If false, do not show the AlphaSlideBar.
-                .attachBrightnessSlideBar(true)  // default is true. If false, do not show the BrightnessSlideBar.
-                // set bottom space between the last slidebar and buttons.
-                .show();
+
+        new AmbilWarnaDialog(getContext(), v.getSolidColor(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                ColorUtil oldColor = new ColorUtil(v.getSolidColor());
+                ColorUtil newColor = new ColorUtil(color);
+                Log.d(TAG, "Color switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
+                v.setBackgroundColor(color);
+            }
+        }).show();
+
+
     }
 }
