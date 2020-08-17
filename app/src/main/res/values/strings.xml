@@ -50,4 +50,6 @@
     <string name="no">No</string>
     <string name="a_save_named_was_deleted">A save named %1$s was deleted.</string>
     <string name="you_must_enter_a_name_for_your_save">You must enter a name for your save.</string>
+    <string name="pressing_yes_will_reset_the_colors">Pressing yes will reset the colors to their defaults. Click no to keep the current colors.</string>
+    <string name="the_colors_were_reset_to_their_defaults">The colors were reset to their defaults.</string>
 </resources>
