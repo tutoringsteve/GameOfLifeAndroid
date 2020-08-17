@@ -10,6 +10,9 @@ import android.view.View;
 
 import com.myappcompany.steve.canvaspaint.activities.MainActivity;
 import com.myappcompany.steve.canvaspaint.data.GameOfLifeData;
+import com.myappcompany.steve.canvaspaint.data.SettingsData;
+
+import java.util.Set;
 
 /**
  * Created by GEX_Dev on 1/25/2020.
@@ -24,12 +27,13 @@ public class PixelGridView extends View {
     private float mStartX = 0,  mStartY = 0;
     private int viewWidth, viewHeight;
 
-    private GameOfLifeData data = MainActivity.data;
+    private GameOfLifeData gameOfLifeData = MainActivity.gameOfLifeData;
+    private SettingsData settingsData = SettingsData.getInstance();
 
-    private Paint blackPaint = new Paint();
-    private Paint bluePaint = new Paint();
-    private Paint darkGreyPaint = new Paint();
-    private Paint whitePaint = new Paint();
+    private Paint gridLinesPaint = new Paint();
+    private Paint aliveSquarePaint = new Paint();
+    private Paint backgroundPaint = new Paint();
+    private Paint deadSquarePaint = new Paint();
 
     private float minGridX, minGridY, maxGridX, maxGridY;
 
@@ -39,13 +43,14 @@ public class PixelGridView extends View {
 
     public PixelGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        blackPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        bluePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        bluePaint.setColor(Color.BLUE);
-        darkGreyPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        darkGreyPaint.setColor(Color.DKGRAY);
-        whitePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        whitePaint.setColor(Color.WHITE);
+        gridLinesPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        aliveSquarePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        backgroundPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        deadSquarePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        gridLinesPaint.setColor(settingsData.getGridLinesColor());
+        backgroundPaint.setColor(settingsData.getBackgroundColor());
+        aliveSquarePaint.setColor(settingsData.getAliveSquareColor());
+        deadSquarePaint.setColor(settingsData.getDeadSquareColor());
     }
 
     /**
@@ -53,13 +58,13 @@ public class PixelGridView extends View {
      */
     private void setGridRange() {
         //determines the grids left side on PixelGridView, bounding between 0 and screen width of View
-        minGridX = (data.getOffsetX() < 0 ? 0 : Math.min(data.getOffsetX(), viewWidth));
+        minGridX = (gameOfLifeData.getOffsetX() < 0 ? 0 : Math.min(gameOfLifeData.getOffsetX(), viewWidth));
         //determines the grids right side on PixelGridView, bounding between 0 and screen width of View
-        maxGridX = (data.getOffsetX() > viewWidth ? viewWidth : Math.min(viewWidth, data.getOffsetX() + data.getCellWidth() * data.getNumColumns()));
+        maxGridX = (gameOfLifeData.getOffsetX() > viewWidth ? viewWidth : Math.min(viewWidth, gameOfLifeData.getOffsetX() + gameOfLifeData.getCellWidth() * gameOfLifeData.getNumColumns()));
         //determines the grids top side on PixelGridView, bounding between 0 and screen width of View
-        minGridY = (data.getOffsetY() < 0 ? 0 : Math.min(data.getOffsetY(), viewHeight));
+        minGridY = (gameOfLifeData.getOffsetY() < 0 ? 0 : Math.min(gameOfLifeData.getOffsetY(), viewHeight));
         //determines the grids bottom side on PixelGridView, bounding between 0 and screen height of View
-        maxGridY = (data.getOffsetY() > viewHeight ? viewHeight : Math.min(viewHeight, data.getOffsetY() + data.getCellHeight() * data.getNumRows()));
+        maxGridY = (gameOfLifeData.getOffsetY() > viewHeight ? viewHeight : Math.min(viewHeight, gameOfLifeData.getOffsetY() + gameOfLifeData.getCellHeight() * gameOfLifeData.getNumRows()));
     }
 
     @Override
@@ -67,26 +72,32 @@ public class PixelGridView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
 
         //makes it so panning does not snap back to the origin when using after a screen rotation
-        oldOffsetX = data.getOffsetX();
-        oldOffsetY = data.getOffsetY();
+        oldOffsetX = gameOfLifeData.getOffsetX();
+        oldOffsetY = gameOfLifeData.getOffsetY();
         invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        //draw the background dark grey so that off the grid appears dark grey
-        canvas.drawColor(Color.DKGRAY);
 
-        if (data.getNumColumns() == 0 || data.getNumRows() == 0) {
+
+        gridLinesPaint.setColor(settingsData.getGridLinesColor());
+        backgroundPaint.setColor(settingsData.getBackgroundColor());
+        aliveSquarePaint.setColor(settingsData.getAliveSquareColor());
+        deadSquarePaint.setColor(settingsData.getDeadSquareColor());
+        //draw the background dark grey so that off the grid appears dark grey
+        canvas.drawColor(settingsData.getBackgroundColor());
+
+        if (gameOfLifeData.getNumColumns() == 0 || gameOfLifeData.getNumRows() == 0) {
             return;
         }
 
         //pull the data from data source
-        int numColumns = data.getNumColumns();
-        int numRows = data.getNumRows();
-        boolean[][] cellChecked = data.getCellChecked();
-        int cellWidth = data.getCellWidth();
-        int cellHeight = data.getCellHeight();
+        int numColumns = gameOfLifeData.getNumColumns();
+        int numRows = gameOfLifeData.getNumRows();
+        boolean[][] cellChecked = gameOfLifeData.getCellChecked();
+        int cellWidth = gameOfLifeData.getCellWidth();
+        int cellHeight = gameOfLifeData.getCellHeight();
 
         viewWidth = getWidth();
         viewHeight = getHeight();
@@ -98,7 +109,7 @@ public class PixelGridView extends View {
         if( minGridX < maxGridX && minGridY < maxGridY) {
 
             //draw the part of the grid that overlaps with the View
-            canvas.drawRect(minGridX, minGridY, maxGridX, maxGridY, whitePaint);
+            canvas.drawRect(minGridX, minGridY, maxGridX, maxGridY, deadSquarePaint);
 
             for (int i = 0; i < numColumns; i++) {
                 for (int j = 0; j < numRows; j++) {
@@ -111,7 +122,7 @@ public class PixelGridView extends View {
                         {
                             canvas.drawRect(worldXToScreenX(i * cellWidth), worldYToScreenY(j * cellHeight),
                                     worldXToScreenX((i + 1) * cellWidth), worldYToScreenY((j + 1) * cellHeight),
-                                    bluePaint);
+                                    aliveSquarePaint);
                         }
                     }
                 }
@@ -120,14 +131,14 @@ public class PixelGridView extends View {
             for (int i = 1; i < numColumns; i++) {
                 //Draws vertical grid lines only if the line is on screen
                 if(minGridX <= worldXToScreenX(i * cellWidth) && worldXToScreenX(i * cellWidth) <= maxGridX) {
-                    canvas.drawLine(worldXToScreenX(i * cellWidth), minGridY, worldXToScreenX(i * cellWidth), maxGridY, blackPaint);
+                    canvas.drawLine(worldXToScreenX(i * cellWidth), minGridY, worldXToScreenX(i * cellWidth), maxGridY, gridLinesPaint);
                 }
             }
 
             for (int i = 1; i < numRows; i++) {
                 //Draws horizontal grid lines only if the line is on screen
                 if(minGridY <= worldYToScreenY(i * cellHeight) && worldYToScreenY(i * cellHeight) <= maxGridY) {
-                    canvas.drawLine(minGridX, worldYToScreenY(i * cellHeight), maxGridX, worldYToScreenY(i * cellHeight), blackPaint);
+                    canvas.drawLine(minGridX, worldYToScreenY(i * cellHeight), maxGridX, worldYToScreenY(i * cellHeight), gridLinesPaint);
                 }
             }
         }
@@ -140,13 +151,13 @@ public class PixelGridView extends View {
             case MotionEvent.ACTION_DOWN:
                 if(controlState == EDITING) {
                     //Translates the press location into the world coordinates
-                    int column = (int) ((event.getX() - data.getOffsetX()) / data.getCellWidth());
-                    int row = (int) ((event.getY() - data.getOffsetY()) / data.getCellHeight());
+                    int column = (int) ((event.getX() - gameOfLifeData.getOffsetX()) / gameOfLifeData.getCellWidth());
+                    int row = (int) ((event.getY() - gameOfLifeData.getOffsetY()) / gameOfLifeData.getCellHeight());
 
                     //Check to make sure that the clicked region corresponds to a part of the grid
-                    if( ((event.getX() - data.getOffsetX()) >=0 && column < data.getNumColumns())
-                            && ( (event.getY() - data.getOffsetY()) >= 0 && row < data.getNumRows())) {
-                        data.getCellChecked()[column][row] = !data.getCellChecked()[column][row];
+                    if( ((event.getX() - gameOfLifeData.getOffsetX()) >=0 && column < gameOfLifeData.getNumColumns())
+                            && ( (event.getY() - gameOfLifeData.getOffsetY()) >= 0 && row < gameOfLifeData.getNumRows())) {
+                        gameOfLifeData.getCellChecked()[column][row] = !gameOfLifeData.getCellChecked()[column][row];
                         invalidate();
                     }
                 }
@@ -157,14 +168,14 @@ public class PixelGridView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 if(controlState == PANNING) {
-                    oldOffsetX = data.getOffsetX();
-                    oldOffsetY = data.getOffsetY();
+                    oldOffsetX = gameOfLifeData.getOffsetX();
+                    oldOffsetY = gameOfLifeData.getOffsetY();
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
                 if(controlState == PANNING) {
-                    data.setOffsetX(event.getX() - mStartX);
-                    data.setOffsetY(event.getY() - mStartY);
+                    gameOfLifeData.setOffsetX(event.getX() - mStartX);
+                    gameOfLifeData.setOffsetY(event.getY() - mStartY);
                     invalidate();
                 }
                 break;
@@ -179,11 +190,11 @@ public class PixelGridView extends View {
     }
 
     public float worldXToScreenX(float worldX) {
-        return worldX + data.getOffsetX();
+        return worldX + gameOfLifeData.getOffsetX();
     }
 
     public float worldYToScreenY(float worldY) {
-        return worldY + data.getOffsetY();
+        return worldY + gameOfLifeData.getOffsetY();
     }
 
 }

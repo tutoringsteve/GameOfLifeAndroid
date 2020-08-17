@@ -9,7 +9,7 @@ public class ColorUtil {
     //currently strips alpha information
 
     String rgbColorString;
-    int R, G, B;
+    int R, G, B, A;
     double Rp, Gp, Bp;
     double Cmin, Cmax, Delta;
     double Hdeg, Hrad, S, V;
@@ -107,6 +107,11 @@ public class ColorUtil {
     }
 
     public int toInt() {
-        return Integer.parseInt(rgbColorString, 16);
+        //strip the alpha info. If you want to include alpha values will have to switch to a long.
+        return Color.parseColor("#" + rgbColorString);
+    }
+
+    public long toLong() {
+        return Long.parseLong(rgbColorString, 16);
     }
 }

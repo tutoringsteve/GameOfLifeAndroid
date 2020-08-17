@@ -1,5 +1,7 @@
 package com.myappcompany.steve.canvaspaint;
 
+import com.myappcompany.steve.canvaspaint.data.SettingsData;
+
 /**
  * Last edit: 08/26/2014
  * @author Steven Sarasin
@@ -8,6 +10,7 @@ public class GameOfLifeBoard {
 
     private int[][] gameBoard, gameBoardLastTurn;
     private final int boardWidth, boardHeight;
+    public static SettingsData settingsData = SettingsData.getInstance();
 
     /**
      * Initializes game board to a preset game board that is stored as a single
@@ -202,7 +205,7 @@ public class GameOfLifeBoard {
             return -1;
         }
 
-        //check for boundry, if boundry wrap to otherside
+        //check for boundary, if boundary wrap to other side
         int xLeft, xRight, yUp, yDown;
         if( x == 0 ) {
             xLeft = boardWidth-1;
@@ -230,9 +233,42 @@ public class GameOfLifeBoard {
             yUp = y + 1;
         }
         //sum will equal number of alive neighbors since 1 for alive 0 for empty
-        return (gameBoard[xLeft][yUp]   + gameBoard[x][yUp]   + gameBoard[xRight][yUp] +
-                gameBoard[xLeft][y]     +                     + gameBoard[xRight][y]   +
-                gameBoard[xLeft][yDown] + gameBoard[x][yDown] + gameBoard[xRight][yDown]);
+        int numNeighbors = (gameBoard[xLeft][yUp]   + gameBoard[x][yUp]   + gameBoard[xRight][yUp] +
+                            gameBoard[xLeft][y]     +                     + gameBoard[xRight][y] +
+                            gameBoard[xLeft][yDown] + gameBoard[x][yDown] + gameBoard[xRight][yDown]);
+
+        //Subtract left/right column of neighbors if no horizontal wrap and on the left/right edge, respectively
+        if(!settingsData.isHorizontalWrap()) {
+            if( x == 0) {
+                numNeighbors -= (gameBoard[xLeft][yUp] + gameBoard[xLeft][y] + gameBoard [xLeft][yDown]);
+            } else if( x == (boardWidth - 1)) {
+                numNeighbors -= (gameBoard[xRight][yUp] + gameBoard[xRight][y] + gameBoard [xRight][yDown]);
+            }
+        }
+
+        //Subtract top/bottom row of neighbors if no vertical wrap and on the top/bottom edge, respectively
+        if(!settingsData.isVerticalWrap()) {
+            if( y == 0) {
+                numNeighbors -= (gameBoard[xLeft][yUp] + gameBoard[xLeft][y] + gameBoard [xLeft][yDown]);
+            } else if( y == (boardHeight - 1)) {
+                numNeighbors -= (gameBoard[xRight][yUp] + gameBoard[xRight][y] + gameBoard [xRight][yDown]);
+            }
+        }
+
+        //add back in the double counted corners if both wraps are not enabled and the position is in the corners.
+        if(!settingsData.isHorizontalWrap() && !settingsData.isVerticalWrap()) {
+            if(x == 0 && y == 0) {
+                numNeighbors += gameBoard[xLeft][yUp];
+            } else if(x == 0 && y == (boardHeight - 1)) {
+                numNeighbors += gameBoard[xLeft][yDown];
+            } else if(x == (boardWidth -1) && y == 0) {
+                numNeighbors += gameBoard[xRight][yUp];
+            } else if(x == (boardWidth -1) && y == (boardHeight -1)) {
+                numNeighbors += gameBoard[xRight][yDown];
+            }
+        }
+
+        return  numNeighbors;
     }
 
     /**

@@ -143,7 +143,6 @@ public class GameOfLifeData {
         return cellHeight;
     }
 
-    //todo: test
     public JSONArray cellCheckedToJSONArray(){
 
         StringBuilder sbOuter = new StringBuilder();

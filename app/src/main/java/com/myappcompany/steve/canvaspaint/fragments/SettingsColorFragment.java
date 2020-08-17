@@ -9,12 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.myappcompany.steve.canvaspaint.ColorUtil;
 import com.myappcompany.steve.canvaspaint.R;
+import com.myappcompany.steve.canvaspaint.data.SettingsData;
 
+import java.io.IOException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
@@ -22,6 +28,13 @@ import yuku.ambilwarna.AmbilWarnaDialog;
  */
 public class SettingsColorFragment extends Fragment {
     private static final String TAG = "SettingsColorFragment";
+
+    private static final String BACKGROUND_COLOR_TAG = "background";
+    private static final String ALIVE_SQUARE_COLOR_TAG = "aliveSquare";
+    private static final String DEAD_SQUARE_COLOR_TAG = "deadSquare";
+    private static final String GRID_LINES_COLOR_TAG = "gridLines";
+
+    private SettingsData settingsData = SettingsData.getInstance();
     View view;
     OnClickListener onClickListener = new OnClickListener();
 
@@ -38,27 +51,47 @@ public class SettingsColorFragment extends Fragment {
         setupAliveSquareColorPicker();
         setupDeadSquareColorPicker();
         setupGridLinesColorPicker();
+
+        TextView resetToDefaultTextView = view.findViewById(R.id.resetToDefault);
+        resetToDefaultTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Are you sure?!")
+                        .setMessage("Pressing yes will reset the colors to their defaults. Click no to keep the current colors.")
+                        .setPositiveButton()
+            }
+        });
         return view;
     }
 
     private void setupBackgroundColorPicker() {
         ImageView backgroundCircleImageView = view.findViewById(R.id.image);
+        backgroundCircleImageView.setTag(BACKGROUND_COLOR_TAG);
+        backgroundCircleImageView.setColorFilter(settingsData.getBackgroundColor());
         backgroundCircleImageView.setOnClickListener(onClickListener);
 
     }
 
     private void setupAliveSquareColorPicker() {
         ImageView aliveSquareCircleImageView = view.findViewById(R.id.image2);
+        aliveSquareCircleImageView.setTag(ALIVE_SQUARE_COLOR_TAG);
+        aliveSquareCircleImageView.setColorFilter(settingsData.getAliveSquareColor());
         aliveSquareCircleImageView.setOnClickListener(onClickListener);
     }
 
     private void setupDeadSquareColorPicker() {
         ImageView deadSquareCircleImageView = view.findViewById(R.id.image3);
+        deadSquareCircleImageView.setTag(DEAD_SQUARE_COLOR_TAG);
+        deadSquareCircleImageView.setColorFilter(settingsData.getDeadSquareColor());
         deadSquareCircleImageView.setOnClickListener(onClickListener);
     }
 
     private void setupGridLinesColorPicker() {
         ImageView gridLinesCircleImageView = view.findViewById(R.id.image4);
+        gridLinesCircleImageView.setTag(GRID_LINES_COLOR_TAG);
+        gridLinesCircleImageView.setColorFilter(settingsData.getGridLinesColor());
         gridLinesCircleImageView.setOnClickListener(onClickListener);
     }
 
@@ -80,13 +113,43 @@ public class SettingsColorFragment extends Fragment {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                ColorUtil oldColor = new ColorUtil(v.getSolidColor());
-                ColorUtil newColor = new ColorUtil(color);
-                Log.d(TAG, "Color switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
-                v.setBackgroundColor(color);
+                updateColor(v, color);
             }
         }).show();
 
 
+    }
+
+    private void updateColor(View v, int color) {
+        ColorUtil newColor = new ColorUtil(color);
+        Log.d(TAG, "Color switched to " + newColor.printRGB());
+        ImageView iv = (ImageView) v;
+        iv.setColorFilter(color);
+
+        ColorUtil oldColor;
+        switch ((String) iv.getTag()) {
+            case BACKGROUND_COLOR_TAG:
+                oldColor = new ColorUtil(settingsData.getBackgroundColor());
+                Log.d(TAG, BACKGROUND_COLOR_TAG + " color was switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
+                settingsData.setBackgroundColor(color);
+                break;
+            case ALIVE_SQUARE_COLOR_TAG:
+                oldColor = new ColorUtil(settingsData.getAliveSquareColor());
+                Log.d(TAG, ALIVE_SQUARE_COLOR_TAG + " color was switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
+                settingsData.setAliveSquareColor(color);
+                break;
+            case DEAD_SQUARE_COLOR_TAG:
+                oldColor = new ColorUtil(settingsData.getDeadSquareColor());
+                Log.d(TAG, DEAD_SQUARE_COLOR_TAG + " color was switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
+                settingsData.setDeadSquareColor(color);
+                break;
+            case GRID_LINES_COLOR_TAG:
+                oldColor = new ColorUtil(settingsData.getGridLinesColor());
+                Log.d(TAG, GRID_LINES_COLOR_TAG + " color was switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
+                settingsData.setGridLinesColor(color);
+                break;
+            default:
+                break;
+        }
     }
 }

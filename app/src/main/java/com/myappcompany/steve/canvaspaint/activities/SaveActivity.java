@@ -92,7 +92,7 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
         String saveDate = DATE_TIME_FORMATTER.format(new Date().toInstant());
 
         if(saveFileName.isEmpty()) {
-            Toast.makeText(this, "You must enter a name for your save.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.you_must_enter_a_name_for_your_save, Toast.LENGTH_SHORT).show();
         } else {
             mSaveNames.add(saveFileName);
             mSaveStrings.add(mSaveString);
@@ -140,13 +140,13 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
         final String saveName = mSaveNames.get(position);
         new AlertDialog.Builder(SaveActivity.this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Are you sure!?")
-                .setMessage("Pressing yes will delete the save named " + saveName + ". Click no to keep the save.")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setTitle(R.string.are_you_sure)
+                .setMessage(getString(R.string.pressing_yes_will_delete_the_save, saveName))
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getApplicationContext(),
-                                "A save named " + saveName + " was deleted.", Toast.LENGTH_SHORT).show();
+                                getString(R.string.a_save_named_was_deleted, saveName), Toast.LENGTH_SHORT).show();
                         mSaveNames.remove(position);
                         mSaveDates.remove(position);
                         adapter.notifyItemRemoved(position);
@@ -154,7 +154,7 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
                         updateSharedPreferences();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.no, null)
                 .show();
     }
 }

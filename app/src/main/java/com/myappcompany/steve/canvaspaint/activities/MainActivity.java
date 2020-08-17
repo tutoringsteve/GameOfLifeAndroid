@@ -19,6 +19,11 @@ import com.myappcompany.steve.canvaspaint.GameOfLifeBoard;
 import com.myappcompany.steve.canvaspaint.data.GameOfLifeData;
 import com.myappcompany.steve.canvaspaint.PixelGridView;
 import com.myappcompany.steve.canvaspaint.R;
+import com.myappcompany.steve.canvaspaint.data.SettingsData;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,12 +36,24 @@ public class MainActivity extends AppCompatActivity {
     private PixelGridView pixelGrid;
     private Handler handler;
     private String saveString;
-    public static GameOfLifeData data = GameOfLifeData.getInstance();
+    public static GameOfLifeData gameOfLifeData = GameOfLifeData.getInstance();
+    public static SettingsData settingsData = SettingsData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            settingsData.loadData(getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG, "onCreate : IOException + " + e.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d(TAG, "onCreate : JSONException + " + e.toString());
+        }
+
         pixelGrid = findViewById(R.id.pixelGridView);
 
         //preserves control state across multiple calls to onCreate
@@ -125,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        data.resetBoard();
+                        gameOfLifeData.resetBoard();
                         pixelGrid.invalidate();
                     }
                 })
@@ -141,9 +158,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playClick(View view) {
-        GameOfLifeBoard board = new GameOfLifeBoard(data.getCellChecked(), data.getNumRows(), data.getNumColumns());
+        GameOfLifeBoard board = new GameOfLifeBoard(gameOfLifeData.getCellChecked(), gameOfLifeData.getNumRows(), gameOfLifeData.getNumColumns());
         board.oneTurn();
-        data.setCellChecked(board.getBooleanGameBoard());
+        gameOfLifeData.setCellChecked(board.getBooleanGameBoard());
         pixelGrid.invalidate();
     }
 
@@ -156,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     playClick(view);
-                    handler.postDelayed(this, 1000);
+                    handler.postDelayed(this, settingsData.getAutoPlaySpeed());
                 }
             };
 
@@ -170,17 +187,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void zoomInClick(View view) {
-        if(data.getZoomX() < data.getMaxZoomX() && data.getZoomY() < data.getMaxZoomY()) {
-            data.setZoomX(data.getZoomX() + 0.25f);
-            data.setZoomY(data.getZoomY() + 0.25f);
+        if(gameOfLifeData.getZoomX() < gameOfLifeData.getMaxZoomX() && gameOfLifeData.getZoomY() < gameOfLifeData.getMaxZoomY()) {
+            gameOfLifeData.setZoomX(gameOfLifeData.getZoomX() + 0.25f);
+            gameOfLifeData.setZoomY(gameOfLifeData.getZoomY() + 0.25f);
             pixelGrid.invalidate();
         }
     }
 
     public void zoomOutClick(View view) {
-        if(data.getZoomY() > data.getMinZoomX() && data.getZoomY() > data.getMinZoomY()) {
-            data.setZoomX(data.getZoomX() - 0.25f);
-            data.setZoomY(data.getZoomY() - 0.25f);
+        if(gameOfLifeData.getZoomY() > gameOfLifeData.getMinZoomX() && gameOfLifeData.getZoomY() > gameOfLifeData.getMinZoomY()) {
+            gameOfLifeData.setZoomX(gameOfLifeData.getZoomX() - 0.25f);
+            gameOfLifeData.setZoomY(gameOfLifeData.getZoomY() - 0.25f);
             pixelGrid.invalidate();
         }
     }
@@ -202,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         cancelAutoPlay();
 
         try {
-            saveString = data.dataToJSON().toString();
+            saveString = gameOfLifeData.dataToJSON().toString();
             Log.i(TAG, "data saved to save state!" + saveString);
 
             //passes saveString to Save/Load activity and opens that activity.
@@ -225,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        data.randomizeBoard();
+                        gameOfLifeData.randomizeBoard();
                         pixelGrid.invalidate();
                     }
                 })
@@ -235,9 +252,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadSaveState() {
         try {
-            data.stringToData(saveString);
+            gameOfLifeData.stringToData(saveString);
             pixelGrid.invalidate();
-            Log.i(TAG, "data loaded from save state!" + data.dataToJSON().toString());
+            Log.i(TAG, "data loaded from save state!" + gameOfLifeData.dataToJSON().toString());
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "Error with loadClick");

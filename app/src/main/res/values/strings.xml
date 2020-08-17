@@ -43,4 +43,11 @@
     <string name="warning_sign">Warning sign</string>
     <string name="select">Select</string>
     <string name="cancel">Cancel</string>
+    <string name="reset_colors_to_default">Reset colors to default</string>
+    <string name="are_you_sure">Are you sure?!</string>
+    <string name="pressing_yes_will_delete_the_save">Pressing yes will delete the save named %1$s. Click no to keep the save.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="a_save_named_was_deleted">A save named %1$s was deleted.</string>
+    <string name="you_must_enter_a_name_for_your_save">You must enter a name for your save.</string>
 </resources>

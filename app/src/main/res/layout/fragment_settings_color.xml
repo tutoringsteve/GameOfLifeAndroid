@@ -141,4 +141,16 @@
             app:layout_constraintTop_toTopOf="@+id/imageView4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/resetToDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/reset_colors_to_default"
+        android:textColor="#0000FF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
