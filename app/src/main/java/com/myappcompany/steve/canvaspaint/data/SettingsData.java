@@ -39,7 +39,7 @@ public class SettingsData {
 
     //Controls
     private int autoPlaySpeed;
-    private float randomFillProbability;
+    private int randomFillProbability;
     //Board
     private int boardWidth, boardHeight;
     private boolean horizontalWrap, verticalWrap;
@@ -58,48 +58,50 @@ public class SettingsData {
 
     }
 
-    public JSONArray dataToJSON() {
+    public JSONObject dataToJSON() {
 
-        JSONArray dataArray = null;
+        JSONObject jsonObject = null;
 
         try {
-            dataArray = new JSONArray();
-            JSONObject tmpObj = new JSONObject();
+             jsonObject = new JSONObject();
 
-            dataArray.put(tmpObj.put(AUTO_PLAY_SPEED, autoPlaySpeed));
-            dataArray.put(tmpObj.put(RANDOM_FILL_PROBABILITY, randomFillProbability));
-            dataArray.put(tmpObj.put(BOARD_WIDTH, boardWidth));
-            dataArray.put(tmpObj.put(BOARD_HEIGHT, boardHeight));
-            dataArray.put(tmpObj.put(HORIZONTAL_WRAP, horizontalWrap));
-            dataArray.put(tmpObj.put(VERTICAL_WRAP, verticalWrap));
-            dataArray.put(tmpObj.put(BACKGROUND_COLOR, backgroundColor));
-            dataArray.put(tmpObj.put(ALIVE_SQUARE_COLOR, aliveSquareColor));
-            dataArray.put(tmpObj.put(DEAD_SQUARE_COLOR, deadSquareColor));
-            dataArray.put(tmpObj.put(GRID_LINES_COLOR, gridLinesColor));
+            jsonObject.put(AUTO_PLAY_SPEED, autoPlaySpeed);
+            jsonObject.put(RANDOM_FILL_PROBABILITY, randomFillProbability);
+            jsonObject.put(BOARD_WIDTH, boardWidth);
+            jsonObject.put(BOARD_HEIGHT, boardHeight);
+            jsonObject.put(HORIZONTAL_WRAP, horizontalWrap);
+            jsonObject.put(VERTICAL_WRAP, verticalWrap);
+            jsonObject.put(BACKGROUND_COLOR, backgroundColor);
+            jsonObject.put(ALIVE_SQUARE_COLOR, aliveSquareColor);
+            jsonObject.put(DEAD_SQUARE_COLOR, deadSquareColor);
+            jsonObject.put(GRID_LINES_COLOR, gridLinesColor);
+
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "Error in dataToJSON function e:" + e);
         }
 
-        return dataArray;
+        return jsonObject;
 
     }
 
-    public void jsonToData(JSONArray dataArray) {
+    public void jsonToData(JSONObject jsonObject) {
         try {
-            autoPlaySpeed = dataArray.getJSONObject(0).getInt(AUTO_PLAY_SPEED);
-            randomFillProbability = (float) dataArray.getJSONObject(1).getDouble(RANDOM_FILL_PROBABILITY);
-            boardWidth = dataArray.getJSONObject(2).getInt(BOARD_WIDTH);
-            boardHeight = dataArray.getJSONObject(3).getInt(BOARD_HEIGHT);
-            horizontalWrap = dataArray.getJSONObject(4).getBoolean(HORIZONTAL_WRAP);
-            verticalWrap = dataArray.getJSONObject(5).getBoolean(VERTICAL_WRAP);
-            backgroundColor = dataArray.getJSONObject(6).getInt(BACKGROUND_COLOR);
-            aliveSquareColor = dataArray.getJSONObject(7).getInt(ALIVE_SQUARE_COLOR);
-            deadSquareColor = dataArray.getJSONObject(8).getInt(DEAD_SQUARE_COLOR);
-            gridLinesColor  = dataArray.getJSONObject(9).getInt(GRID_LINES_COLOR);
+            autoPlaySpeed = jsonObject.getInt(AUTO_PLAY_SPEED);
+            randomFillProbability = jsonObject.getInt(RANDOM_FILL_PROBABILITY);
+            boardWidth = jsonObject.getInt(BOARD_WIDTH);
+            boardHeight = jsonObject.getInt(BOARD_HEIGHT);
+            horizontalWrap = jsonObject.getBoolean(HORIZONTAL_WRAP);
+            verticalWrap = jsonObject.getBoolean(VERTICAL_WRAP);
+            backgroundColor = jsonObject.getInt(BACKGROUND_COLOR);
+            aliveSquareColor = jsonObject.getInt(ALIVE_SQUARE_COLOR);
+            deadSquareColor = jsonObject.getInt(DEAD_SQUARE_COLOR);
+            gridLinesColor  = jsonObject.getInt(GRID_LINES_COLOR);
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "Error in jsonToData function e:" + e);
+            loadDefault();
+            Log.d(TAG, "Loading defaults because the existing file could not be read.");
         }
     }
 
@@ -117,7 +119,7 @@ public class SettingsData {
     }
 
     public void loadDefault() {
-        autoPlaySpeed = 1000;
+        autoPlaySpeed = 500;
         randomFillProbability = 30;
         boardWidth = 20;
         boardHeight = 20;
@@ -146,9 +148,8 @@ public class SettingsData {
                 jsonString.append(line);
             }
             Log.d(TAG, "loadData: The following was read from the file : " + jsonString.toString());
-            JSONArray array = new JSONArray(jsonString.toString());
-            //JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
-            jsonToData(array);
+            JSONObject jsonObject = new JSONObject(jsonString.toString());
+            jsonToData(jsonObject);
         } catch (FileNotFoundException e) {
             Log.d(TAG, "loadData: file not found, loading defaults");
             loadDefault();
@@ -167,11 +168,11 @@ public class SettingsData {
         this.autoPlaySpeed = autoPlaySpeed;
     }
 
-    public float getRandomFillProbability() {
+    public int getRandomFillProbability() {
         return randomFillProbability;
     }
 
-    public void setRandomFillProbability(float randomFillProbability) {
+    public void setRandomFillProbability(int randomFillProbability) {
         this.randomFillProbability = randomFillProbability;
     }
 
