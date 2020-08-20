@@ -29,7 +29,7 @@ import java.util.Date;
 
 public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerViewAdapter.OnItemListener {
 
-    private final String TAG = "SaveActivity";
+    private final static String TAG = "SaveActivity";
     private ArrayList<String> mSaveNames = new ArrayList<>();
     private ArrayList<String> mSaveStrings = new ArrayList<>();
     private ArrayList<String> mSaveDates = new ArrayList<>();

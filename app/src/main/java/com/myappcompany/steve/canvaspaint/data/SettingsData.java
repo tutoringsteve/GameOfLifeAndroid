@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.util.Log;
 
 import com.myappcompany.steve.canvaspaint.ColorUtil;
+import com.myappcompany.steve.canvaspaint.activities.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,21 @@ public class SettingsData {
     private static final String DEAD_SQUARE_COLOR = "deadSquareColor";
     private static final String GRID_LINES_COLOR = "gridLinesColor";
 
+
+    private static final int DEFAULT_AUTO_PLAY_SPEED = 500;
+    private static final int DEFAULT_RANDOM_FILL_PROBABILITY = 30;
+    private static final int DEFAULT_BOARD_WIDTH = 20;
+    private static final int DEFAULT_BOARD_HEIGHT = 20;
+    private static final boolean DEFAULT_HORIZONTAL_WRAP = true;
+    private static final boolean DEFAULT_VERTICAL_WRAP = true;
+    private static final int DEFAULT_BACKGROUND_COLOR = Color.parseColor("#FF444444");
+    private static final int DEFAULT_ALIVE_SQUARE_COLOR = Color.parseColor("#FF0000FF");
+    private static final int DEFAULT_DEAD_SQUARE_COLOR = Color.parseColor("#FFFFFFFF");
+    private static final int DEFAULT_GRID_LINES_COLOR = Color.parseColor("#FF000000");
+
+    public static final int MINIMUM_BOARD_SIDE_LENGTH = 1;
+    public static final int MAXIMUM_BOARD_SIDE_LENGTH = 500;
+
     //Controls
     private int autoPlaySpeed;
     private int randomFillProbability;
@@ -55,7 +71,7 @@ public class SettingsData {
     }
 
     private SettingsData() {
-
+        loadDefault();
     }
 
     public JSONObject dataToJSON() {
@@ -86,11 +102,29 @@ public class SettingsData {
     }
 
     public void jsonToData(JSONObject jsonObject) {
+
         try {
+
             autoPlaySpeed = jsonObject.getInt(AUTO_PLAY_SPEED);
             randomFillProbability = jsonObject.getInt(RANDOM_FILL_PROBABILITY);
             boardWidth = jsonObject.getInt(BOARD_WIDTH);
+
+            //ensure boardWidth is within the bounds, and if not, set it to the default
+            if(boardWidth < MINIMUM_BOARD_SIDE_LENGTH || boardWidth > MAXIMUM_BOARD_SIDE_LENGTH) {
+                Log.d(TAG, "boardWidth was " + boardWidth + " which falls outside the range ["
+                + MINIMUM_BOARD_SIDE_LENGTH + "," + MAXIMUM_BOARD_SIDE_LENGTH + "]. Setting boardWidth "
+                + "to the default " + DEFAULT_BOARD_WIDTH);
+                boardWidth = DEFAULT_BOARD_WIDTH;
+            }
+
+            //ensure boardHeight  is within the bounds, and if not, set it to the default
             boardHeight = jsonObject.getInt(BOARD_HEIGHT);
+            if(boardHeight < MINIMUM_BOARD_SIDE_LENGTH || boardHeight > MAXIMUM_BOARD_SIDE_LENGTH) {
+                Log.d(TAG, "boardHeight was " + boardHeight + " which falls outside the range ["
+                        + MINIMUM_BOARD_SIDE_LENGTH + "," + MAXIMUM_BOARD_SIDE_LENGTH + "]. Setting boardHeight "
+                        + "to the default " + DEFAULT_BOARD_HEIGHT);
+                boardHeight = DEFAULT_BOARD_HEIGHT;
+            }
             horizontalWrap = jsonObject.getBoolean(HORIZONTAL_WRAP);
             verticalWrap = jsonObject.getBoolean(VERTICAL_WRAP);
             backgroundColor = jsonObject.getInt(BACKGROUND_COLOR);
@@ -111,6 +145,7 @@ public class SettingsData {
             OutputStream out = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
             writer.write(dataToJSON().toString());
+            Log.d(TAG, "Successfully saved the following settings: " + dataToJSON().toString());
         } finally {
             if (writer != null) {
                 writer.close();
@@ -119,20 +154,20 @@ public class SettingsData {
     }
 
     public void loadDefault() {
-        autoPlaySpeed = 500;
-        randomFillProbability = 30;
-        boardWidth = 20;
-        boardHeight = 20;
-        horizontalWrap = false;
-        verticalWrap = true;
+        autoPlaySpeed = DEFAULT_AUTO_PLAY_SPEED;
+        randomFillProbability = DEFAULT_RANDOM_FILL_PROBABILITY;
+        boardWidth = DEFAULT_BOARD_WIDTH;
+        boardHeight = DEFAULT_BOARD_HEIGHT;
+        horizontalWrap = DEFAULT_HORIZONTAL_WRAP;
+        verticalWrap = DEFAULT_VERTICAL_WRAP;
         loadDefaultColors();
     }
 
     public void loadDefaultColors() {
-        backgroundColor = Color.parseColor("#FF444444");
-        aliveSquareColor = Color.parseColor("#FF0000FF");
-        deadSquareColor = Color.parseColor("#FFFFFFFF");
-        gridLinesColor  = Color.parseColor("#FF000000");
+        backgroundColor = DEFAULT_BACKGROUND_COLOR;
+        aliveSquareColor = DEFAULT_ALIVE_SQUARE_COLOR;
+        deadSquareColor = DEFAULT_DEAD_SQUARE_COLOR;
+        gridLinesColor  = DEFAULT_GRID_LINES_COLOR;
     }
 
     public void loadData(Context context) throws IOException, JSONException {

@@ -9,14 +9,29 @@ import java.util.Random;
 
 public class GameOfLifeData {
 
-    private final String TAG = "GameOfLifeData";
-    private int numColumns;
-    private int numRows;
+    private static final String TAG = "GameOfLifeData";
+
+    private static final String CELL_CHECKED_TAG = "cellChecked";
+    private static final String OFFSET_X_TAG = "offsetX";
+    private static final String OFFSET_Y_TAG = "offsetY";
+    private static final String ZOOM_X_TAG = "zoomX";
+    private static final String ZOOM_Y_TAG = "zoomY";
+    private static final String DEFAULT_CELL_WIDTH_TAG = "defaultCellWidth";
+    private static final String DEFAULT_CELL_HEIGHT_TAG = "defaultCellHeight";
+    private static final String CELL_WIDTH_TAG = "cellWidth";
+    private static final String CELL_HEIGHT_TAG = "cellHeight";
+    private static final String MIN_ZOOM_X_TAG = "minZoomX";
+    private static final String MIN_ZOOM_Y_TAG = "minZoomY";
+    private static final String MAX_ZOOM_X_TAG = "maxZoomX";
+    private static final String MAX_ZOOM_Y_TAG = "maxZoomY";
+
     private boolean[][] cellChecked;
     private float offsetX, offsetY, zoomX, zoomY;
     private int defaultCellWidth, defaultCellHeight;
     private int cellWidth, cellHeight;
     private float minZoomX, minZoomY, maxZoomX, maxZoomY;
+
+    private SettingsData settingsData = SettingsData.getInstance();
 
     private static GameOfLifeData instance = null;
     public static GameOfLifeData getInstance() {
@@ -28,9 +43,13 @@ public class GameOfLifeData {
 
     private GameOfLifeData() {
         //todo: currently changing these settings breaks save/load.
-        numColumns = 20;
-        numRows = 20;
-        cellChecked = new boolean[numColumns][numRows];
+        loadDefaults();
+    }
+
+    private void loadDefaults() {
+        cellChecked = new boolean[settingsData.getBoardHeight()][settingsData.getBoardWidth()];
+        Log.d(TAG, "cellChecked initialized with height " + settingsData.getBoardHeight()
+                + " and width " + settingsData.getBoardWidth());
         offsetX = 0;
         offsetY = 0;
         zoomX = 1.0f;
@@ -43,22 +62,6 @@ public class GameOfLifeData {
         minZoomY = 0.25f;
         maxZoomX = 2.5f;
         maxZoomY = 2.5f;
-    }
-
-    public int getNumColumns() {
-        return numColumns;
-    }
-
-    public void setNumColumns(int numColumns) {
-        this.numColumns = numColumns;
-    }
-
-    public int getNumRows() {
-        return numRows;
-    }
-
-    public void setNumRows(int numRows) {
-        this.numRows = numRows;
     }
 
     public boolean[][] getCellChecked() {
@@ -171,44 +174,48 @@ public class GameOfLifeData {
         return jsonArray;
     }
 
-    public JSONArray dataToJSON() {
+    public JSONObject dataToJSON() {
 
-        JSONArray dataArray = null;
+        JSONObject jsonObject = null;
 
         try {
-            dataArray = new JSONArray();
-            JSONObject tmpObj = new JSONObject();
+            jsonObject = new JSONObject();
 
-            dataArray.put(tmpObj.put("numColumns", numColumns));
-            dataArray.put(tmpObj.put("numRows", numRows));
-            dataArray.put(tmpObj.put("cellChecked", cellCheckedToJSONArray()));
-            dataArray.put(tmpObj.put("offsetX", offsetX));
-            dataArray.put(tmpObj.put("offsetY", offsetY));
-            dataArray.put(tmpObj.put("zoomX", zoomX));
-            dataArray.put(tmpObj.put("zoomY", zoomY));
-            dataArray.put(tmpObj.put("defaultCellWidth", defaultCellWidth));
-            dataArray.put(tmpObj.put("defaultCellHeight", defaultCellHeight));
-            dataArray.put(tmpObj.put("cellWidth", cellWidth));
-            dataArray.put(tmpObj.put("cellHeight", cellHeight));
-            dataArray.put(tmpObj.put("minZoomX", minZoomX));
-            dataArray.put(tmpObj.put("minZoomY", minZoomY));
-            dataArray.put(tmpObj.put("maxZoomX", maxZoomX));
-            dataArray.put(tmpObj.put("maxZoomY", maxZoomY));
+            jsonObject.put(CELL_CHECKED_TAG, cellCheckedToJSONArray());
+            jsonObject.put(OFFSET_X_TAG, offsetX);
+            jsonObject.put(OFFSET_Y_TAG, offsetY);
+            jsonObject.put(ZOOM_X_TAG, zoomX);
+            jsonObject.put(ZOOM_Y_TAG, zoomY);
+            jsonObject.put(DEFAULT_CELL_HEIGHT_TAG, defaultCellHeight);
+            jsonObject.put(DEFAULT_CELL_WIDTH_TAG, defaultCellWidth);
+            jsonObject.put(CELL_HEIGHT_TAG, cellHeight);
+            jsonObject.put(CELL_WIDTH_TAG, cellWidth);
+            jsonObject.put(MIN_ZOOM_X_TAG, minZoomX);
+            jsonObject.put(MIN_ZOOM_Y_TAG, minZoomY);
+            jsonObject.put(MAX_ZOOM_X_TAG, maxZoomX);
+            jsonObject.put(MAX_ZOOM_Y_TAG, maxZoomY);
 
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "Error in dataToJSON function e:" + e);
         }
 
-        return dataArray;
+        return jsonObject;
 
     }
 
     public boolean[][] jsonArrayToCellChecked(JSONArray cellCheckedJSONArray) {
-        boolean[][] cellChecked = new boolean[numRows][numColumns];
+        boolean[][] cellChecked;
         JSONArray cellCheckedRow = null;
 
         try {
+            int numRows = cellCheckedJSONArray.length();
+            int numColumns = cellCheckedJSONArray.getJSONArray(0).length();
+
+            settingsData.setBoardHeight(numRows);
+            settingsData.setBoardWidth(numColumns);
+
+            cellChecked = new boolean[numRows][numColumns];
             for (int i = 0; i < numRows; i++) {
                 cellCheckedRow = cellCheckedJSONArray.getJSONArray(i);
                 for (int j = 0; j < numColumns; j++) {
@@ -216,63 +223,53 @@ public class GameOfLifeData {
                 }
             }
 
+            return cellChecked;
+
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "Error in jsonArrayToCellChecked function e:" + e);
-        }
+            int numRows = settingsData.getBoardHeight();
+            int numColumns = settingsData.getBoardWidth();
+            Log.d(TAG, "Error in jsonArrayToCellChecked function e:" + e);
+            Log.d(TAG, "Initializing cellChecked to a dead (false) grid with height "
+                            + numRows + " and width " + numColumns);
 
-        return cellChecked;
+            return new boolean[numRows][numColumns];
+        }
     }
 
-    public void jsonToData(JSONArray dataArray) {
+    public void jsonToData(JSONObject jsonObject) {
 
         try {
-            numColumns = dataArray.getJSONObject(0).getInt("numColumns");
-            numRows = dataArray.getJSONObject(1).getInt("numRows");
-            cellChecked = jsonArrayToCellChecked(dataArray.getJSONObject(2).getJSONArray("cellChecked"));
-            offsetX = dataArray.getJSONObject(3).getInt("offsetX");
-            offsetY = dataArray.getJSONObject(4).getInt("offsetY");
-            zoomX = (float) dataArray.getJSONObject(5).getDouble("zoomX");
-            zoomY = (float) dataArray.getJSONObject(6).getDouble("zoomY");
-            defaultCellWidth = dataArray.getJSONObject(7).getInt("defaultCellWidth");
-            defaultCellHeight = dataArray.getJSONObject(8).getInt("defaultCellHeight");
-            cellWidth  = dataArray.getJSONObject(9).getInt("cellWidth");
-            cellHeight = dataArray.getJSONObject(10).getInt("cellHeight");
-            minZoomX = (float) dataArray.getJSONObject(5).getDouble("minZoomX");
-            minZoomY = (float) dataArray.getJSONObject(6).getDouble("minZoomY");
-            maxZoomX = (float) dataArray.getJSONObject(5).getDouble("maxZoomX");
-            maxZoomY = (float) dataArray.getJSONObject(6).getDouble("maxZoomY");
+            cellChecked = jsonArrayToCellChecked(jsonObject.getJSONArray("cellChecked"));
+            offsetX = jsonObject.getInt("offsetX");
+            offsetY = jsonObject.getInt("offsetY");
+            zoomX = (float) jsonObject.getDouble("zoomX");
+            zoomY = (float) jsonObject.getDouble("zoomY");
+            defaultCellWidth = jsonObject.getInt("defaultCellWidth");
+            defaultCellHeight = jsonObject.getInt("defaultCellHeight");
+            cellWidth  = jsonObject.getInt("cellWidth");
+            cellHeight = jsonObject.getInt("cellHeight");
+            minZoomX = (float) jsonObject.getDouble("minZoomX");
+            minZoomY = (float) jsonObject.getDouble("minZoomY");
+            maxZoomX = (float) jsonObject.getDouble("maxZoomX");
+            maxZoomY = (float) jsonObject.getDouble("maxZoomY");
 
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "Error in jsonToData function e:" + e);
+            Log.d(TAG, "Loading defaults for GameOfLifeData instead.");
+            loadDefaults();
         }
 
     }
 
     public void stringToData(String saveString) {
         try {
-            jsonToData(new JSONArray(saveString));
+            jsonToData(new JSONObject(saveString));
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "Error in stringToData function e:" + e);
         }
     }
 
-    public void resetBoard() {
-        for(int row = 0; row < numRows; row++) {
-            for(int column = 0; column < numColumns; column++) {
-                cellChecked[row][column] = false;
-            }
-        }
-    }
-
-    public void randomizeBoard() {
-        Random rand = new Random();
-        for(int row = 0; row < numRows; row++) {
-            for(int column = 0; column < numColumns; column++) {
-                cellChecked[row][column] = (rand.nextInt(3) == 0);
-            }
-        }
-    }
 }

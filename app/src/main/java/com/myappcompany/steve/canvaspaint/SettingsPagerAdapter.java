@@ -13,7 +13,7 @@ import com.myappcompany.steve.canvaspaint.fragments.SettingsGridFragment;
 
 public class SettingsPagerAdapter extends FragmentStateAdapter {
 
-    private final int NUMBER_OF_TABS = 3;
+    private static final int NUMBER_OF_TABS = 3;
 
     public SettingsPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -20,15 +21,17 @@ import java.util.Set;
 
 public class PixelGridView extends View {
 
+    private static final String TAG = "PixelGridView";
+
     private float oldOffsetX, oldOffsetY;
-    private final int EDITING = 0;
-    private final int PANNING = 1;
+    private final static int EDITING = 0;
+    private final static int PANNING = 1;
     private int controlState = EDITING;
     private float mStartX = 0,  mStartY = 0;
     private int viewWidth, viewHeight;
 
-    private GameOfLifeData gameOfLifeData = MainActivity.gameOfLifeData;
     private SettingsData settingsData = SettingsData.getInstance();
+    private GameOfLifeData gameOfLifeData = GameOfLifeData.getInstance();
 
     private Paint gridLinesPaint = new Paint();
     private Paint aliveSquarePaint = new Paint();
@@ -60,11 +63,11 @@ public class PixelGridView extends View {
         //determines the grids left side on PixelGridView, bounding between 0 and screen width of View
         minGridX = (gameOfLifeData.getOffsetX() < 0 ? 0 : Math.min(gameOfLifeData.getOffsetX(), viewWidth));
         //determines the grids right side on PixelGridView, bounding between 0 and screen width of View
-        maxGridX = (gameOfLifeData.getOffsetX() > viewWidth ? viewWidth : Math.min(viewWidth, gameOfLifeData.getOffsetX() + gameOfLifeData.getCellWidth() * gameOfLifeData.getNumColumns()));
+        maxGridX = (gameOfLifeData.getOffsetX() > viewWidth ? viewWidth : Math.min(viewWidth, gameOfLifeData.getOffsetX() + gameOfLifeData.getCellWidth() * settingsData.getBoardWidth()));
         //determines the grids top side on PixelGridView, bounding between 0 and screen width of View
         minGridY = (gameOfLifeData.getOffsetY() < 0 ? 0 : Math.min(gameOfLifeData.getOffsetY(), viewHeight));
         //determines the grids bottom side on PixelGridView, bounding between 0 and screen height of View
-        maxGridY = (gameOfLifeData.getOffsetY() > viewHeight ? viewHeight : Math.min(viewHeight, gameOfLifeData.getOffsetY() + gameOfLifeData.getCellHeight() * gameOfLifeData.getNumRows()));
+        maxGridY = (gameOfLifeData.getOffsetY() > viewHeight ? viewHeight : Math.min(viewHeight, gameOfLifeData.getOffsetY() + gameOfLifeData.getCellHeight() * settingsData.getBoardHeight()));
     }
 
     @Override
@@ -88,13 +91,14 @@ public class PixelGridView extends View {
         //draw the background dark grey so that off the grid appears dark grey
         canvas.drawColor(settingsData.getBackgroundColor());
 
-        if (gameOfLifeData.getNumColumns() == 0 || gameOfLifeData.getNumRows() == 0) {
+        if (settingsData.getBoardWidth() == 0 || settingsData.getBoardHeight() == 0) {
             return;
         }
 
         //pull the data from data source
-        int numColumns = gameOfLifeData.getNumColumns();
-        int numRows = gameOfLifeData.getNumRows();
+        int numColumns = settingsData.getBoardWidth();
+        int numRows = settingsData.getBoardHeight();
+        Log.d(TAG, "numColumns loaded from settingsData as " + numColumns + " and numRows loaded from settingsData as " + numRows);
         boolean[][] cellChecked = gameOfLifeData.getCellChecked();
         int cellWidth = gameOfLifeData.getCellWidth();
         int cellHeight = gameOfLifeData.getCellHeight();
@@ -155,8 +159,8 @@ public class PixelGridView extends View {
                     int row = (int) ((event.getY() - gameOfLifeData.getOffsetY()) / gameOfLifeData.getCellHeight());
 
                     //Check to make sure that the clicked region corresponds to a part of the grid
-                    if( ((event.getX() - gameOfLifeData.getOffsetX()) >=0 && column < gameOfLifeData.getNumColumns())
-                            && ( (event.getY() - gameOfLifeData.getOffsetY()) >= 0 && row < gameOfLifeData.getNumRows())) {
+                    if( ((event.getX() - gameOfLifeData.getOffsetX()) >=0 && column < settingsData.getBoardWidth())
+                            && ( (event.getY() - gameOfLifeData.getOffsetY()) >= 0 && row < settingsData.getBoardHeight())) {
                         gameOfLifeData.getCellChecked()[column][row] = !gameOfLifeData.getCellChecked()[column][row];
                         invalidate();
                     }

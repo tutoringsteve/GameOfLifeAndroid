@@ -24,19 +24,20 @@ import com.myappcompany.steve.canvaspaint.data.SettingsData;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG = "MainActivity";
-    private final String CONTROL_STATE_KEY_INDEX = "controlState";
+    private static final String TAG = "MainActivity";
+    private static final String CONTROL_STATE_KEY_INDEX = "controlState";
     private boolean isAutoPlaying = false;
-    private final int EDITING = 0;
-    private final int PANNING = 1;
+    private static final int EDITING = 0;
+    private static final int PANNING = 1;
     private int controlState = EDITING;
     private PixelGridView pixelGrid;
     private Handler handler;
     private String saveString;
-    public static GameOfLifeData gameOfLifeData = GameOfLifeData.getInstance();
+    public static GameOfLifeData gameOfLifeData;
     public static SettingsData settingsData = SettingsData.getInstance();
 
     @Override
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             Log.d(TAG, "onCreate : JSONException + " + e.toString());
         }
+
+        gameOfLifeData = GameOfLifeData.getInstance();
 
         pixelGrid = findViewById(R.id.pixelGridView);
 
@@ -142,13 +145,25 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        gameOfLifeData.resetBoard();
+                        resetBoard();
                         pixelGrid.invalidate();
                     }
                 })
                 .setNegativeButton("No", null)
                 .show();
     }
+
+    private void resetBoard() {
+        boolean[][] cellChecked = gameOfLifeData.getCellChecked();
+        for(int row = 0; row < cellChecked.length; row++) {
+            for(int column = 0; column < cellChecked[0].length; column++) {
+                cellChecked[row][column] = false;
+            }
+        }
+        gameOfLifeData.setCellChecked(cellChecked);
+    }
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -158,7 +173,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playClick(View view) {
-        GameOfLifeBoard board = new GameOfLifeBoard(gameOfLifeData.getCellChecked(), gameOfLifeData.getNumRows(), gameOfLifeData.getNumColumns());
+        boolean[][] cellChecked = gameOfLifeData.getCellChecked();
+        GameOfLifeBoard board = new GameOfLifeBoard(cellChecked, cellChecked.length, cellChecked[0].length);
         board.oneTurn();
         gameOfLifeData.setCellChecked(board.getBooleanGameBoard());
         pixelGrid.invalidate();
@@ -242,12 +258,23 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        gameOfLifeData.randomizeBoard();
+                        randomizeBoard();
                         pixelGrid.invalidate();
                     }
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    public void randomizeBoard() {
+        Random rand = new Random();
+        boolean[][] cellChecked = gameOfLifeData.getCellChecked();
+        for(int row = 0; row < cellChecked.length ; row++) {
+            for(int column = 0; column < cellChecked[0].length; column++) {
+                cellChecked[row][column] = (rand.nextInt(100) + 1 <= settingsData.getRandomFillProbability());
+            }
+        }
+        gameOfLifeData.setCellChecked(cellChecked);
     }
 
     public void loadSaveState() {

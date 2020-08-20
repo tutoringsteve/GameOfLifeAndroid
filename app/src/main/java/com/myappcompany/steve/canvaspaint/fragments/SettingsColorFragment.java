@@ -35,10 +35,11 @@ public class SettingsColorFragment extends Fragment {
     private static final String GRID_LINES_COLOR_TAG = "gridLines";
 
     private SettingsData settingsData = SettingsData.getInstance();
-    View view;
-    ImageView backgroundCircleImageView, aliveSquareCircleImageView,
+
+    private View view;
+    private ImageView backgroundCircleImageView, aliveSquareCircleImageView,
             deadSquareCircleImageView, gridLinesCircleImageView;
-    OnClickListener onClickListener = new OnClickListener();
+    private OnClickListener onClickListener = new OnClickListener();
 
     public SettingsColorFragment() {
         // Required empty public constructor
