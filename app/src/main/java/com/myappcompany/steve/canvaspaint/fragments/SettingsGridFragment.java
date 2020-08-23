@@ -86,9 +86,12 @@ public class SettingsGridFragment extends Fragment {
                 Log.d(TAG, "Failed to save the changes to board width!");
             }
         } else {
-            Toast.makeText(getContext(), "Type a whole number between "
-                    + SettingsData.MINIMUM_BOARD_SIDE_LENGTH + " and "
-                    + SettingsData.MAXIMUM_BOARD_SIDE_LENGTH + ", inclusive.", Toast.LENGTH_SHORT).show();
+            //Remind the user which entries are allowed.
+            String message = getString(R.string.type_a_whole_number_between_and,
+                    SettingsData.MINIMUM_BOARD_SIDE_LENGTH, SettingsData.MAXIMUM_BOARD_SIDE_LENGTH);
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
+            //Display the current value
             EditText boardWidthEditText = view.findViewById(R.id.boardWidthEditText);
             String originalWidthString = String.valueOf(settingsData.getBoardWidth());
             boardWidthEditText.setText(originalWidthString);
@@ -135,9 +138,12 @@ public class SettingsGridFragment extends Fragment {
                 Log.d(TAG, "Failed to save the changes to board height!");
             }
         } else {
-            Toast.makeText(getContext(), "Type a whole number between "
-                    + SettingsData.MINIMUM_BOARD_SIDE_LENGTH + " and "
-                    + SettingsData.MAXIMUM_BOARD_SIDE_LENGTH + ", inclusive.", Toast.LENGTH_SHORT).show();
+            //Remind the user which entries are allowed.
+            String message = getString(R.string.type_a_whole_number_between_and,
+                    SettingsData.MINIMUM_BOARD_SIDE_LENGTH, SettingsData.MAXIMUM_BOARD_SIDE_LENGTH);
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
+            //Display the current value
             EditText boardHeightEditText = view.findViewById(R.id.boardHeightEditText);
             String originalHeightString = String.valueOf(settingsData.getBoardHeight());
             boardHeightEditText.setText(originalHeightString);
