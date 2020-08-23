@@ -89,6 +89,9 @@ public class SettingsGridFragment extends Fragment {
             Toast.makeText(getContext(), "Type a whole number between "
                     + SettingsData.MINIMUM_BOARD_SIDE_LENGTH + " and "
                     + SettingsData.MAXIMUM_BOARD_SIDE_LENGTH + ", inclusive.", Toast.LENGTH_SHORT).show();
+            EditText boardWidthEditText = view.findViewById(R.id.boardWidthEditText);
+            String originalWidthString = String.valueOf(settingsData.getBoardWidth());
+            boardWidthEditText.setText(originalWidthString);
         }
     }
 
@@ -135,6 +138,9 @@ public class SettingsGridFragment extends Fragment {
             Toast.makeText(getContext(), "Type a whole number between "
                     + SettingsData.MINIMUM_BOARD_SIDE_LENGTH + " and "
                     + SettingsData.MAXIMUM_BOARD_SIDE_LENGTH + ", inclusive.", Toast.LENGTH_SHORT).show();
+            EditText boardHeightEditText = view.findViewById(R.id.boardHeightEditText);
+            String originalHeightString = String.valueOf(settingsData.getBoardHeight());
+            boardHeightEditText.setText(originalHeightString);
         }
     }
 

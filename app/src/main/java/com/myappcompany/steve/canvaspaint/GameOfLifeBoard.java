@@ -206,8 +206,6 @@ public class GameOfLifeBoard {
         if(    x >= boardWidth || x < 0
                 || y >= boardHeight  || y < 0 ) {
 
-            //Log.d(TAG, "boardWidth is " + boardWidth + " and boardHeight is " + boardHeight);
-            //numberOfNeighborsDyingNoisily(x,y);
             return -1;
         }
 
