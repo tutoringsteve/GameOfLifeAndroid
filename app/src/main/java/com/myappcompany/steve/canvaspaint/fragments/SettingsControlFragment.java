@@ -61,9 +61,7 @@ public class SettingsControlFragment extends Fragment {
         autoPlaySpeedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "autoPlaySpeedSpinner " +
-                        getResources().getStringArray(R.array.auto_play_spinner_speeds_array)[position] +
-                        " selected.");
+                Log.d(TAG, "autoPlaySpeedSpinner " + getResources().getStringArray(R.array.auto_play_spinner_speeds_array)[position] + " selected.");
                 settingsData.setAutoPlaySpeed(autoPlaySpeeds.get(position));
                 try {
                     settingsData.saveData(getContext());
@@ -93,9 +91,7 @@ public class SettingsControlFragment extends Fragment {
         randomFillProbabilitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "randomFillProbabilitySpinner " +
-                        getResources().getStringArray(R.array.random_fill_spinner_probabilities_array)[position] +
-                        " selected.");
+                Log.d(TAG, "randomFillProbabilitySpinner " + getResources().getStringArray(R.array.random_fill_spinner_probabilities_array)[position] + " selected.");
                 settingsData.setRandomFillProbability(randomFillProbabilities.get(position));
                 try {
                     settingsData.saveData(getContext());

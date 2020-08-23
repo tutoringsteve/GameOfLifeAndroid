@@ -114,7 +114,7 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
             sharedPreferences.edit().putString("saveDates", serializedDateStrings).apply();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.i(TAG, "Error in onClickSave during object serialization:" + e);
+            Log.d(TAG, "Error in onClickSave during object serialization:" + e);
         }
     }
 

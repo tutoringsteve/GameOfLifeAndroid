@@ -156,6 +156,13 @@ public class SettingsGridFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(TAG, "horizontal wrapping check box set to " + (isChecked? "Checked" : "Not Checked"));
+                settingsData.setHorizontalWrap(isChecked);
+                try {
+                    settingsData.saveData(getContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "Horizontal wrap data could not be saved!");
+                }
             }
         });
     }
@@ -166,6 +173,13 @@ public class SettingsGridFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(TAG, "vertical wrapping check box set to " + (isChecked? "Checked" : "Not Checked"));
+                settingsData.setVerticalWrap(isChecked);
+                try {
+                    settingsData.saveData(getContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "Vertical wrap data could not be saved!");
+                }
             }
         });
     }

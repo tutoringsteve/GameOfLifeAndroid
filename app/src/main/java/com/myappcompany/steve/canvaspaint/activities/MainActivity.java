@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
 
             ImageView btnAutoPlay = findViewById(R.id.imageViewAutoPlay);
             btnAutoPlay.setImageResource(R.drawable.ic_autoplay);
-            
+
             isAutoPlaying = !isAutoPlaying;
         }
     }

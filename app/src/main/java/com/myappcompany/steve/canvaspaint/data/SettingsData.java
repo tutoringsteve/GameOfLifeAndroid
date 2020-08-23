@@ -111,18 +111,14 @@ public class SettingsData {
 
             //ensure boardWidth is within the bounds, and if not, set it to the default
             if(boardWidth < MINIMUM_BOARD_SIDE_LENGTH || boardWidth > MAXIMUM_BOARD_SIDE_LENGTH) {
-                Log.d(TAG, "boardWidth was " + boardWidth + " which falls outside the range ["
-                + MINIMUM_BOARD_SIDE_LENGTH + "," + MAXIMUM_BOARD_SIDE_LENGTH + "]. Setting boardWidth "
-                + "to the default " + DEFAULT_BOARD_WIDTH);
+                Log.d(TAG, "boardWidth was " + boardWidth + " which falls outside the range [" + MINIMUM_BOARD_SIDE_LENGTH + "," + MAXIMUM_BOARD_SIDE_LENGTH + "]. Setting boardWidth " + "to the default " + DEFAULT_BOARD_WIDTH);
                 boardWidth = DEFAULT_BOARD_WIDTH;
             }
 
             //ensure boardHeight  is within the bounds, and if not, set it to the default
             boardHeight = jsonObject.getInt(BOARD_HEIGHT);
             if(boardHeight < MINIMUM_BOARD_SIDE_LENGTH || boardHeight > MAXIMUM_BOARD_SIDE_LENGTH) {
-                Log.d(TAG, "boardHeight was " + boardHeight + " which falls outside the range ["
-                        + MINIMUM_BOARD_SIDE_LENGTH + "," + MAXIMUM_BOARD_SIDE_LENGTH + "]. Setting boardHeight "
-                        + "to the default " + DEFAULT_BOARD_HEIGHT);
+                Log.d(TAG, "boardHeight was " + boardHeight + " which falls outside the range [" + MINIMUM_BOARD_SIDE_LENGTH + "," + MAXIMUM_BOARD_SIDE_LENGTH + "]. Setting boardHeight " + "to the default " + DEFAULT_BOARD_HEIGHT);
                 boardHeight = DEFAULT_BOARD_HEIGHT;
             }
             horizontalWrap = jsonObject.getBoolean(HORIZONTAL_WRAP);

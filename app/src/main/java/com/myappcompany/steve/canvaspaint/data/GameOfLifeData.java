@@ -241,8 +241,7 @@ public class GameOfLifeData {
             numRows = settingsData.getBoardHeight();
             numColumns = settingsData.getBoardWidth();
             Log.d(TAG, "Error in jsonArrayToCellChecked function e:" + e);
-            Log.d(TAG, "Initializing cellChecked to a dead (false) grid with height "
-                            + numRows + " and width " + numColumns);
+            Log.d(TAG, "Initializing cellChecked to a dead (false) grid with height " + numRows + " and width " + numColumns);
 
             return new boolean[numRows][numColumns];
         }
