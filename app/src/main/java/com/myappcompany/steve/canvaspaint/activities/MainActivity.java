@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
         cancelAutoPlay();
         //can also pass a bundle
         startActivity(new Intent(this, SettingsActivity.class));
-        Toast.makeText(this, "Settings was pressed.", Toast.LENGTH_SHORT).show();
     }
 
     private void openHelp() {
@@ -295,6 +294,10 @@ public class MainActivity extends AppCompatActivity {
     private void cancelAutoPlay() {
         if(isAutoPlaying) {
             handler.removeCallbacksAndMessages(null);
+
+            ImageView btnAutoPlay = findViewById(R.id.imageViewAutoPlay);
+            btnAutoPlay.setImageResource(R.drawable.ic_autoplay);
+            
             isAutoPlaying = !isAutoPlaying;
         }
     }
