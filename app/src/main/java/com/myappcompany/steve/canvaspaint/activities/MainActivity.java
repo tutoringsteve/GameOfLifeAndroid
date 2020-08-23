@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void playClick(View view) {
         boolean[][] cellChecked = gameOfLifeData.getCellChecked();
-        GameOfLifeBoard board = new GameOfLifeBoard(cellChecked, cellChecked.length, cellChecked[0].length);
+        GameOfLifeBoard board = new GameOfLifeBoard(cellChecked);
         board.oneTurn();
         gameOfLifeData.setCellChecked(board.getBooleanGameBoard());
         pixelGrid.invalidate();

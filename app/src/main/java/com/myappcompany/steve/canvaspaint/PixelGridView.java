@@ -96,15 +96,15 @@ public class PixelGridView extends View {
         }
 
         //pull the data from data source
-        int numColumns = settingsData.getBoardWidth();
         int numRows = settingsData.getBoardHeight();
-        Log.d(TAG, "numColumns loaded from settingsData as " + numColumns + " and numRows loaded from settingsData as " + numRows);
+        int numColumns = settingsData.getBoardWidth();
+        Log.d(TAG, "numRows loaded from settingsData as " + numRows + " and numColumns loaded from settingsData as " + numColumns);
 
         //Check to make sure that the gameOfLifeData has the correct board size.
-        int gameOfLifeNumColumns = gameOfLifeData.getCellChecked()[0].length;
-        int gameOfLifeNumRows = gameOfLifeData.getCellChecked().length;
-        if(! (numColumns == gameOfLifeNumColumns && numRows == gameOfLifeNumRows)) {
-            Log.d(TAG, "gameOfLifeBoard has numColumns " + gameOfLifeNumColumns + " and numRows " + gameOfLifeNumRows + " and needs to be updated to match settingsData dimensions.");
+        int gameOfLifeNumRows = gameOfLifeData.getNumRows();
+        int gameOfLifeNumColumns = gameOfLifeData.getNumColumns();
+        if(!(numRows == gameOfLifeNumRows && numColumns == gameOfLifeNumColumns)) {
+            Log.d(TAG, "gameOfLifeBoard has numRows " + gameOfLifeNumRows + " and numColumns " + gameOfLifeNumColumns + " and needs to be updated to match settingsData dimensions.");
             gameOfLifeData.updateBoard();
         }
 
@@ -131,14 +131,16 @@ public class PixelGridView extends View {
                 for (int j = 0; j < numColumns; j++) {
                     if (cellChecked[i][j]) {
                         //Makes sure that at least part of the checked square is on screen before drawing it
-                        if((worldXToScreenX(i * cellWidth) > 0 && worldXToScreenX(i * cellWidth) < viewWidth)
-                                || (worldXToScreenX((i + 1) * cellWidth) > 0 && worldXToScreenX((i + 1) * cellWidth) < viewWidth)
-                                && (worldYToScreenY(j * cellHeight) > 0 && worldYToScreenY(j * cellHeight) < viewHeight)
-                                || (worldYToScreenY((j + 1) * cellHeight) > 0 && worldYToScreenY((j + 1) * cellHeight) < viewHeight))
+
+                        float left = worldXToScreenX(j * cellWidth);
+                        float right = worldXToScreenX((j + 1) * cellWidth);
+                        float top = worldYToScreenY(i * cellHeight);
+                        float bottom = worldYToScreenY((i + 1) * cellHeight);
+
+                        if((left > 0 && left < viewWidth) || (right > 0 && right < viewWidth)
+                        && (top > 0 && top < viewHeight) || (bottom > 0 && bottom < viewHeight))
                         {
-                            canvas.drawRect(worldXToScreenX(i * cellWidth), worldYToScreenY(j * cellHeight),
-                                    worldXToScreenX((i + 1) * cellWidth), worldYToScreenY((j + 1) * cellHeight),
-                                    aliveSquarePaint);
+                            canvas.drawRect(left, top, right, bottom, aliveSquarePaint);
                         }
                     }
                 }
@@ -167,13 +169,13 @@ public class PixelGridView extends View {
             case MotionEvent.ACTION_DOWN:
                 if(controlState == EDITING) {
                     //Translates the press location into the world coordinates
-                    int column = (int) ((event.getX() - gameOfLifeData.getOffsetX()) / gameOfLifeData.getCellWidth());
                     int row = (int) ((event.getY() - gameOfLifeData.getOffsetY()) / gameOfLifeData.getCellHeight());
+                    int column = (int) ((event.getX() - gameOfLifeData.getOffsetX()) / gameOfLifeData.getCellWidth());
 
                     //Check to make sure that the clicked region corresponds to a part of the grid
                     if( ((event.getX() - gameOfLifeData.getOffsetX()) >=0 && column < settingsData.getBoardWidth())
                             && ( (event.getY() - gameOfLifeData.getOffsetY()) >= 0 && row < settingsData.getBoardHeight())) {
-                        gameOfLifeData.getCellChecked()[column][row] = !gameOfLifeData.getCellChecked()[column][row];
+                        gameOfLifeData.getCellChecked()[row][column] = !gameOfLifeData.getCellChecked()[row][column];
                         invalidate();
                     }
                 }

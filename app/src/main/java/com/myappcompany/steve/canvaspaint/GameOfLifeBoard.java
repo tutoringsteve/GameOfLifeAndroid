@@ -1,5 +1,7 @@
 package com.myappcompany.steve.canvaspaint;
 
+import android.util.Log;
+
 import com.myappcompany.steve.canvaspaint.data.SettingsData;
 
 /**
@@ -8,6 +10,7 @@ import com.myappcompany.steve.canvaspaint.data.SettingsData;
  */
 public class GameOfLifeBoard {
 
+    private static final String TAG = "GameOfLifeBoard";
     private int[][] gameBoard, gameBoardLastTurn;
     private final int boardWidth, boardHeight;
     public static SettingsData settingsData = SettingsData.getInstance();
@@ -43,17 +46,19 @@ public class GameOfLifeBoard {
      * Initializes game board to a preset game board that is stored as a single
      * line string, and has a specified width and height.
      *
-     * @param initialBoard String representing the map as a single line.
-     * @param height The width of the game board in tiles.
-     * @param width The height of the game board in tiles.
+     * @param initialBoard Boolean board board[y][x]
      */
-    public GameOfLifeBoard(boolean[][] initialBoard, int height, int width) {
+    public GameOfLifeBoard(boolean[][] initialBoard) {
+
+        int height = initialBoard.length;
+        int width = initialBoard[0].length;
 
         gameBoard = new int[height][width];
         gameBoardLastTurn = new int[height][width];
 
         boardHeight = height;
         boardWidth = width;
+
         for(int row = 0; row < height; row ++) {
             for(int column = 0; column < width; column++) {
                 gameBoard[row][column] = (initialBoard[row][column] ? 1 : 0);
@@ -196,12 +201,13 @@ public class GameOfLifeBoard {
      * @return -1 if input was outside the game board, else returns
      * the number of 'living' neighbors of the cell at (x,y).
      */
-    private int numberOfNeighbors(int x, int y) {
+    private int numberOfNeighbors(int y, int x) {
+
         if(    x >= boardWidth || x < 0
                 || y >= boardHeight  || y < 0 ) {
 
-            numberOfNeighborsDyingNoisily(x,y);
-
+            //Log.d(TAG, "boardWidth is " + boardWidth + " and boardHeight is " + boardHeight);
+            //numberOfNeighborsDyingNoisily(x,y);
             return -1;
         }
 
@@ -233,38 +239,38 @@ public class GameOfLifeBoard {
             yUp = y + 1;
         }
         //sum will equal number of alive neighbors since 1 for alive 0 for empty
-        int numNeighbors = (gameBoard[xLeft][yUp]   + gameBoard[x][yUp]   + gameBoard[xRight][yUp] +
-                            gameBoard[xLeft][y]     +                     + gameBoard[xRight][y] +
-                            gameBoard[xLeft][yDown] + gameBoard[x][yDown] + gameBoard[xRight][yDown]);
+        int numNeighbors = (gameBoard[yUp][xLeft]   + gameBoard[yUp][x]   + gameBoard[yUp][xRight] +
+                            gameBoard[y][xLeft]     +                     + gameBoard[y][xRight] +
+                            gameBoard[yDown][xLeft] + gameBoard[yDown][x] + gameBoard[yDown][xRight]);
 
         //Subtract left/right column of neighbors if no horizontal wrap and on the left/right edge, respectively
         if(!settingsData.isHorizontalWrap()) {
             if( x == 0) {
-                numNeighbors -= (gameBoard[xLeft][yUp] + gameBoard[xLeft][y] + gameBoard [xLeft][yDown]);
+                numNeighbors -= (gameBoard[yUp][xLeft] + gameBoard[y][xLeft] + gameBoard [yDown][xLeft]);
             } else if( x == (boardWidth - 1)) {
-                numNeighbors -= (gameBoard[xRight][yUp] + gameBoard[xRight][y] + gameBoard [xRight][yDown]);
+                numNeighbors -= (gameBoard[yUp][xRight] + gameBoard[y][xRight] + gameBoard [yDown][xRight]);
             }
         }
 
         //Subtract top/bottom row of neighbors if no vertical wrap and on the top/bottom edge, respectively
         if(!settingsData.isVerticalWrap()) {
             if( y == 0) {
-                numNeighbors -= (gameBoard[xLeft][yUp] + gameBoard[xLeft][y] + gameBoard [xLeft][yDown]);
+                numNeighbors -= (gameBoard[yUp][xLeft] + gameBoard[y][xLeft] + gameBoard [yDown][xLeft]);
             } else if( y == (boardHeight - 1)) {
-                numNeighbors -= (gameBoard[xRight][yUp] + gameBoard[xRight][y] + gameBoard [xRight][yDown]);
+                numNeighbors -= (gameBoard[yUp][xRight] + gameBoard[y][xRight] + gameBoard [yDown][xRight]);
             }
         }
 
         //add back in the double counted corners if both wraps are not enabled and the position is in the corners.
         if(!settingsData.isHorizontalWrap() && !settingsData.isVerticalWrap()) {
             if(x == 0 && y == 0) {
-                numNeighbors += gameBoard[xLeft][yUp];
+                numNeighbors += gameBoard[yUp][xLeft];
             } else if(x == 0 && y == (boardHeight - 1)) {
-                numNeighbors += gameBoard[xLeft][yDown];
+                numNeighbors += gameBoard[yDown][xLeft];
             } else if(x == (boardWidth -1) && y == 0) {
-                numNeighbors += gameBoard[xRight][yUp];
+                numNeighbors += gameBoard[yUp][xRight];
             } else if(x == (boardWidth -1) && y == (boardHeight -1)) {
-                numNeighbors += gameBoard[xRight][yDown];
+                numNeighbors += gameBoard[yDown][xRight];
             }
         }
 
@@ -283,7 +289,7 @@ public class GameOfLifeBoard {
         dyingMessage += "numberOfNeighbors(x,y) is dying (noisily) because x and y were ";
         dyingMessage += "\n" +"x = " + x + " y = " + y;
         if( x >= boardWidth || y >= boardHeight ) {
-            dyingMessage += "\nOne or more of the innput coordinates (x,y) was too large!";
+            dyingMessage += "\nOne or more of the input coordinates (x,y) was too large!";
         }
         if (x < 0 || y < 0) {
             dyingMessage += "\nOne or more of the input coordinates (x,y) was negative!";

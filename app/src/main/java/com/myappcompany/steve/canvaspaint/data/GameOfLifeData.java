@@ -26,6 +26,7 @@ public class GameOfLifeData {
     private static final String MAX_ZOOM_Y_TAG = "maxZoomY";
 
     private boolean[][] cellChecked;
+    private int numRows, numColumns;
     private float offsetX, offsetY, zoomX, zoomY;
     private int defaultCellWidth, defaultCellHeight;
     private int cellWidth, cellHeight;
@@ -47,9 +48,11 @@ public class GameOfLifeData {
     }
 
     private void loadDefaults() {
-        cellChecked = new boolean[settingsData.getBoardHeight()][settingsData.getBoardWidth()];
-        Log.d(TAG, "cellChecked initialized with height " + settingsData.getBoardHeight()
-                + " and width " + settingsData.getBoardWidth());
+        numRows = settingsData.getBoardHeight();
+        numColumns = settingsData.getBoardWidth();
+        cellChecked = new boolean[numRows][numColumns];
+        Log.d(TAG, "cellChecked initialized with height " + numRows
+                + " and width " + numColumns);
         offsetX = 0;
         offsetY = 0;
         zoomX = 1.0f;
@@ -146,18 +149,26 @@ public class GameOfLifeData {
         return cellHeight;
     }
 
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public int getNumColumns() {
+        return numColumns;
+    }
+
     public JSONArray cellCheckedToJSONArray(){
 
         StringBuilder sbOuter = new StringBuilder();
         StringBuilder sbInner = new StringBuilder();
 
         sbOuter.append("[");
-        for(int i = 0; i < cellChecked.length; i++) {
+        for(int i = 0; i < numRows; i++) {
             sbInner.append("[");
-            for(int j = 0; j < cellChecked[0].length; j++) {
-                sbInner.append((cellChecked[i][j] ? "true" : "false") + (j < cellChecked[0].length - 1 ? "," : ""));
+            for(int j = 0; j < numColumns; j++) {
+                sbInner.append((cellChecked[i][j] ? "true" : "false") + (j < numColumns - 1 ? "," : ""));
             }
-            sbInner.append("]" + (i < cellChecked.length - 1 ? "," : ""));
+            sbInner.append("]" + (i < numRows - 1 ? "," : ""));
             sbOuter.append(sbInner.toString());
             sbInner.setLength(0);
         }
@@ -209,8 +220,8 @@ public class GameOfLifeData {
         JSONArray cellCheckedRow = null;
 
         try {
-            int numRows = cellCheckedJSONArray.length();
-            int numColumns = cellCheckedJSONArray.getJSONArray(0).length();
+            numRows = cellCheckedJSONArray.length();
+            numColumns = cellCheckedJSONArray.getJSONArray(0).length();
 
             settingsData.setBoardHeight(numRows);
             settingsData.setBoardWidth(numColumns);
@@ -227,8 +238,8 @@ public class GameOfLifeData {
 
         } catch (Exception e) {
             e.printStackTrace();
-            int numRows = settingsData.getBoardHeight();
-            int numColumns = settingsData.getBoardWidth();
+            numRows = settingsData.getBoardHeight();
+            numColumns = settingsData.getBoardWidth();
             Log.d(TAG, "Error in jsonArrayToCellChecked function e:" + e);
             Log.d(TAG, "Initializing cellChecked to a dead (false) grid with height "
                             + numRows + " and width " + numColumns);
@@ -241,6 +252,9 @@ public class GameOfLifeData {
 
         try {
             cellChecked = jsonArrayToCellChecked(jsonObject.getJSONArray("cellChecked"));
+            numRows = cellChecked.length;
+            numColumns = cellChecked[0].length;
+
             offsetX = jsonObject.getInt("offsetX");
             offsetY = jsonObject.getInt("offsetY");
             zoomX = (float) jsonObject.getDouble("zoomX");
@@ -273,9 +287,15 @@ public class GameOfLifeData {
     }
 
     public void updateBoard() {
-        boolean[][] newBoard = new boolean[settingsData.getBoardHeight()][settingsData.getBoardWidth()];
-        int minRows = Math.min(newBoard.length, cellChecked.length);
-        int minColumns = Math.min(newBoard[0].length, cellChecked[0].length);
+        int oldNumRows = cellChecked.length;
+        int oldNumColumns = cellChecked[0].length;
+
+        numRows = settingsData.getBoardHeight();
+        numColumns = settingsData.getBoardWidth();
+
+        boolean[][] newBoard = new boolean[numRows][numColumns];
+        int minRows = Math.min(numRows, oldNumRows);
+        int minColumns = Math.min(numColumns, oldNumColumns);
         for(int i = 0; i < minRows; i++) {
             for(int j = 0; j < minColumns; j++) {
                 newBoard[i][j] = cellChecked[i][j];
