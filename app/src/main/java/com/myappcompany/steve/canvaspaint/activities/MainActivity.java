@@ -275,6 +275,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         gameOfLifeData.setCellChecked(cellChecked);
+
+        if(settingsData.getRandomFillProbability() == 0) {
+            Toast.makeText(this, R.string.the_board_was_erased_because_the_probability, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void loadSaveState() {
