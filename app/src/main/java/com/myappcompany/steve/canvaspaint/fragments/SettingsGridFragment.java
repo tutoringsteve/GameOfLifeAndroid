@@ -13,8 +13,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myappcompany.steve.canvaspaint.R;
+import com.myappcompany.steve.canvaspaint.data.GameOfLifeData;
+import com.myappcompany.steve.canvaspaint.data.SettingsData;
+
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +27,9 @@ import com.myappcompany.steve.canvaspaint.R;
 public class SettingsGridFragment extends Fragment {
     private static final String TAG = "SettingsGridFragment";
     private View view;
+
+    private SettingsData settingsData = SettingsData.getInstance();
+    private GameOfLifeData gameOfLifeData = GameOfLifeData.getInstance();
 
     public SettingsGridFragment() {
         // Required empty public constructor
@@ -42,12 +50,15 @@ public class SettingsGridFragment extends Fragment {
 
     private void setupBoardWidthEditText() {
         EditText boardWidthEditText = view.findViewById(R.id.boardWidthEditText);
+        String boardWidthString = String.valueOf(settingsData.getBoardWidth());
+        boardWidthEditText.setText(boardWidthString);
         boardWidthEditText.setOnKeyListener(new EditText.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    String text = ((EditText) v).getText().toString();
-                    Log.d(TAG, "boardWidthEditText changed set to " + text);
+                    String widthString = ((EditText) v).getText().toString();
+                    Log.d(TAG, "boardWidthEditText changed set to " + widthString);
+                    setBoardWidth(widthString);
                     return true;
                 } else {
                     return false;
@@ -56,14 +67,42 @@ public class SettingsGridFragment extends Fragment {
         });
     }
 
+    private void setBoardWidth(String boardWidthString) {
+        int newBoardWidth = 0;
+
+        try {
+            newBoardWidth = Integer.valueOf(boardWidthString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, "Board width set to a non-integer value!");
+        }
+
+        if(newBoardWidth >= SettingsData.MINIMUM_BOARD_SIDE_LENGTH && newBoardWidth <= SettingsData.MAXIMUM_BOARD_SIDE_LENGTH) {
+            settingsData.setBoardWidth(newBoardWidth);
+            try {
+                settingsData.saveData(getContext());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d(TAG, "Failed to save the changes to board width!");
+            }
+        } else {
+            Toast.makeText(getContext(), "Type a whole number between "
+                    + SettingsData.MINIMUM_BOARD_SIDE_LENGTH + " and "
+                    + SettingsData.MAXIMUM_BOARD_SIDE_LENGTH + ", inclusive.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void setupBoardHeightEditText() {
         EditText boardHeightEditText = view.findViewById(R.id.boardHeightEditText);
+        String boardHeightString = String.valueOf(settingsData.getBoardHeight());
+        boardHeightEditText.setText(boardHeightString);
         boardHeightEditText.setOnKeyListener(new EditText.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     String text = ((EditText) v).getText().toString();
                     Log.d(TAG, "boardHeightEditText changed set to " + text);
+                    setBoardHeight(text);
                     return true;
                 } else {
                     return false;
@@ -71,6 +110,32 @@ public class SettingsGridFragment extends Fragment {
             }
         });
 
+    }
+
+    private void setBoardHeight(String boardHeightString) {
+        int newBoardHeight = 0;
+
+        try {
+            newBoardHeight = Integer.valueOf(boardHeightString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, "Board height set to a non-integer value!");
+        }
+
+        if(newBoardHeight >= SettingsData.MINIMUM_BOARD_SIDE_LENGTH && newBoardHeight <= SettingsData.MAXIMUM_BOARD_SIDE_LENGTH) {
+            settingsData.setBoardHeight(newBoardHeight);
+            gameOfLifeData.updateBoard();
+            try {
+                settingsData.saveData(getContext());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d(TAG, "Failed to save the changes to board height!");
+            }
+        } else {
+            Toast.makeText(getContext(), "Type a whole number between "
+                    + SettingsData.MINIMUM_BOARD_SIDE_LENGTH + " and "
+                    + SettingsData.MAXIMUM_BOARD_SIDE_LENGTH + ", inclusive.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setupHorizontalWrappingCheckBox() {

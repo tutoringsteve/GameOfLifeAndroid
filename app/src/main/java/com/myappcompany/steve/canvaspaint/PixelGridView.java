@@ -99,7 +99,19 @@ public class PixelGridView extends View {
         int numColumns = settingsData.getBoardWidth();
         int numRows = settingsData.getBoardHeight();
         Log.d(TAG, "numColumns loaded from settingsData as " + numColumns + " and numRows loaded from settingsData as " + numRows);
+
+        //Check to make sure that the gameOfLifeData has the correct board size.
+        int gameOfLifeNumColumns = gameOfLifeData.getCellChecked()[0].length;
+        int gameOfLifeNumRows = gameOfLifeData.getCellChecked().length;
+        if(! (numColumns == gameOfLifeNumColumns && numRows == gameOfLifeNumRows)) {
+            Log.d(TAG, "gameOfLifeBoard has numColumns " + gameOfLifeNumColumns + " and numRows " + gameOfLifeNumRows + " and needs to be updated to match settingsData dimensions.");
+            gameOfLifeData.updateBoard();
+        }
+
         boolean[][] cellChecked = gameOfLifeData.getCellChecked();
+
+
+
         int cellWidth = gameOfLifeData.getCellWidth();
         int cellHeight = gameOfLifeData.getCellHeight();
 
@@ -115,8 +127,8 @@ public class PixelGridView extends View {
             //draw the part of the grid that overlaps with the View
             canvas.drawRect(minGridX, minGridY, maxGridX, maxGridY, deadSquarePaint);
 
-            for (int i = 0; i < numColumns; i++) {
-                for (int j = 0; j < numRows; j++) {
+            for (int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numColumns; j++) {
                     if (cellChecked[i][j]) {
                         //Makes sure that at least part of the checked square is on screen before drawing it
                         if((worldXToScreenX(i * cellWidth) > 0 && worldXToScreenX(i * cellWidth) < viewWidth)

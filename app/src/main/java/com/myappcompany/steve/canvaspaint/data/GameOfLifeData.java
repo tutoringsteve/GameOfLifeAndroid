@@ -272,4 +272,15 @@ public class GameOfLifeData {
         }
     }
 
+    public void updateBoard() {
+        boolean[][] newBoard = new boolean[settingsData.getBoardHeight()][settingsData.getBoardWidth()];
+        int minRows = Math.min(newBoard.length, cellChecked.length);
+        int minColumns = Math.min(newBoard[0].length, cellChecked[0].length);
+        for(int i = 0; i < minRows; i++) {
+            for(int j = 0; j < minColumns; j++) {
+                newBoard[i][j] = cellChecked[i][j];
+            }
+        }
+        cellChecked = newBoard;
+    }
 }
