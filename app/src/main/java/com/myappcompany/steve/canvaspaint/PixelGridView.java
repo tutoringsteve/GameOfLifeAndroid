@@ -40,6 +40,8 @@ public class PixelGridView extends View {
 
     private float minGridX, minGridY, maxGridX, maxGridY;
 
+    private int gridRow, gridColumn;
+
     public PixelGridView(Context context) {
         this(context, null);
     }
@@ -169,13 +171,13 @@ public class PixelGridView extends View {
             case MotionEvent.ACTION_DOWN:
                 if(controlState == EDITING) {
                     //Translates the press location into the world coordinates
-                    int row = (int) ((event.getY() - gameOfLifeData.getOffsetY()) / gameOfLifeData.getCellHeight());
-                    int column = (int) ((event.getX() - gameOfLifeData.getOffsetX()) / gameOfLifeData.getCellWidth());
+                    gridRow = (int) ((event.getY() - gameOfLifeData.getOffsetY()) / gameOfLifeData.getCellHeight());
+                    gridColumn = (int) ((event.getX() - gameOfLifeData.getOffsetX()) / gameOfLifeData.getCellWidth());
 
                     //Check to make sure that the clicked region corresponds to a part of the grid
-                    if( ((event.getX() - gameOfLifeData.getOffsetX()) >=0 && column < settingsData.getBoardWidth())
-                            && ( (event.getY() - gameOfLifeData.getOffsetY()) >= 0 && row < settingsData.getBoardHeight())) {
-                        gameOfLifeData.getCellChecked()[row][column] = !gameOfLifeData.getCellChecked()[row][column];
+                    if( ((event.getX() - gameOfLifeData.getOffsetX()) >=0 && gridColumn < settingsData.getBoardWidth())
+                            && ( (event.getY() - gameOfLifeData.getOffsetY()) >= 0 && gridRow < settingsData.getBoardHeight())) {
+                        gameOfLifeData.getCellChecked()[gridRow][gridColumn] = !gameOfLifeData.getCellChecked()[gridRow][gridColumn];
                         invalidate();
                     }
                 }
@@ -191,7 +193,22 @@ public class PixelGridView extends View {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                if(controlState == PANNING) {
+                //enables click and drag to toggle cells along the path of the users finger
+                if(controlState == EDITING) {
+                    int row = (int) ((event.getY() - gameOfLifeData.getOffsetY()) / gameOfLifeData.getCellHeight());
+                    int column = (int) ((event.getX() - gameOfLifeData.getOffsetX()) / gameOfLifeData.getCellWidth());
+
+                    if((row != gridRow) || (column != gridColumn)) {
+                        gridRow = row;
+                        gridColumn = column;
+                        if( ((event.getX() - gameOfLifeData.getOffsetX()) >=0 && gridColumn < settingsData.getBoardWidth())
+                                && ( (event.getY() - gameOfLifeData.getOffsetY()) >= 0 && gridRow < settingsData.getBoardHeight())) {
+                            gameOfLifeData.getCellChecked()[gridRow][gridColumn] = !gameOfLifeData.getCellChecked()[gridRow][gridColumn];
+                            invalidate();
+                        }
+                    }
+                //enables panning
+                } else if (controlState == PANNING) {
                     gameOfLifeData.setOffsetX(event.getX() - mStartX);
                     gameOfLifeData.setOffsetY(event.getY() - mStartY);
                     invalidate();

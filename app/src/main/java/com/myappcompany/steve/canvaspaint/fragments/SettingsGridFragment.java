@@ -152,6 +152,7 @@ public class SettingsGridFragment extends Fragment {
 
     private void setupHorizontalWrappingCheckBox() {
         CheckBox horizontalWrappingCheckBox = view.findViewById(R.id.horizontalWrappingCheckBox);
+        horizontalWrappingCheckBox.setChecked(settingsData.isHorizontalWrap());
         horizontalWrappingCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -169,6 +170,7 @@ public class SettingsGridFragment extends Fragment {
 
     private void setupVerticalWrappingCheckBox() {
         CheckBox verticalWrappingCheckBox = view.findViewById(R.id.verticalWrappingCheckBox);
+        verticalWrappingCheckBox.setChecked(settingsData.isVerticalWrap());
         verticalWrappingCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
