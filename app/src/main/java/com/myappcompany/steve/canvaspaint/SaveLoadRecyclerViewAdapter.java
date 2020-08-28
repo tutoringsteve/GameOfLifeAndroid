@@ -11,19 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.myappcompany.steve.canvaspaint.data.SaveData;
+
 import java.util.ArrayList;
 
 public class SaveLoadRecyclerViewAdapter extends RecyclerView.Adapter<SaveLoadRecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
     private Context mContext;
-    private ArrayList<String> mSaveNames, mSaveDates;
+    private ArrayList<SaveData> mSaves;
     private OnItemListener mOnItemListener;
 
-    public SaveLoadRecyclerViewAdapter(Context context, ArrayList<String> saveNames, ArrayList<String> saveDates, OnItemListener onItemListener) {
+    public SaveLoadRecyclerViewAdapter(Context context, ArrayList<SaveData> saves, OnItemListener onItemListener) {
         mContext = context;
-        mSaveNames = saveNames;
-        mSaveDates = saveDates;
+        mSaves = saves;
         mOnItemListener = onItemListener;
     }
 
@@ -38,14 +39,14 @@ public class SaveLoadRecyclerViewAdapter extends RecyclerView.Adapter<SaveLoadRe
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        String date = mContext.getString(R.string.saved_on, mSaveDates.get(position));
+        String date = mContext.getString(R.string.saved_on, mSaves.get(position).getSaveDate());
         holder.saveDateTextView.setText(date);
-        holder.saveNameTextView.setText(mSaveNames.get(position));
+        holder.saveNameTextView.setText(mSaves.get(position).getSaveName());
     }
 
     @Override
     public int getItemCount() {
-        return mSaveNames.size();
+        return mSaves.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

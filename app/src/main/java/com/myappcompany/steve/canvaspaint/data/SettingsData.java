@@ -4,13 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 
-import com.myappcompany.steve.canvaspaint.ColorUtil;
-import com.myappcompany.steve.canvaspaint.activities.MainActivity;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,23 +15,22 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Random;
 
 public class SettingsData {
 
     private static final String TAG = "SettingsData";
     private static final String FILE_NAME = "settings.json";
 
-    private static final String AUTO_PLAY_SPEED = "autoPlaySpeed";
-    private static final String RANDOM_FILL_PROBABILITY = "randomFillProbability";
-    private static final String BOARD_WIDTH = "boardWidth";
-    private static final String BOARD_HEIGHT = "boardHeight";
-    private static final String HORIZONTAL_WRAP = "horizontalWrap";
-    private static final String VERTICAL_WRAP = "verticalWrap";
-    private static final String BACKGROUND_COLOR = "backgroundColor";
-    private static final String ALIVE_SQUARE_COLOR = "aliveSquareColor";
-    private static final String DEAD_SQUARE_COLOR = "deadSquareColor";
-    private static final String GRID_LINES_COLOR = "gridLinesColor";
+    private static final String AUTO_PLAY_SPEED_TAG = "autoPlaySpeed";
+    private static final String RANDOM_FILL_PROBABILITY_TAG = "randomFillProbability";
+    private static final String BOARD_WIDTH_TAG = "boardWidth";
+    private static final String BOARD_HEIGHT_TAG = "boardHeight";
+    private static final String HORIZONTAL_WRAP_TAG = "horizontalWrap";
+    private static final String VERTICAL_WRAP_TAG = "verticalWrap";
+    private static final String BACKGROUND_COLOR_TAG = "backgroundColor";
+    private static final String ALIVE_SQUARE_COLOR_TAG = "aliveSquareColor";
+    private static final String DEAD_SQUARE_COLOR_TAG = "deadSquareColor";
+    private static final String GRID_LINES_COLOR_TAG = "gridLinesColor";
 
 
     private static final int DEFAULT_AUTO_PLAY_SPEED = 500;
@@ -81,16 +75,16 @@ public class SettingsData {
         try {
              jsonObject = new JSONObject();
 
-            jsonObject.put(AUTO_PLAY_SPEED, autoPlaySpeed);
-            jsonObject.put(RANDOM_FILL_PROBABILITY, randomFillProbability);
-            jsonObject.put(BOARD_WIDTH, boardWidth);
-            jsonObject.put(BOARD_HEIGHT, boardHeight);
-            jsonObject.put(HORIZONTAL_WRAP, horizontalWrap);
-            jsonObject.put(VERTICAL_WRAP, verticalWrap);
-            jsonObject.put(BACKGROUND_COLOR, backgroundColor);
-            jsonObject.put(ALIVE_SQUARE_COLOR, aliveSquareColor);
-            jsonObject.put(DEAD_SQUARE_COLOR, deadSquareColor);
-            jsonObject.put(GRID_LINES_COLOR, gridLinesColor);
+            jsonObject.put(AUTO_PLAY_SPEED_TAG, autoPlaySpeed);
+            jsonObject.put(RANDOM_FILL_PROBABILITY_TAG, randomFillProbability);
+            jsonObject.put(BOARD_WIDTH_TAG, boardWidth);
+            jsonObject.put(BOARD_HEIGHT_TAG, boardHeight);
+            jsonObject.put(HORIZONTAL_WRAP_TAG, horizontalWrap);
+            jsonObject.put(VERTICAL_WRAP_TAG, verticalWrap);
+            jsonObject.put(BACKGROUND_COLOR_TAG, backgroundColor);
+            jsonObject.put(ALIVE_SQUARE_COLOR_TAG, aliveSquareColor);
+            jsonObject.put(DEAD_SQUARE_COLOR_TAG, deadSquareColor);
+            jsonObject.put(GRID_LINES_COLOR_TAG, gridLinesColor);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,9 +99,9 @@ public class SettingsData {
 
         try {
 
-            autoPlaySpeed = jsonObject.getInt(AUTO_PLAY_SPEED);
-            randomFillProbability = jsonObject.getInt(RANDOM_FILL_PROBABILITY);
-            boardWidth = jsonObject.getInt(BOARD_WIDTH);
+            autoPlaySpeed = jsonObject.getInt(AUTO_PLAY_SPEED_TAG);
+            randomFillProbability = jsonObject.getInt(RANDOM_FILL_PROBABILITY_TAG);
+            boardWidth = jsonObject.getInt(BOARD_WIDTH_TAG);
 
             //ensure boardWidth is within the bounds, and if not, set it to the default
             if(boardWidth < MINIMUM_BOARD_SIDE_LENGTH || boardWidth > MAXIMUM_BOARD_SIDE_LENGTH) {
@@ -116,17 +110,17 @@ public class SettingsData {
             }
 
             //ensure boardHeight  is within the bounds, and if not, set it to the default
-            boardHeight = jsonObject.getInt(BOARD_HEIGHT);
+            boardHeight = jsonObject.getInt(BOARD_HEIGHT_TAG);
             if(boardHeight < MINIMUM_BOARD_SIDE_LENGTH || boardHeight > MAXIMUM_BOARD_SIDE_LENGTH) {
                 Log.d(TAG, "boardHeight was " + boardHeight + " which falls outside the range [" + MINIMUM_BOARD_SIDE_LENGTH + "," + MAXIMUM_BOARD_SIDE_LENGTH + "]. Setting boardHeight " + "to the default " + DEFAULT_BOARD_HEIGHT);
                 boardHeight = DEFAULT_BOARD_HEIGHT;
             }
-            horizontalWrap = jsonObject.getBoolean(HORIZONTAL_WRAP);
-            verticalWrap = jsonObject.getBoolean(VERTICAL_WRAP);
-            backgroundColor = jsonObject.getInt(BACKGROUND_COLOR);
-            aliveSquareColor = jsonObject.getInt(ALIVE_SQUARE_COLOR);
-            deadSquareColor = jsonObject.getInt(DEAD_SQUARE_COLOR);
-            gridLinesColor  = jsonObject.getInt(GRID_LINES_COLOR);
+            horizontalWrap = jsonObject.getBoolean(HORIZONTAL_WRAP_TAG);
+            verticalWrap = jsonObject.getBoolean(VERTICAL_WRAP_TAG);
+            backgroundColor = jsonObject.getInt(BACKGROUND_COLOR_TAG);
+            aliveSquareColor = jsonObject.getInt(ALIVE_SQUARE_COLOR_TAG);
+            deadSquareColor = jsonObject.getInt(DEAD_SQUARE_COLOR_TAG);
+            gridLinesColor  = jsonObject.getInt(GRID_LINES_COLOR_TAG);
         } catch (Exception e) {
             e.printStackTrace();
             Log.i(TAG, "Error in jsonToData function e:" + e);
