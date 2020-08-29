@@ -1,4 +1,4 @@
-package com.myappcompany.steve.canvaspaint;
+package com.myappcompany.steve.canvaspaint.Adapters;
 
 import android.os.Bundle;
 
@@ -7,15 +7,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.myappcompany.steve.canvaspaint.fragments.HelpControlFragment;
 import com.myappcompany.steve.canvaspaint.fragments.SettingsColorFragment;
 import com.myappcompany.steve.canvaspaint.fragments.SettingsControlFragment;
 import com.myappcompany.steve.canvaspaint.fragments.SettingsGridFragment;
 
-public class SettingsPagerAdapter extends FragmentStateAdapter {
+public class HelpPagerAdapter extends FragmentStateAdapter {
 
     private static final int NUMBER_OF_TABS = 3;
 
-    public SettingsPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public HelpPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
@@ -28,20 +29,20 @@ public class SettingsPagerAdapter extends FragmentStateAdapter {
 
         switch (position) {
             case 0:
-                SettingsControlFragment controlFragment = new SettingsControlFragment();
+                HelpControlFragment helpControlFragment = new HelpControlFragment();
                 //Attach a bundle to the fragment object
                 //controlFragment.setArguments(bundle);
-                return controlFragment;
+                return helpControlFragment;
             case 1:
-                SettingsGridFragment gridFragment = new SettingsGridFragment();
+                HelpControlFragment helpControlFragment2 = new HelpControlFragment();
                 //Attach a bundle to the fragment object
                 //controlFragment.setArguments(bundle);
-                return gridFragment;
+                return helpControlFragment2;
             case 2:
-                SettingsColorFragment colorFragment = new SettingsColorFragment();
+                HelpControlFragment helpControlFragment3 = new HelpControlFragment();
                 //Attach a bundle to the fragment object
                 //controlFragment.setArguments(bundle);
-                return colorFragment;
+                return helpControlFragment3;
             default:
                 return null;
         }

@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openHelp() {
         cancelAutoPlay();
-        Toast.makeText(this, "Help was pressed.", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, HelpActivity.class));
     }
 
     private void openAbout() {

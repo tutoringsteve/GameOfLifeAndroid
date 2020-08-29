@@ -54,4 +54,12 @@
     <string name="the_colors_were_reset_to_their_defaults">The colors were reset to their defaults.</string>
     <string name="type_a_whole_number_between_and">Type a whole number between %1$d and %2$d, inclusive.</string>
     <string name="the_board_was_erased_because_the_probability">Board erased because fill probability is 0%. See the settings menu.</string>
+    <string name="play_button_help_text">Press this button to advance the state of the board by one turn.</string>
+    <string name="auto_play_button_help_text">Press this button to toggle auto play where the state of the board is automatically progressed while active. To turn off auto play press the button a second time. The speed of auto play can be changed in the settings menu.</string>
+    <string name="edit_button_help_text">Press this button to enable edit mode. In edit mode, pressing on the grid toggles a gird square. You can also press and drag to easily toggle many grid squares. Holding this button will enable you to clear the board.</string>
+    <string name="pan_button_help_text">Press this button to enable panning mode. In panning mode, pressing and draggin the grid will move it around.</string>
+    <string name="zoom_in_button_help_text">Press this button to zoom into the grid. At a certain point you will not be able to zoom in any further.</string>
+    <string name="zoom_out_button_help_text">Press this button to zoom out from the grid. At a certain point you will not be able to zoom out any further.</string>
+    <string name="save_button_help_text">Press this button to open the save and load menu where you can save the current state of the board and load saves you\'ve already made.</string>
+    <string name="random_fill_button_help_text">Press this button to randomly fill the board. The probability of activating each square in the board can be changed in the settings menu.</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.myappcompany.steve.canvaspaint;
+package com.myappcompany.steve.canvaspaint.Adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.myappcompany.steve.canvaspaint.R;
 import com.myappcompany.steve.canvaspaint.data.SaveData;
 
 import java.util.ArrayList;

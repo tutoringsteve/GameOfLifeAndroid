@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.myappcompany.steve.canvaspaint.R;
-import com.myappcompany.steve.canvaspaint.SaveLoadRecyclerViewAdapter;
+import com.myappcompany.steve.canvaspaint.Adapters.SaveLoadRecyclerViewAdapter;
 import com.myappcompany.steve.canvaspaint.data.GameOfLifeData;
 import com.myappcompany.steve.canvaspaint.data.SaveData;
 import com.myappcompany.steve.canvaspaint.data.SettingsData;
