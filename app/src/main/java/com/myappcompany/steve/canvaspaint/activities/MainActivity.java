@@ -106,10 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "Main Activity : Settings Was Pressed.");
                 openHelp();
                 break;
-            case R.id.mainMenuAbout:
-                Log.i(TAG, "Main Activity : Settings Was Pressed.");
-                openAbout();
-                break;
             default:
                 break;
         }
@@ -126,11 +122,6 @@ public class MainActivity extends AppCompatActivity {
     private void openHelp() {
         cancelAutoPlay();
         startActivity(new Intent(this, HelpActivity.class));
-    }
-
-    private void openAbout() {
-        cancelAutoPlay();
-        Toast.makeText(this,"About was pressed", Toast.LENGTH_SHORT).show();
     }
 
     private void eraseBoard() {

@@ -12,111 +12,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@android:color/holo_blue_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPlay2" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@android:color/holo_blue_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoPlayButtonHelpText" />
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@android:color/holo_blue_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editButtonHelpText" />
-
-    <View
-        android:id="@+id/view5"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@android:color/holo_blue_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPan2" />
-
-    <View
-        android:id="@+id/view6"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@android:color/holo_blue_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomIn2" />
-
-    <View
-        android:id="@+id/view7"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@android:color/holo_blue_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomOut2" />
-
-    <View
-        android:id="@+id/view8"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@android:color/holo_blue_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveButtonHelpText" />
-
     <ImageView
         android:id="@+id/imageViewZoomOut2"
         android:layout_width="wrap_content"
@@ -127,7 +22,7 @@
         android:contentDescription="@string/zoom_out"
         android:onClick="zoomOutClick"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view6"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomIn2"
         app:srcCompat="@drawable/ic_zoomout" />
 
     <ImageView
@@ -140,7 +35,7 @@
         android:contentDescription="@string/auto_play"
         android:onClick="autoPlayClick"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlay2"
         app:srcCompat="@drawable/ic_autoplay" />
 
     <ImageView
@@ -153,7 +48,7 @@
         android:contentDescription="@string/pan"
         android:onClick="panningClick"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintTop_toBottomOf="@+id/editButtonHelpText"
         app:srcCompat="@drawable/ic_pan" />
 
     <ImageView
@@ -166,7 +61,7 @@
         android:contentDescription="@string/random_auto_fill"
         android:onClick="randomizeClick"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view8"
+        app:layout_constraintTop_toBottomOf="@+id/saveButtonHelpText"
         app:srcCompat="@drawable/ic_random" />
 
     <ImageView
@@ -192,7 +87,7 @@
         android:contentDescription="@string/edit"
         android:onClick="editClick"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/autoPlayButtonHelpText"
         app:srcCompat="@drawable/ic_edit" />
 
     <ImageView
@@ -205,7 +100,7 @@
         android:contentDescription="@string/zoom_in"
         android:onClick="zoomInClick"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPan2"
         app:srcCompat="@drawable/ic_zoomin" />
 
     <ImageView
@@ -218,17 +113,18 @@
         android:contentDescription="@string/open_save_menu"
         android:onClick="saveClick"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view7"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomOut2"
         app:srcCompat="@drawable/ic_saveloaddisk" />
 
     <TextView
         android:id="@+id/playButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/play_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
@@ -239,10 +135,11 @@
         android:id="@+id/autoPlayButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/auto_play_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
@@ -253,10 +150,11 @@
         android:id="@+id/editButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/edit_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
@@ -267,10 +165,11 @@
         android:id="@+id/panButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/pan_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
@@ -281,10 +180,11 @@
         android:id="@+id/zoomInButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/zoom_in_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
@@ -295,10 +195,11 @@
         android:id="@+id/zoomOutButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/zoom_out_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
@@ -309,10 +210,11 @@
         android:id="@+id/saveButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/save_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
@@ -323,10 +225,11 @@
         android:id="@+id/randomFillButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/random_fill_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"

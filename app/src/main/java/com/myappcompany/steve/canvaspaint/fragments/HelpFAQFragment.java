@@ -12,12 +12,12 @@ import com.myappcompany.steve.canvaspaint.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HelpControlFragment extends Fragment {
+public class HelpFAQFragment extends Fragment {
     private static final String TAG = "HelpControlFragment";
 
-    private View mHelpControlsView;
+    private View mHelpFAQView;
 
-    public HelpControlFragment() {
+    public HelpFAQFragment() {
         // Required empty public constructor
     }
 
@@ -26,8 +26,8 @@ public class HelpControlFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mHelpControlsView = inflater.inflate(R.layout.fragment_help_controls3, container, false);
+        mHelpFAQView = inflater.inflate(R.layout.fragment_help_faq, container, false);
 
-        return mHelpControlsView;
+        return mHelpFAQView;
     }
 }

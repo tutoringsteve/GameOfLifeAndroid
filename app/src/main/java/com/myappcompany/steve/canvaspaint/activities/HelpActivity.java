@@ -10,7 +10,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.myappcompany.steve.canvaspaint.Adapters.HelpPagerAdapter;
-import com.myappcompany.steve.canvaspaint.Adapters.SettingsPagerAdapter;
 import com.myappcompany.steve.canvaspaint.R;
 
 public class HelpActivity extends AppCompatActivity {
@@ -32,7 +31,7 @@ public class HelpActivity extends AppCompatActivity {
         new TabLayoutMediator(mTabLayout, mViewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText(getResources().getStringArray(R.array.tab_names_array)[position]);
+                tab.setText(getResources().getStringArray(R.array.help_tab_names_array)[position]);
             }
         }).attach();
     }

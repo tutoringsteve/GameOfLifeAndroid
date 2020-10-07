@@ -8,13 +8,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.myappcompany.steve.canvaspaint.fragments.HelpControlFragment;
-import com.myappcompany.steve.canvaspaint.fragments.SettingsColorFragment;
-import com.myappcompany.steve.canvaspaint.fragments.SettingsControlFragment;
-import com.myappcompany.steve.canvaspaint.fragments.SettingsGridFragment;
+import com.myappcompany.steve.canvaspaint.fragments.HelpFAQFragment;
 
 public class HelpPagerAdapter extends FragmentStateAdapter {
 
-    private static final int NUMBER_OF_TABS = 3;
+    private static final int NUMBER_OF_TABS = 2;
 
     public HelpPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -34,15 +32,10 @@ public class HelpPagerAdapter extends FragmentStateAdapter {
                 //controlFragment.setArguments(bundle);
                 return helpControlFragment;
             case 1:
-                HelpControlFragment helpControlFragment2 = new HelpControlFragment();
+                HelpFAQFragment helpFAQFragment = new HelpFAQFragment();
                 //Attach a bundle to the fragment object
                 //controlFragment.setArguments(bundle);
-                return helpControlFragment2;
-            case 2:
-                HelpControlFragment helpControlFragment3 = new HelpControlFragment();
-                //Attach a bundle to the fragment object
-                //controlFragment.setArguments(bundle);
-                return helpControlFragment3;
+                return helpFAQFragment;
             default:
                 return null;
         }

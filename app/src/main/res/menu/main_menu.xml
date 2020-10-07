@@ -9,8 +9,4 @@
         android:id="@+id/mainMenuHelp"
         android:icon="@drawable/ic_help_outline_24px"
         android:title="@string/help" />
-    <item
-        android:id="@+id/mainMenuAbout"
-        android:icon="@drawable/ic_info_24px"
-        android:title="@string/about" />
 </menu>

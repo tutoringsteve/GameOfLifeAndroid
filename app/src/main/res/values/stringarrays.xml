@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="tab_names_array">
+    <string-array name="settings_tab_names_array">
         <item>Controls</item>
         <item>Board</item>
         <item>Color</item>
+    </string-array>
+    <string-array name="help_tab_names_array">
+        <item>Controls</item>
+        <item>FAQ</item>
     </string-array>
     <string-array name="auto_play_spinner_speeds_array">
         <item>1 (slowest)</item>

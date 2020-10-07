@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="What is Conway's game of life?"
+        android:textColor="#0000FF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="What was the intent of the game?"
+        android:textColor="#0000FF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="What are the rules?"
+        android:textColor="#0000FF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="What should I do with this app?"
+        android:textColor="#0000FF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
+        android:text="Conway's game of life was invented by the late mathematician John Conway in 1970. It is a game in the technical sense, in that it has rules, and evolves over a series of turns, but it has no players. The future state of the game is entirely determined by how the board is initially configured. Each turn, (simple) rules are applied to each square in the grid to determine whether that square is 'alive' or 'dead' the next turn, based on whether the square is 'alive' or 'dead' and based on how many of the neighboring squares are alive or dead. But despite the simple setup of this game, complex behavior can still arise."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
+        android:text="The purpose of the game was probably to explore how complexity on a large scale (the entire board) arises from simple rules applied on the small scale (the rules for how each square live or die.) There are many analogous situations in nature, where simple elements come together to form wonderously complex structure. Compare a cell to the human body, for example. Or observe that a school of fish can act with apparent intelligence despite their being no communication between the fish in the school, other than that each fish tries to stay a fixed distance from the neighboring fish."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
+        android:text="Each square in the grid can either be 'dead' or 'alive'. By default, in this app, a white square is dead and a blue square is dead. Each square has up to 8 neighboring squares. A square that is alive in one turn, will stay alive in the next turn if 2 or 3 of the neighboring squares are also alive. Any less, or any more, and the alive square will die the next turn. A dead square can become alive, if exactly 3 of its neighbors are alive. Any more, or any less, and the dead square will stay dead."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
+        android:text="The main goal is to explore and have fun. First put the board in the edit state by clicking the pencil icon. Then press on the board to activate squares (make them alive.) Then hit the play button to advance the state of the board one turn and see how it evolves. Play around with different initial configurations. You can also press the randomize button (looks like a die) to randomly fill the board with alive squares. Then hit play or autoplay to see how it evolves over a few turns. Keep auto playing until the board settles. Notice any structures that did not die out completely? These are stable structures. They will either keep repeating, or stay the same, forever. You can even edit the board while it is autoplaying. It can be fun to start by randomizing the board, and then using the edit tool while it is autoplaying to see how you can alter things.\n\nAlso, try searching online for the game of life and looking up interesting structures, such as the glider, and others. You can save your board state and load ones you have already saved. If you spend time setting up a board state, consider saving it before hitting play, so that you can easily get back to that state should you want to. You can also go into the settings and play with things like autoplay speed, board size, randomization probability, colors, and more. If you want a better look at the board press the minus button to zoom out, and if you want it to be easier to edit, zoom in with the plus button. Holding the edit button will clear the board, and the panning button will allow you to move the board around. You can pan and zoom the board while autoplay is active."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

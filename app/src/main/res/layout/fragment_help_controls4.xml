@@ -13,27 +13,27 @@
     android:layout_height="match_parent">
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/view9"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/holo_blue_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPlay2" />
+        app:layout_constraintTop_toBottomOf="@+id/playButtonHelpText" />
 
     <View
-        android:id="@+id/view3"
+        android:id="@+id/view10"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/holo_blue_light"
@@ -43,12 +43,12 @@
         app:layout_constraintTop_toBottomOf="@+id/autoPlayButtonHelpText" />
 
     <View
-        android:id="@+id/view4"
+        android:id="@+id/view11"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/holo_blue_light"
@@ -58,57 +58,57 @@
         app:layout_constraintTop_toBottomOf="@+id/editButtonHelpText" />
 
     <View
-        android:id="@+id/view5"
+        android:id="@+id/view12"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/holo_blue_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPan2" />
+        app:layout_constraintTop_toBottomOf="@+id/panButtonHelpText" />
 
     <View
-        android:id="@+id/view6"
+        android:id="@+id/view13"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/holo_blue_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomIn2" />
+        app:layout_constraintTop_toBottomOf="@+id/zoomInButtonHelpText" />
 
     <View
-        android:id="@+id/view7"
+        android:id="@+id/view14"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/holo_blue_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomOut2" />
+        app:layout_constraintTop_toBottomOf="@+id/zoomOutButtonHelpText" />
 
     <View
-        android:id="@+id/view8"
+        android:id="@+id/view15"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/holo_blue_light"
@@ -121,63 +121,58 @@
         android:id="@+id/imageViewZoomOut2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/zoom_out"
         android:onClick="zoomOutClick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view6"
+        app:layout_constraintTop_toBottomOf="@+id/view13"
         app:srcCompat="@drawable/ic_zoomout" />
 
     <ImageView
         android:id="@+id/imageViewAutoPlay2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/auto_play"
         android:onClick="autoPlayClick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
+        app:layout_constraintTop_toBottomOf="@+id/view9"
         app:srcCompat="@drawable/ic_autoplay" />
 
     <ImageView
         android:id="@+id/imageViewPan2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/pan"
         android:onClick="panningClick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintTop_toBottomOf="@+id/view11"
         app:srcCompat="@drawable/ic_pan" />
 
     <ImageView
         android:id="@+id/imageViewRandomize2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/random_auto_fill"
         android:onClick="randomizeClick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view8"
+        app:layout_constraintTop_toBottomOf="@+id/view15"
         app:srcCompat="@drawable/ic_random" />
 
     <ImageView
         android:id="@+id/imageViewPlay2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/play_one_turn"
         android:onClick="playClick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_playbutton" />
@@ -186,152 +181,165 @@
         android:id="@+id/imageViewEdit2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/edit"
         android:onClick="editClick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/view10"
         app:srcCompat="@drawable/ic_edit" />
 
     <ImageView
         android:id="@+id/imageViewZoomIn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/zoom_in"
         android:onClick="zoomInClick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5"
+        app:layout_constraintTop_toBottomOf="@+id/view12"
         app:srcCompat="@drawable/ic_zoomin" />
 
     <ImageView
         android:id="@+id/imageViewSave2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/open_save_menu"
         android:onClick="saveClick"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view7"
+        app:layout_constraintTop_toBottomOf="@+id/view14"
         app:srcCompat="@drawable/ic_saveloaddisk" />
 
     <TextView
         android:id="@+id/playButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/play_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPlay2"
-        app:layout_constraintTop_toTopOf="@+id/imageViewPlay2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlay2" />
 
     <TextView
         android:id="@+id/autoPlayButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/auto_play_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewAutoPlay2"
-        app:layout_constraintTop_toTopOf="@+id/imageViewAutoPlay2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAutoPlay2" />
 
     <TextView
         android:id="@+id/editButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/edit_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewEdit2"
-        app:layout_constraintTop_toTopOf="@+id/imageViewEdit2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewEdit2" />
 
     <TextView
         android:id="@+id/panButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/pan_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPan2"
-        app:layout_constraintTop_toTopOf="@+id/imageViewPan2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPan2" />
 
     <TextView
         android:id="@+id/zoomInButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/zoom_in_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewZoomIn2"
-        app:layout_constraintTop_toTopOf="@+id/imageViewZoomIn2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomIn2" />
 
     <TextView
         android:id="@+id/zoomOutButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/zoom_out_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewZoomOut2"
-        app:layout_constraintTop_toTopOf="@+id/imageViewZoomOut2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomOut2" />
 
     <TextView
         android:id="@+id/saveButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/save_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewSave2"
-        app:layout_constraintTop_toTopOf="@+id/imageViewSave2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSave2" />
 
     <TextView
         android:id="@+id/randomFillButtonHelpText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:justificationMode="inter_word"
         android:text="@string/random_fill_button_help_text"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewRandomize2"
-        app:layout_constraintTop_toTopOf="@+id/imageViewRandomize2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewRandomize2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
