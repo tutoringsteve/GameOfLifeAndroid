@@ -1,11 +1,13 @@
 package com.myappcompany.steve.canvaspaint.activities;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -35,7 +37,10 @@ import java.io.Writer;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerViewAdapter.OnItemListener {
 
@@ -109,14 +114,11 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public void onClickSave(View view) {
         String saveFileName = editText.getText().toString();
 
-        DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")
-                .withZone(ZoneId.systemDefault());
-
-        String saveDate = DATE_TIME_FORMATTER.format(new Date().toInstant());
+        String saveDate = getCurrentTimeAndDate();
 
         if(saveFileName.isEmpty()) {
             Toast.makeText(this, R.string.you_must_enter_a_name_for_your_save, Toast.LENGTH_SHORT).show();
@@ -222,5 +224,23 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
             }
         }
 
+    }
+
+    public String getCurrentTimeAndDate() {
+        String saveDate = "";
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")
+                    .withZone(ZoneId.systemDefault());
+
+            saveDate = DATE_TIME_FORMATTER.format(new Date().toInstant());
+        } else {
+            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+            cal.setTimeInMillis(System.currentTimeMillis());
+            String date = DateFormat.format("MM-dd-yyyy HH:mm:ss", cal).toString();
+            return date;
+        }
+
+        return saveDate;
     }
 }
