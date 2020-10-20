@@ -40,10 +40,16 @@ public class MainActivity extends AppCompatActivity {
     public static GameOfLifeData gameOfLifeData;
     public static SettingsData settingsData = SettingsData.getInstance();
 
+    int activeButtonColor = 0xff0000ff; //blue
+    int inactiveButtonColor = 0xff000000; //black
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ImageView btnEdit = findViewById(R.id.imageViewEdit);
+        btnEdit.setColorFilter(0xff0000ff);
 
         try {
             settingsData.loadData(getApplicationContext());
@@ -209,13 +215,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void editClick(View view) {
+        if(controlState != EDITING) {
+            ImageView btnEdit = findViewById(R.id.imageViewEdit);
+            ImageView btnPanning = findViewById(R.id.imageViewPan);
+            btnEdit.setColorFilter(activeButtonColor);
+            btnPanning.setColorFilter(inactiveButtonColor);
+
             controlState = EDITING;
             pixelGrid.setControlState(EDITING);
-
+        }
     }
 
     public void panningClick(View view) {
         if(controlState != PANNING) {
+            ImageView btnEdit = findViewById(R.id.imageViewEdit);
+            ImageView btnPanning = findViewById(R.id.imageViewPan);
+            btnEdit.setColorFilter(inactiveButtonColor);
+            btnPanning.setColorFilter(activeButtonColor);
+
             controlState = PANNING;
             pixelGrid.setControlState(PANNING);
         }

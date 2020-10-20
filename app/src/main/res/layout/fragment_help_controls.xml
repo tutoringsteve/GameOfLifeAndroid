@@ -13,7 +13,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageViewZoomOut2"
+        android:id="@+id/imageViewZoomOutHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -25,7 +25,7 @@
         app:srcCompat="@drawable/ic_zoomout" />
 
     <ImageView
-        android:id="@+id/imageViewAutoPlay2"
+        android:id="@+id/imageViewAutoPlayHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -37,7 +37,7 @@
         app:srcCompat="@drawable/ic_autoplay" />
 
     <ImageView
-        android:id="@+id/imageViewPan2"
+        android:id="@+id/imageViewPanHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -49,7 +49,7 @@
         app:srcCompat="@drawable/ic_pan" />
 
     <ImageView
-        android:id="@+id/imageViewRandomize2"
+        android:id="@+id/imageViewRandomizeHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -61,7 +61,7 @@
         app:srcCompat="@drawable/ic_random" />
 
     <ImageView
-        android:id="@+id/imageViewPlay2"
+        android:id="@+id/imageViewPlayHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -73,7 +73,7 @@
         app:srcCompat="@drawable/ic_playbutton" />
 
     <ImageView
-        android:id="@+id/imageViewEdit2"
+        android:id="@+id/imageViewEditHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -85,7 +85,7 @@
         app:srcCompat="@drawable/ic_edit" />
 
     <ImageView
-        android:id="@+id/imageViewZoomIn2"
+        android:id="@+id/imageViewZoomInHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -97,7 +97,7 @@
         app:srcCompat="@drawable/ic_zoomin" />
 
     <ImageView
-        android:id="@+id/imageViewSave2"
+        android:id="@+id/imageViewSaveHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -122,7 +122,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPlay2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlayHelp" />
 
     <TextView
         android:id="@+id/autoPlayButtonHelpText"
@@ -138,7 +138,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewAutoPlay2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAutoPlayHelp" />
 
     <TextView
         android:id="@+id/editButtonHelpText"
@@ -154,7 +154,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewEdit2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewEditHelp" />
 
     <TextView
         android:id="@+id/panButtonHelpText"
@@ -170,7 +170,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPan2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPanHelp" />
 
     <TextView
         android:id="@+id/zoomInButtonHelpText"
@@ -186,7 +186,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomIn2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomInHelp" />
 
     <TextView
         android:id="@+id/zoomOutButtonHelpText"
@@ -202,7 +202,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomOut2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewZoomOutHelp" />
 
     <TextView
         android:id="@+id/saveButtonHelpText"
@@ -218,7 +218,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewSave2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSaveHelp" />
 
     <TextView
         android:id="@+id/randomFillButtonHelpText"
@@ -234,7 +234,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewRandomize2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewRandomizeHelp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
