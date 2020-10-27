@@ -48,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView btnEdit = findViewById(R.id.imageViewEdit);
-        btnEdit.setColorFilter(0xff0000ff);
-
         try {
             settingsData.loadData(getApplicationContext());
         } catch (IOException e) {
@@ -81,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler();
 
         ImageView imageViewEdit = findViewById(R.id.imageViewEdit);
+        imageViewEdit.setColorFilter(activeButtonColor);
         imageViewEdit.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
