@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.myappcompany.steve.canvaspaint.R;
@@ -59,6 +60,9 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
+
+        Toolbar myToolbar = findViewById(R.id.activity_save_toolbar);
+        setSupportActionBar(myToolbar);
 
         //todo: finish implementing permanent storage with sharedPreferences
         try {

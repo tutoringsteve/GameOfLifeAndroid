@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar myToolbar = findViewById(R.id.activity_main_toolbar);
+        setSupportActionBar(myToolbar);
+        myToolbar.showOverflowMenu();
 
         try {
             settingsData.loadData(getApplicationContext());
