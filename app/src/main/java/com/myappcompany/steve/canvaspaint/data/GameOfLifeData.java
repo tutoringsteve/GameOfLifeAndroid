@@ -51,8 +51,6 @@ public class GameOfLifeData {
         numRows = settingsData.getBoardHeight();
         numColumns = settingsData.getBoardWidth();
         cellChecked = new boolean[numRows][numColumns];
-        Log.d(TAG, "cellChecked initialized with height " + numRows
-                + " and width " + numColumns);
         offsetX = 0;
         offsetY = 0;
         zoomX = 1.0f;
@@ -179,7 +177,6 @@ public class GameOfLifeData {
             jsonArray = new JSONArray(sbOuter.toString());
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "Error in cellCheckedToJSONArray e:" + e);
         }
 
         return jsonArray;
@@ -208,7 +205,6 @@ public class GameOfLifeData {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "Error in dataToJSON function e:" + e);
         }
 
         return jsonObject;
@@ -240,8 +236,6 @@ public class GameOfLifeData {
             e.printStackTrace();
             numRows = settingsData.getBoardHeight();
             numColumns = settingsData.getBoardWidth();
-            Log.d(TAG, "Error in jsonArrayToCellChecked function e:" + e);
-            Log.d(TAG, "Initializing cellChecked to a dead (false) grid with height " + numRows + " and width " + numColumns);
 
             return new boolean[numRows][numColumns];
         }
@@ -269,8 +263,6 @@ public class GameOfLifeData {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "Error in jsonToData function e:" + e);
-            Log.d(TAG, "Loading defaults for GameOfLifeData instead.");
             loadDefaults();
         }
 
@@ -281,7 +273,6 @@ public class GameOfLifeData {
             jsonToData(new JSONObject(saveString));
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "Error in stringToData function e:" + e);
         }
     }
 

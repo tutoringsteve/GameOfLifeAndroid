@@ -100,13 +100,11 @@ public class PixelGridView extends View {
         //pull the data from data source
         int numRows = settingsData.getBoardHeight();
         int numColumns = settingsData.getBoardWidth();
-        Log.d(TAG, "numRows loaded from settingsData as " + numRows + " and numColumns loaded from settingsData as " + numColumns);
 
         //Check to make sure that the gameOfLifeData has the correct board size.
         int gameOfLifeNumRows = gameOfLifeData.getNumRows();
         int gameOfLifeNumColumns = gameOfLifeData.getNumColumns();
         if(!(numRows == gameOfLifeNumRows && numColumns == gameOfLifeNumColumns)) {
-            Log.d(TAG, "gameOfLifeBoard has numRows " + gameOfLifeNumRows + " and numColumns " + gameOfLifeNumColumns + " and needs to be updated to match settingsData dimensions.");
             gameOfLifeData.updateBoard();
         }
 

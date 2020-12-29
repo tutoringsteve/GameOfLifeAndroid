@@ -69,9 +69,7 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
             loadSaves();
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.d(TAG, "JSONException reading save file");
         } catch (IOException e) {
-            Log.d(TAG, "ISOException error reading saves file");
         }
 
         mSaveString = getIntent().getStringExtra("saveString");
@@ -81,8 +79,6 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
     }
 
     private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: init recyclerview.");
-
         RecyclerView saveRecyclerView = findViewById(R.id.saveRecyclerView);
         adapter = new SaveLoadRecyclerViewAdapter(this, mSaves, this);
         saveRecyclerView.setAdapter(adapter);
@@ -102,14 +98,11 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
                 //Line breaks are omitted and irrelevant
                 jsonString.append(line);
             }
-            Log.d(TAG, "loadSaves: The following was read from the file : " + jsonString.toString());
             JSONArray jsonArray = new JSONArray(jsonString.toString());
             for(int i = 0; i < jsonArray.length(); i++) {
                 mSaves.add(new SaveData(jsonArray.getJSONObject(i)));
-                Log.d(TAG, "Save " + (i+1) + " was loaded successfully");
             }
         } catch (FileNotFoundException e) {
-            Log.d(TAG, "loadData: file not found, loading defaults");
         } finally {
             if (reader != null) {
                 reader.close();
@@ -140,7 +133,6 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
                 saveSaves();
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.d(TAG, "Error writing the file");
             }
         }
     }
@@ -154,7 +146,6 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
         } else {
             loadSave(position);
         }
-        Log.d(TAG, "onItemClick at position " + position);
     }
 
     private void loadSave(int position) {
@@ -172,7 +163,6 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
             settingsData.saveData(getApplicationContext());
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG, "Error saving settings data while loading a save from the list");
         }
         startActivity(intent);
     }
@@ -195,7 +185,6 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
                             saveSaves();
                         } catch (IOException e) {
                             e.printStackTrace();
-                            Log.d(TAG, "Error writing the file");
                         }
 
                     }
@@ -212,7 +201,6 @@ public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerV
                 jsonArray.put(mSaves.get(i).toJSON());
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.d(TAG, "Trouble reading JSON from save " + i + " with save name " + mSaves.get(i).getSaveName() + " with date " + mSaves.get(i).getSaveDate());
             }
         }
 

@@ -88,7 +88,6 @@ public class SettingsData {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "Error in dataToJSON function e:" + e);
         }
 
         return jsonObject;
@@ -105,14 +104,12 @@ public class SettingsData {
 
             //ensure boardWidth is within the bounds, and if not, set it to the default
             if(boardWidth < MINIMUM_BOARD_SIDE_LENGTH || boardWidth > MAXIMUM_BOARD_SIDE_LENGTH) {
-                Log.d(TAG, "boardWidth was " + boardWidth + " which falls outside the range [" + MINIMUM_BOARD_SIDE_LENGTH + "," + MAXIMUM_BOARD_SIDE_LENGTH + "]. Setting boardWidth " + "to the default " + DEFAULT_BOARD_WIDTH);
                 boardWidth = DEFAULT_BOARD_WIDTH;
             }
 
             //ensure boardHeight  is within the bounds, and if not, set it to the default
             boardHeight = jsonObject.getInt(BOARD_HEIGHT_TAG);
             if(boardHeight < MINIMUM_BOARD_SIDE_LENGTH || boardHeight > MAXIMUM_BOARD_SIDE_LENGTH) {
-                Log.d(TAG, "boardHeight was " + boardHeight + " which falls outside the range [" + MINIMUM_BOARD_SIDE_LENGTH + "," + MAXIMUM_BOARD_SIDE_LENGTH + "]. Setting boardHeight " + "to the default " + DEFAULT_BOARD_HEIGHT);
                 boardHeight = DEFAULT_BOARD_HEIGHT;
             }
             horizontalWrap = jsonObject.getBoolean(HORIZONTAL_WRAP_TAG);
@@ -123,9 +120,7 @@ public class SettingsData {
             gridLinesColor  = jsonObject.getInt(GRID_LINES_COLOR_TAG);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "Error in jsonToData function e:" + e);
             loadDefault();
-            Log.d(TAG, "Loading defaults because the existing file could not be read.");
         }
     }
 
@@ -135,7 +130,6 @@ public class SettingsData {
             OutputStream out = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
             writer.write(dataToJSON().toString());
-            Log.d(TAG, "Successfully saved the following settings: " + dataToJSON().toString());
         } finally {
             if (writer != null) {
                 writer.close();
@@ -172,11 +166,9 @@ public class SettingsData {
                 //Line breaks are omitted and irrelevant
                 jsonString.append(line);
             }
-            Log.d(TAG, "loadData: The following was read from the file : " + jsonString.toString());
             JSONObject jsonObject = new JSONObject(jsonString.toString());
             jsonToData(jsonObject);
         } catch (FileNotFoundException e) {
-            Log.d(TAG, "loadData: file not found, loading defaults");
             loadDefault();
         } finally {
             if (reader != null) {

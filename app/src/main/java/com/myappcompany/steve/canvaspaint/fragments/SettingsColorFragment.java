@@ -87,9 +87,7 @@ public class SettingsColorFragment extends Fragment {
         gridLinesCircleImageView.setColorFilter(settingsData.getGridLinesColor());
         try {
             settingsData.saveData(getContext());
-            Log.d(TAG, "Successfully reset colors to their default values and saved.");
         } catch (IOException e) {
-            Log.d(TAG, "Failed to save after resetting colors to their default value");
             e.printStackTrace();
         }
     }
@@ -144,7 +142,6 @@ public class SettingsColorFragment extends Fragment {
                 try {
                     updateColor(v, color);
                 } catch (IOException e) {
-                    Log.d(TAG, "Issue saving color with " + v.getTag());
                     e.printStackTrace();
                 }
             }
@@ -155,7 +152,6 @@ public class SettingsColorFragment extends Fragment {
 
     private void updateColor(View v, int color) throws IOException {
         ColorUtil newColor = new ColorUtil(color);
-        Log.d(TAG, "Color switched to " + newColor.printRGB());
         ImageView iv = (ImageView) v;
         iv.setColorFilter(color);
 
@@ -163,25 +159,21 @@ public class SettingsColorFragment extends Fragment {
         switch ((String) iv.getTag()) {
             case BACKGROUND_COLOR_TAG:
                 oldColor = new ColorUtil(settingsData.getBackgroundColor());
-                Log.d(TAG, BACKGROUND_COLOR_TAG + " color was switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
                 settingsData.setBackgroundColor(color);
                 settingsData.saveData(getContext());
                 break;
             case ALIVE_SQUARE_COLOR_TAG:
                 oldColor = new ColorUtil(settingsData.getAliveSquareColor());
-                Log.d(TAG, ALIVE_SQUARE_COLOR_TAG + " color was switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
                 settingsData.setAliveSquareColor(color);
                 settingsData.saveData(getContext());
                 break;
             case DEAD_SQUARE_COLOR_TAG:
                 oldColor = new ColorUtil(settingsData.getDeadSquareColor());
-                Log.d(TAG, DEAD_SQUARE_COLOR_TAG + " color was switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
                 settingsData.setDeadSquareColor(color);
                 settingsData.saveData(getContext());
                 break;
             case GRID_LINES_COLOR_TAG:
                 oldColor = new ColorUtil(settingsData.getGridLinesColor());
-                Log.d(TAG, GRID_LINES_COLOR_TAG + " color was switched from " + oldColor.printRGB() + " to " + newColor.printRGB());
                 settingsData.setGridLinesColor(color);
                 settingsData.saveData(getContext());
                 break;

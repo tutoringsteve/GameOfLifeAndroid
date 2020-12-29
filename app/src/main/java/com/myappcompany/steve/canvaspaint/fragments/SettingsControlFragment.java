@@ -56,24 +56,20 @@ public class SettingsControlFragment extends Fragment {
         autoPlaySpeedSpinner.setAdapter(autoPlaySpinnerAdapter);
 
         autoPlaySpeedSpinner.setSelection(autoPlaySpeeds.indexOf(settingsData.getAutoPlaySpeed()));
-        Log.d(TAG, "autoPlaySpinner set to position " + autoPlaySpeeds.indexOf(settingsData.getAutoPlaySpeed()));
 
         autoPlaySpeedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "autoPlaySpeedSpinner " + getResources().getStringArray(R.array.auto_play_spinner_speeds_array)[position] + " selected.");
                 settingsData.setAutoPlaySpeed(autoPlaySpeeds.get(position));
                 try {
                     settingsData.saveData(getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d(TAG, "autoPlaySpinner selection " + position + " failed to save settings data");
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Log.d(TAG, "autoPlaySpeedSpinner dropdown menu aborted.");
             }
         });
     }
@@ -86,24 +82,20 @@ public class SettingsControlFragment extends Fragment {
         randomFillProbabilitySpinner.setAdapter(randomFillSpinnerAdapter);
 
         randomFillProbabilitySpinner.setSelection(randomFillProbabilities.indexOf(settingsData.getRandomFillProbability()));
-        Log.d(TAG, "randomFillProbabilitySpinner set to position " + randomFillProbabilities.indexOf(settingsData.getRandomFillProbability()));
 
         randomFillProbabilitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "randomFillProbabilitySpinner " + getResources().getStringArray(R.array.random_fill_spinner_probabilities_array)[position] + " selected.");
                 settingsData.setRandomFillProbability(randomFillProbabilities.get(position));
                 try {
                     settingsData.saveData(getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d(TAG, "randomFillProbabilitySpinner selection " + position + " failed to save settings data");
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Log.d(TAG, "randomFillProbabilitySpinner dropdown menu aborted.");
             }
         });
     }

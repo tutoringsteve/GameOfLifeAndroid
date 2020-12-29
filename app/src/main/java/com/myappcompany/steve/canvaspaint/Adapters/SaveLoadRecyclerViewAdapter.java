@@ -38,8 +38,6 @@ public class SaveLoadRecyclerViewAdapter extends RecyclerView.Adapter<SaveLoadRe
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        Log.d(TAG, "onBindViewHolder: called.");
-
         String date = mContext.getString(R.string.saved_on, mSaves.get(position).getSaveDate());
         holder.saveDateTextView.setText(date);
         holder.saveNameTextView.setText(mSaves.get(position).getSaveName());

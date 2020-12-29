@@ -57,10 +57,8 @@ public class MainActivity extends AppCompatActivity {
             settingsData.loadData(getApplicationContext());
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG, "onCreate : IOException + " + e.toString());
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.d(TAG, "onCreate : JSONException + " + e.toString());
         }
 
         gameOfLifeData = GameOfLifeData.getInstance();
@@ -71,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState != null) {
             controlState = savedInstanceState.getInt(CONTROL_STATE_KEY_INDEX, EDITING);
             pixelGrid.setControlState(controlState);
-            Log.i(TAG, "A savedInstanceState was found! controlState set to " + (controlState == EDITING ? "EDITING" : "PANNING"));
         }
 
         //Checks for a save passed from the SAVE/LOAD menu activity_save / SAVE_ACTIVITY
@@ -108,11 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.mainMenuSettings:
-                Log.i(TAG, "Main Activity : Settings Was Pressed.");
                 openSettings();
                 break;
             case R.id.mainMenuHelp:
-                Log.i(TAG, "Main Activity : Settings Was Pressed.");
                 openHelp();
                 break;
             default:
@@ -168,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(CONTROL_STATE_KEY_INDEX, controlState);
-        Log.i(TAG, CONTROL_STATE_KEY_INDEX);
     }
 
     public void playClick(View view) {
@@ -246,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             saveString = gameOfLifeData.dataToJSON().toString();
-            Log.i(TAG, "data saved to save state!" + saveString);
 
             //passes saveString to Save/Load activity and opens that activity.
             Intent intent = new Intent(this, SaveActivity.class);
@@ -254,7 +247,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "Error with saveClick");
         }
     }
 
@@ -295,10 +287,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             gameOfLifeData.stringToData(saveString);
             pixelGrid.invalidate();
-            Log.i(TAG, "data loaded from save state!" + gameOfLifeData.dataToJSON().toString());
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i(TAG, "Error with loadClick");
         }
     }
 

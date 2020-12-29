@@ -57,7 +57,6 @@ public class SettingsGridFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     String widthString = ((EditText) v).getText().toString();
-                    Log.d(TAG, "boardWidthEditText changed set to " + widthString);
                     setBoardWidth(widthString);
                     return true;
                 } else {
@@ -74,7 +73,6 @@ public class SettingsGridFragment extends Fragment {
             newBoardWidth = Integer.valueOf(boardWidthString);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d(TAG, "Board width set to a non-integer value!");
         }
 
         if(newBoardWidth >= SettingsData.MINIMUM_BOARD_SIDE_LENGTH && newBoardWidth <= SettingsData.MAXIMUM_BOARD_SIDE_LENGTH) {
@@ -83,7 +81,6 @@ public class SettingsGridFragment extends Fragment {
                 settingsData.saveData(getContext());
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.d(TAG, "Failed to save the changes to board width!");
             }
         } else {
             //Remind the user which entries are allowed.
@@ -107,7 +104,6 @@ public class SettingsGridFragment extends Fragment {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     String text = ((EditText) v).getText().toString();
-                    Log.d(TAG, "boardHeightEditText changed set to " + text);
                     setBoardHeight(text);
                     return true;
                 } else {
@@ -125,7 +121,6 @@ public class SettingsGridFragment extends Fragment {
             newBoardHeight = Integer.valueOf(boardHeightString);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d(TAG, "Board height set to a non-integer value!");
         }
 
         if(newBoardHeight >= SettingsData.MINIMUM_BOARD_SIDE_LENGTH && newBoardHeight <= SettingsData.MAXIMUM_BOARD_SIDE_LENGTH) {
@@ -135,7 +130,6 @@ public class SettingsGridFragment extends Fragment {
                 settingsData.saveData(getContext());
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.d(TAG, "Failed to save the changes to board height!");
             }
         } else {
             //Remind the user which entries are allowed.
@@ -156,13 +150,11 @@ public class SettingsGridFragment extends Fragment {
         horizontalWrappingCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, "horizontal wrapping check box set to " + (isChecked? "Checked" : "Not Checked"));
                 settingsData.setHorizontalWrap(isChecked);
                 try {
                     settingsData.saveData(getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d(TAG, "Horizontal wrap data could not be saved!");
                 }
             }
         });
@@ -174,13 +166,11 @@ public class SettingsGridFragment extends Fragment {
         verticalWrappingCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, "vertical wrapping check box set to " + (isChecked? "Checked" : "Not Checked"));
                 settingsData.setVerticalWrap(isChecked);
                 try {
                     settingsData.saveData(getContext());
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d(TAG, "Vertical wrap data could not be saved!");
                 }
             }
         });
