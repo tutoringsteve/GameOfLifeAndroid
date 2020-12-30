@@ -1,10 +1,8 @@
-package com.myappcompany.steve.canvaspaint;/*
+package com.myappcompany.steve.gameoflifeandroid;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-import com.myappcompany.steve.canvaspaint.GameOfLifeBoard;
 
 /**
  *

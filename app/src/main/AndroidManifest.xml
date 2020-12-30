@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.myappcompany.steve.canvaspaint">
+    package="com.myappcompany.steve.gameoflifeandroid">
 
     <application
         android:allowBackup="true"
@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activities.SettingsActivity">
+        <activity android:name="com.myappcompany.steve.gameoflifeandroid.activities.SettingsActivity">
         </activity>
-        <activity android:name=".activities.SaveActivity" />
-        <activity android:name=".activities.HelpActivity" />
-        <activity android:name=".activities.MainActivity">
+        <activity android:name="com.myappcompany.steve.gameoflifeandroid.activities.SaveActivity" />
+        <activity android:name="com.myappcompany.steve.gameoflifeandroid.activities.HelpActivity" />
+        <activity android:name="com.myappcompany.steve.gameoflifeandroid.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,11 +1,7 @@
-package com.myappcompany.steve.canvaspaint.data;
-
-import android.util.Log;
+package com.myappcompany.steve.gameoflifeandroid.data;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.Random;
 
 public class GameOfLifeData {
 

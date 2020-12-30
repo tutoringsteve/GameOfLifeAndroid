@@ -1,6 +1,5 @@
-package com.myappcompany.steve.canvaspaint.activities;
+package com.myappcompany.steve.gameoflifeandroid.activities;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,21 +7,19 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.myappcompany.steve.canvaspaint.R;
-import com.myappcompany.steve.canvaspaint.Adapters.SaveLoadRecyclerViewAdapter;
-import com.myappcompany.steve.canvaspaint.data.GameOfLifeData;
-import com.myappcompany.steve.canvaspaint.data.SaveData;
-import com.myappcompany.steve.canvaspaint.data.SettingsData;
+import com.myappcompany.steve.gameoflifeandroid.R;
+import com.myappcompany.steve.gameoflifeandroid.Adapters.SaveLoadRecyclerViewAdapter;
+import com.myappcompany.steve.gameoflifeandroid.data.GameOfLifeData;
+import com.myappcompany.steve.gameoflifeandroid.data.SaveData;
+import com.myappcompany.steve.gameoflifeandroid.data.SettingsData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +37,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class SaveActivity extends AppCompatActivity implements SaveLoadRecyclerViewAdapter.OnItemListener {

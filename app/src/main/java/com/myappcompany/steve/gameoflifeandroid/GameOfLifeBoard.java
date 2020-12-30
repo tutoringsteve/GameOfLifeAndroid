@@ -1,8 +1,6 @@
-package com.myappcompany.steve.canvaspaint;
+package com.myappcompany.steve.gameoflifeandroid;
 
-import android.util.Log;
-
-import com.myappcompany.steve.canvaspaint.data.SettingsData;
+import com.myappcompany.steve.gameoflifeandroid.data.SettingsData;
 
 /**
  * Last edit: 08/26/2014

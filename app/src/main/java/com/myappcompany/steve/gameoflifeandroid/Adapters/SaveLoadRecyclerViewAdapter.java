@@ -1,7 +1,6 @@
-package com.myappcompany.steve.canvaspaint.Adapters;
+package com.myappcompany.steve.gameoflifeandroid.Adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.myappcompany.steve.canvaspaint.R;
-import com.myappcompany.steve.canvaspaint.data.SaveData;
+import com.myappcompany.steve.gameoflifeandroid.R;
+import com.myappcompany.steve.gameoflifeandroid.data.SaveData;
 
 import java.util.ArrayList;
 

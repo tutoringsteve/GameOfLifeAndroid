@@ -1,10 +1,9 @@
-package com.myappcompany.steve.canvaspaint.fragments;
+package com.myappcompany.steve.gameoflifeandroid.fragments;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +11,11 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.myappcompany.steve.canvaspaint.R;
-import com.myappcompany.steve.canvaspaint.data.GameOfLifeData;
-import com.myappcompany.steve.canvaspaint.data.SettingsData;
+import com.myappcompany.steve.gameoflifeandroid.R;
+import com.myappcompany.steve.gameoflifeandroid.data.GameOfLifeData;
+import com.myappcompany.steve.gameoflifeandroid.data.SettingsData;
 
 import java.io.IOException;
 

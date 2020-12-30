@@ -1,4 +1,4 @@
-package com.myappcompany.steve.canvaspaint;
+package com.myappcompany.steve.gameoflifeandroid;
 
 import android.graphics.Color;
 

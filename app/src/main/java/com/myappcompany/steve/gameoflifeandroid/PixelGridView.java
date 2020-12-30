@@ -1,19 +1,14 @@
-package com.myappcompany.steve.canvaspaint;
+package com.myappcompany.steve.gameoflifeandroid;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.myappcompany.steve.canvaspaint.activities.MainActivity;
-import com.myappcompany.steve.canvaspaint.data.GameOfLifeData;
-import com.myappcompany.steve.canvaspaint.data.SettingsData;
-
-import java.util.Set;
+import com.myappcompany.steve.gameoflifeandroid.data.GameOfLifeData;
+import com.myappcompany.steve.gameoflifeandroid.data.SettingsData;
 
 /**
  * Created by GEX_Dev on 1/25/2020.

@@ -1,11 +1,10 @@
-package com.myappcompany.steve.canvaspaint.activities;
+package com.myappcompany.steve.gameoflifeandroid.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,11 +15,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.myappcompany.steve.canvaspaint.GameOfLifeBoard;
-import com.myappcompany.steve.canvaspaint.data.GameOfLifeData;
-import com.myappcompany.steve.canvaspaint.PixelGridView;
-import com.myappcompany.steve.canvaspaint.R;
-import com.myappcompany.steve.canvaspaint.data.SettingsData;
+import com.myappcompany.steve.gameoflifeandroid.GameOfLifeBoard;
+import com.myappcompany.steve.gameoflifeandroid.data.GameOfLifeData;
+import com.myappcompany.steve.gameoflifeandroid.PixelGridView;
+import com.myappcompany.steve.gameoflifeandroid.R;
+import com.myappcompany.steve.gameoflifeandroid.data.SettingsData;
 
 import org.json.JSONException;
 

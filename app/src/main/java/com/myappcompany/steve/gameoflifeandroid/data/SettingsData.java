@@ -1,8 +1,7 @@
-package com.myappcompany.steve.canvaspaint.data;
+package com.myappcompany.steve.gameoflifeandroid.data;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;

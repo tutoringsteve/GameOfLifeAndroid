@@ -1,4 +1,4 @@
-package com.myappcompany.steve.canvaspaint.data;
+package com.myappcompany.steve.gameoflifeandroid.data;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,9 +1,8 @@
-package com.myappcompany.steve.canvaspaint.fragments;
+package com.myappcompany.steve.gameoflifeandroid.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.myappcompany.steve.canvaspaint.ColorUtil;
-import com.myappcompany.steve.canvaspaint.R;
-import com.myappcompany.steve.canvaspaint.data.SettingsData;
+import com.myappcompany.steve.gameoflifeandroid.ColorUtil;
+import com.myappcompany.steve.gameoflifeandroid.R;
+import com.myappcompany.steve.gameoflifeandroid.data.SettingsData;
 
 import java.io.IOException;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**

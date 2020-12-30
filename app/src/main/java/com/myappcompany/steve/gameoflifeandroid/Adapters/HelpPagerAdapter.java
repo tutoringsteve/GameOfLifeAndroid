@@ -1,4 +1,4 @@
-package com.myappcompany.steve.canvaspaint.Adapters;
+package com.myappcompany.steve.gameoflifeandroid.Adapters;
 
 import android.os.Bundle;
 
@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.myappcompany.steve.canvaspaint.fragments.HelpControlFragment;
-import com.myappcompany.steve.canvaspaint.fragments.HelpFAQFragment;
+import com.myappcompany.steve.gameoflifeandroid.fragments.HelpControlFragment;
+import com.myappcompany.steve.gameoflifeandroid.fragments.HelpFAQFragment;
 
 public class HelpPagerAdapter extends FragmentStateAdapter {
 

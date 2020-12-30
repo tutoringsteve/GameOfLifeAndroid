@@ -1,4 +1,4 @@
-package com.myappcompany.steve.canvaspaint.Adapters;
+package com.myappcompany.steve.gameoflifeandroid.Adapters;
 
 import android.os.Bundle;
 
@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.myappcompany.steve.canvaspaint.fragments.SettingsColorFragment;
-import com.myappcompany.steve.canvaspaint.fragments.SettingsControlFragment;
-import com.myappcompany.steve.canvaspaint.fragments.SettingsGridFragment;
+import com.myappcompany.steve.gameoflifeandroid.fragments.SettingsColorFragment;
+import com.myappcompany.steve.gameoflifeandroid.fragments.SettingsControlFragment;
+import com.myappcompany.steve.gameoflifeandroid.fragments.SettingsGridFragment;
 
 public class SettingsPagerAdapter extends FragmentStateAdapter {
 

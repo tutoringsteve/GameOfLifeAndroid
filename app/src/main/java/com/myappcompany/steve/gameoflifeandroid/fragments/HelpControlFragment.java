@@ -1,4 +1,4 @@
-package com.myappcompany.steve.canvaspaint.fragments;
+package com.myappcompany.steve.gameoflifeandroid.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.myappcompany.steve.canvaspaint.R;
+import com.myappcompany.steve.gameoflifeandroid.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HelpFAQFragment extends Fragment {
+public class HelpControlFragment extends Fragment {
     private static final String TAG = "HelpControlFragment";
 
-    private View mHelpFAQView;
+    private View mHelpControlsView;
 
-    public HelpFAQFragment() {
+    public HelpControlFragment() {
         // Required empty public constructor
     }
 
@@ -26,8 +26,8 @@ public class HelpFAQFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mHelpFAQView = inflater.inflate(R.layout.fragment_help_faq, container, false);
+        mHelpControlsView = inflater.inflate(R.layout.fragment_help_controls, container, false);
 
-        return mHelpFAQView;
+        return mHelpControlsView;
     }
 }
